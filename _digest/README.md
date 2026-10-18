@@ -96,5 +96,5 @@ pstack 自带的 `docs/guide/` 是**操作教程**：英文，面向"今天要�
 姊妹目录：
 
 - [`_faq_on_digest/`](../_faq_on_digest/README.md)：按真实问题给决策。
-- [`_handbook_for_agent_engineering/`](../_handbook_for_agent_engineering/README.md)：一套不依赖 pstack 的工程方法（骨架阶段）。
+- [`_handbook_for_agent_engineering/`](../_handbook_for_agent_engineering/README.md)：一套不依赖 pstack 的工程方法（教程 12 台阶 + 手册 6 章 20 单元）。
 - [`_change_log/`](./_change_log/README.md)：每次上游同步改变了什么。
