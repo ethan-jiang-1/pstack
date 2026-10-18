@@ -1,6 +1,6 @@
 # AI 辅助工程手册：写作与章节计划
 
-> **状态：教程完成，手册收尾中。** 教程 `00–11`、教程后导航与 12 张教程图已完成；手册第 1–5 章共 17 个单元已完成，仅剩第 6 章。本文件是唯一实施看板，不另建脱离正文的任务清单。
+> **状态：正文完成，进入全书检查。** 教程 `00–11`、教程后导航与 12 张教程图已完成；手册 6 章 20 个单元与 20 张图已完成。剩余：全书交叉检查、链接与渲染复核。本文件是唯一实施看板，不另建脱离正文的任务清单。
 
 ## 0. 推进看板
 
@@ -20,7 +20,8 @@
 - [x] 写 `manual/delegate-and-collaborate.md` 的 3.1–3.3，并补三张图。
 - [x] 写 `manual/verify.md` 的 4.1–4.4，并补四张图。
 - [x] 写 `manual/ship-run-and-evolve.md` 的 5.1–5.3，并补三张图。
-- [ ] 写 `manual/evolve-the-environment.md`（第 6 章）。
+- [x] 写 `manual/evolve-the-environment.md` 的 6.1–6.3，并补三张图。
+- [ ] 全书交叉检查：术语、案例、链接、章节间交接。
 - [ ] 为每个实战单元配一张解释状态、证据或责任的图。
 - [ ] 全书交叉检查：术语、案例、链接、章节间交接。
 - [ ] 选择一个真实项目做一次完整走查，记录摩擦并回写方法。
@@ -50,7 +51,7 @@
 - [x] `manual/delegate-and-collaborate.md`：3.1–3.3
 - [x] `manual/verify.md`：4.1–4.4
 - [x] `manual/ship-run-and-evolve.md`：5.1–5.3
-- [ ] `manual/evolve-the-environment.md`：6.1–6.3
+- [x] `manual/evolve-the-environment.md`：6.1–6.3
 
 ## 1. 要解决的读者问题
 
