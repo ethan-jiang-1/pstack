@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" role="img" aria-label="并行工作线在固定收敛点汇合，再形成交接包">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .t { font-family: -apple-system, "PingFang SC", "Helvetica Neue", Arial, sans-serif; }
+      .h { font-size: 22px; font-weight: 700; fill: #0f172a; }
+      .s { font-size: 12px; fill: #64748b; }
+      .bt { font-size: 15px; font-weight: 700; fill: #0f172a; }
+      .bs { font-size: 11.5px; fill: #475569; }
+    </style>
+  </defs>
+  <rect width="960" height="560" fill="#ffffff"/>
+  <text x="480" y="38" text-anchor="middle" class="t h">汇合与交接</text>
+  <text x="480" y="62" text-anchor="middle" class="t s">固定收敛点、跑联合行为、区分三类冲突，再发布交接包</text>
+
+  <rect x="40" y="100" width="200" height="70" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="58" y="126" class="t bt">P1 导出器</text>
+  <text x="58" y="148" class="t bs">commit abc</text>
+
+  <rect x="40" y="200" width="200" height="70" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="58" y="226" class="t bt">P2 页面</text>
+  <text x="58" y="248" class="t bs">PR #42</text>
+
+  <rect x="40" y="300" width="200" height="70" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="58" y="326" class="t bt">P3 缺失行</text>
+  <text x="58" y="348" class="t bs">commit def</text>
+
+  <rect x="330" y="150" width="220" height="170" rx="12" fill="#dbeafe" stroke="#bfdbfe"/>
+  <text x="350" y="178" class="t bt">固定收敛点</text>
+  <text x="350" y="202" class="t bs">分支：integration</text>
+  <text x="350" y="224" class="t bs">提交：abc + 42 + def</text>
+  <text x="350" y="246" class="t bs">时间：2026-10-19</text>
+  <text x="350" y="278" class="t s">之后再有改动，</text>
+  <text x="350" y="298" class="t s">就是新的收敛点。</text>
+
+  <rect x="620" y="100" width="310" height="100" rx="10" fill="#dcfce7" stroke="#bbf7d0"/>
+  <text x="640" y="128" class="t bt">联合行为检查</text>
+  <text x="640" y="152" class="t bs">勾选 3 行 → 文件 3 行</text>
+  <text x="640" y="174" class="t bs">跨页勾选是否保留；缺失行是否标注</text>
+  <text x="640" y="192" class="t s">不是把每条线自己的测试再跑一遍。</text>
+
+  <rect x="620" y="240" width="310" height="180" rx="10" fill="#fef3c7" stroke="#fde68a"/>
+  <text x="640" y="268" class="t bt">交接包</text>
+  <text x="640" y="292" class="t bs">收敛点与共同来源</text>
+  <text x="640" y="314" class="t bs">已接受输入（逐项引用）</text>
+  <text x="640" y="336" class="t bs">兑现行为与联合证据</text>
+  <text x="640" y="358" class="t bs">冲突处理与残余风险</text>
+  <text x="640" y="380" class="t bs">下一位 owner 与入口</text>
+  <text x="640" y="404" class="t s">引用已有产物，不复制成第二套真相。</text>
+
+  <line x1="240" y1="135" x2="330" y2="200" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="240" y1="235" x2="330" y2="235" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="240" y1="335" x2="330" y2="270" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="550" y1="200" x2="620" y2="150" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="550" y1="260" x2="620" y2="320" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="40" y="450" width="280" height="70" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="58" y="476" class="t bt">文本冲突</text>
+  <text x="58" y="498" class="t bs">Git 无法合并；integration owner 解决。</text>
+
+  <rect x="340" y="450" width="280" height="70" rx="10" fill="#fef3c7" stroke="#fde68a"/>
+  <text x="358" y="476" class="t bt">语义冲突</text>
+  <text x="358" y="498" class="t bs">无文本冲突但行为/术语不一致；回 owner。</text>
+
+  <rect x="640" y="450" width="290" height="70" rx="10" fill="#fee2e2" stroke="#fecaca"/>
+  <text x="658" y="476" class="t bt">联合行为失败</text>
+  <text x="658" y="498" class="t bs">各自绿、合起来红；回工作包或行为地图。</text>
+
+  <text x="480" y="540" text-anchor="middle" class="t s">语义冲突不能由集成者凭代码偏好解决：先修上游共同输入，再重新汇合。</text>
+</svg>
