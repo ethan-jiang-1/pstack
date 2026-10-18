@@ -20,15 +20,16 @@
   <rect x="30" y="92" width="170" height="250" rx="12" fill="#fef3c7" stroke="#fde68a"/>
   <text x="115" y="120" text-anchor="middle" class="t g">Core</text>
   <text x="115" y="140" text-anchor="middle" class="t n">10 条 · 建多少</text>
-  <text x="46" y="168" class="t bs">Laziness Protocol</text>
-  <text x="46" y="188" class="t bs">Foundational Thinking</text>
-  <text x="46" y="208" class="t bs">Redesign from First…</text>
-  <text x="46" y="228" class="t bs">Attack the Premise</text>
-  <text x="46" y="248" class="t bs">Subtract Before You Add</text>
-  <text x="46" y="268" class="t bs">Minimize Reader Load</text>
-  <text x="46" y="288" class="t bs">Outcome-Oriented…</text>
-  <text x="46" y="308" class="t bs">Experience First</text>
-  <text x="46" y="328" class="t bs">Exhaust the Design Space</text>
+  <text x="46" y="162" class="t bs">Laziness Protocol</text>
+  <text x="46" y="180" class="t bs">Foundational Thinking</text>
+  <text x="46" y="198" class="t bs">Redesign from First…</text>
+  <text x="46" y="216" class="t bs">Attack the Premise</text>
+  <text x="46" y="234" class="t bs">Subtract Before You Add</text>
+  <text x="46" y="252" class="t bs">Minimize Reader Load</text>
+  <text x="46" y="270" class="t bs">Outcome-Oriented…</text>
+  <text x="46" y="288" class="t bs">Experience First</text>
+  <text x="46" y="306" class="t bs">Exhaust the Design Space</text>
+  <text x="46" y="324" class="t bs">Build the Lever</text>
 
   <!-- Architecture -->
   <rect x="216" y="92" width="170" height="250" rx="12" fill="#dbeafe" stroke="#bfdbfe"/>
