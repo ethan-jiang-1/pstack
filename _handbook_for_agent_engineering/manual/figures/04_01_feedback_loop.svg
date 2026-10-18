@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" role="img" aria-label="反馈回路：行为、切口、独立判据、红与绿、覆盖边界">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .t { font-family: -apple-system, "PingFang SC", "Helvetica Neue", Arial, sans-serif; }
+      .h { font-size: 22px; font-weight: 700; fill: #0f172a; }
+      .s { font-size: 12px; fill: #64748b; }
+      .bt { font-size: 15px; font-weight: 700; fill: #0f172a; }
+      .bs { font-size: 11.5px; fill: #475569; }
+    </style>
+  </defs>
+  <rect width="960" height="560" fill="#ffffff"/>
+  <text x="480" y="38" text-anchor="middle" class="t h">一条反馈回路</text>
+  <text x="480" y="62" text-anchor="middle" class="t s">先见过红，绿才有意义；覆盖边界和结果一起记录</text>
+
+  <rect x="40" y="100" width="190" height="90" rx="10" fill="#fef3c7" stroke="#fde68a"/>
+  <text x="58" y="128" class="t bt">行为</text>
+  <text x="58" y="150" class="t bs">勾选 3 行 → 3 行 CSV</text>
+  <text x="58" y="170" class="t bs">来自行为地图</text>
+
+  <rect x="280" y="100" width="190" height="90" rx="10" fill="#dbeafe" stroke="#bfdbfe"/>
+  <text x="298" y="128" class="t bt">切口</text>
+  <text x="298" y="150" class="t bs">export(selection)</text>
+  <text x="298" y="170" class="t bs">测试只从这里进入</text>
+
+  <rect x="520" y="100" width="200" height="90" rx="10" fill="#ede9fe" stroke="#ddd6fe"/>
+  <text x="538" y="128" class="t bt">独立判据</text>
+  <text x="538" y="150" class="t bs">来自 spec / 行为卡</text>
+  <text x="538" y="170" class="t bs">不是实现步骤</text>
+
+  <rect x="770" y="100" width="150" height="90" rx="10" fill="#fee2e2" stroke="#fecaca"/>
+  <text x="788" y="128" class="t bt">红</text>
+  <text x="788" y="150" class="t bs">正确的原因失败</text>
+  <text x="788" y="170" class="t bs">不是环境错误</text>
+
+  <rect x="770" y="240" width="150" height="90" rx="10" fill="#dcfce7" stroke="#bbf7d0"/>
+  <text x="788" y="268" class="t bt">绿</text>
+  <text x="788" y="290" class="t bs">同一检查通过</text>
+  <text x="788" y="310" class="t bs">失败输出保留</text>
+
+  <rect x="520" y="240" width="200" height="90" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="538" y="268" class="t bt">最小实现</text>
+  <text x="538" y="290" class="t bs">只做当前检查要求的事</text>
+  <text x="538" y="310" class="t bs">不加没要求的分支</text>
+
+  <rect x="280" y="240" width="190" height="90" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="298" y="268" class="t bt">快、稳、无人值守</text>
+  <text x="298" y="290" class="t bs">不依赖时钟/网络/随机</text>
+  <text x="298" y="310" class="t bs">每次小改动都能跑</text>
+
+  <rect x="40" y="240" width="190" height="90" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="58" y="268" class="t bt">覆盖边界</text>
+  <text x="58" y="290" class="t bs">12 行、3 行勾选、表头</text>
+  <text x="58" y="310" class="t bs">不覆盖缺失/权限/超大</text>
+
+  <line x1="230" y1="145" x2="280" y2="145" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="470" y1="145" x2="520" y2="145" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="720" y1="145" x2="770" y2="145" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="845" y1="190" x2="845" y2="240" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="770" y1="285" x2="720" y2="285" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="520" y1="285" x2="470" y2="285" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="280" y1="285" x2="230" y2="285" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="160" y="400" width="640" height="60" rx="12" fill="#fee2e2" stroke="#fecaca"/>
+  <text x="480" y="426" text-anchor="middle" class="t bt">如果回路一开始就是绿的，先修回路，不要写实现</text>
+  <text x="480" y="446" text-anchor="middle" class="t s">常见原因：断言太弱、mock 了被测行为、旧代码已实现部分逻辑。</text>
+
+  <text x="480" y="506" text-anchor="middle" class="t s">单元测试证明分支行为；关键行为至少走一次真实表面。</text>
+  <text x="480" y="530" text-anchor="middle" class="t s">回路的强度取决于它能捕获什么错误，不是覆盖多少行。</text>
+</svg>

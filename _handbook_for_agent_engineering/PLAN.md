@@ -1,6 +1,6 @@
 # AI 辅助工程手册：写作与章节计划
 
-> **状态：教程完成，手册推进中。** 教程 `00–11`、教程后导航与 12 张教程图已完成；手册第 1–3 章共 10 个单元已完成，其余三章待写。本文件是唯一实施看板，不另建脱离正文的任务清单。
+> **状态：教程完成，手册推进中。** 教程 `00–11`、教程后导航与 12 张教程图已完成；手册第 1–4 章共 14 个单元已完成，其余两章待写。本文件是唯一实施看板，不另建脱离正文的任务清单。
 
 ## 0. 推进看板
 
@@ -18,7 +18,8 @@
 - [x] 写 `manual/define.md` 的 1.1–1.4，并补四张图。
 - [x] 写 `manual/design-and-plan.md` 的 2.1–2.3，并补三张图。
 - [x] 写 `manual/delegate-and-collaborate.md` 的 3.1–3.3，并补三张图。
-- [ ] 写 `manual/` 其余三章。
+- [x] 写 `manual/verify.md` 的 4.1–4.4，并补四张图。
+- [ ] 写 `manual/` 其余两章。
 - [ ] 为每个实战单元配一张解释状态、证据或责任的图。
 - [ ] 全书交叉检查：术语、案例、链接、章节间交接。
 - [ ] 选择一个真实项目做一次完整走查，记录摩擦并回写方法。
@@ -46,7 +47,7 @@
 - [x] `manual/define.md`：1.1–1.4
 - [x] `manual/design-and-plan.md`：2.1–2.3
 - [x] `manual/delegate-and-collaborate.md`：3.1–3.3
-- [ ] `manual/verify.md`：4.1–4.4
+- [x] `manual/verify.md`：4.1–4.4
 - [ ] `manual/ship-run-and-evolve.md`：5.1–5.3
 - [ ] `manual/evolve-the-environment.md`：6.1–6.3
 
