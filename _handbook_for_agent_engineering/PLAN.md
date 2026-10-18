@@ -1,6 +1,6 @@
 # AI 辅助工程手册：写作与章节计划
 
-> **状态：骨架。** 定位、术语与结构已完成；教程与手册正文尚未写作。本文件是唯一实施看板，不另建脱离正文的任务清单。
+> **状态：骨架推进中。** 定位、术语与结构已完成；教程 `00–01` 已写，其余待写。本文件是唯一实施看板，不另建脱离正文的任务清单。
 
 ## 0. 推进看板
 
@@ -14,7 +14,8 @@
 - [x] 建立术语表 `CONTEXT.md`，覆盖定义、委派、证据、交付、演进。
 - [x] 固定教程与手册的双读法，以及各自的页面契约。
 - [x] 固定六章结构、20 个实战单元与 12 个教程台阶。
-- [ ] 写 `tutorial/00` 到 `tutorial/11`。
+- [x] 写 `tutorial/00`–`01`，并补两张教程图。
+- [ ] 写 `tutorial/02` 到 `tutorial/11`。
 - [ ] 写 `manual/` 六章。
 - [ ] 为每个实战单元配一张解释状态、证据或责任的图。
 - [ ] 全书交叉检查：术语、案例、链接、章节间交接。
@@ -24,8 +25,8 @@
 
 #### 教程
 
-- [ ] `tutorial/00-start-here.md`
-- [ ] `tutorial/01-define.md`
+- [x] `tutorial/00-start-here.md`
+- [x] `tutorial/01-define.md`
 - [ ] `tutorial/02-give-words-a-home.md`
 - [ ] `tutorial/03-make-a-promise-observable.md`
 - [ ] `tutorial/04-design-a-testable-shape.md`
