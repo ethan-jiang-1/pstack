@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" width="960" height="540" role="img" aria-label="决策证据卡">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .t { font-family: -apple-system, "PingFang SC", "Helvetica Neue", Arial, sans-serif; }
+      .h { font-size: 22px; font-weight: 700; fill: #0f172a; }
+      .s { font-size: 12px; fill: #64748b; }
+      .bt { font-size: 15px; font-weight: 700; fill: #0f172a; }
+      .bs { font-size: 11.5px; fill: #475569; }
+    </style>
+  </defs>
+  <rect width="960" height="540" fill="#ffffff"/>
+  <text x="480" y="38" text-anchor="middle" class="t h">决策证据卡</text>
+  <text x="480" y="62" text-anchor="middle" class="t s">只调研会改变决定的未知；证据动作要有停止条件</text>
+
+  <rect x="40" y="100" width="230" height="210" rx="12" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="58" y="128" class="t bt">争论</text>
+  <text x="58" y="156" class="t bs">A：前端筛选</text>
+  <text x="58" y="178" class="t s">"改动小"</text>
+  <text x="58" y="208" class="t bs">B：后端按 id 导出</text>
+  <text x="58" y="230" class="t s">"更可靠"</text>
+  <text x="58" y="266" class="t s">四十分钟后，</text>
+  <text x="58" y="286" class="t s">双方都在用偏好代替证据。</text>
+
+  <rect x="320" y="100" width="340" height="330" rx="12" fill="#fef3c7" stroke="#fde68a"/>
+  <text x="340" y="128" class="t bt">决策证据卡</text>
+  <text x="340" y="156" class="t bs">问题：5 万行、跨页勾选、权限下，</text>
+  <text x="340" y="176" class="t bs">哪种能在两周内交付且不引入数据错误？</text>
+  <text x="340" y="208" class="t bs">如果 A：前端过滤 → 需要一次性载入全量</text>
+  <text x="340" y="230" class="t bs">如果 B：后端过滤 → 需要改接口与索引</text>
+  <text x="340" y="262" class="t bs">最小证据：查 5 万行导出的 p95 + 读接口</text>
+  <text x="340" y="284" class="t bs">停止条件：两天内没有结论，按 B 实施并记录风险</text>
+  <text x="340" y="316" class="t bs">owner：工程负责人</text>
+  <text x="340" y="338" class="t bs">回写：spec 的边界与决定记录</text>
+  <text x="340" y="374" class="t s">没有停止条件的调研会无限扩张。</text>
+  <text x="340" y="394" class="t s">结果要写回，不要留在聊天里。</text>
+
+  <rect x="710" y="100" width="210" height="210" rx="12" fill="#dcfce7" stroke="#bbf7d0"/>
+  <text x="730" y="128" class="t bt">决定</text>
+  <text x="730" y="156" class="t bs">基于证据，或</text>
+  <text x="730" y="178" class="t bs">基于风险偏好</text>
+  <text x="730" y="210" class="t s">说清是哪一种。</text>
+  <text x="730" y="238" class="t s">不要把偏好</text>
+  <text x="730" y="258" class="t s">包装成证据。</text>
+  <text x="730" y="290" class="t bs">决定有 owner 与依据。</text>
+
+  <line x1="270" y1="205" x2="320" y2="205" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="660" y1="205" x2="710" y2="205" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="180" y="458" width="600" height="52" rx="10" fill="#fee2e2" stroke="#fecaca"/>
+  <text x="480" y="482" text-anchor="middle" class="t bt">如果两种答案导致同一个动作，这张卡不该存在</text>
+  <text x="480" y="500" text-anchor="middle" class="t s">直接选一个，把假设写进记录，继续工作。</text>
+</svg>

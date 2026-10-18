@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" role="img" aria-label="规格的组成与交接">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .t { font-family: -apple-system, "PingFang SC", "Helvetica Neue", Arial, sans-serif; }
+      .h { font-size: 22px; font-weight: 700; fill: #0f172a; }
+      .s { font-size: 12px; fill: #64748b; }
+      .bt { font-size: 15px; font-weight: 700; fill: #0f172a; }
+      .bs { font-size: 11.5px; fill: #475569; }
+    </style>
+  </defs>
+  <rect width="960" height="560" fill="#ffffff"/>
+  <text x="480" y="38" text-anchor="middle" class="t h">规格是接口，不是终点</text>
+  <text x="480" y="62" text-anchor="middle" class="t s">上游是工作卡与行为卡，下游是验收证据与实现任务；中间只放已足够清楚的意图</text>
+
+  <rect x="40" y="110" width="220" height="110" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="58" y="138" class="t bt">变更工作卡</text>
+  <text x="58" y="162" class="t bs">目标、非目标、约束</text>
+  <text x="58" y="184" class="t bs">owner、未知项</text>
+
+  <rect x="40" y="250" width="220" height="110" rx="10" fill="#fef3c7" stroke="#fde68a"/>
+  <text x="58" y="278" class="t bt">行为卡</text>
+  <text x="58" y="302" class="t bs">触发、可观察结果</text>
+  <text x="58" y="324" class="t bs">失败出口、人工接手</text>
+
+  <rect x="330" y="100" width="300" height="330" rx="12" fill="#dcfce7" stroke="#bbf7d0"/>
+  <text x="350" y="128" class="t bt">规格</text>
+  <text x="350" y="156" class="t bs">目标与非目标</text>
+  <text x="350" y="180" class="t bs">可观察行为（每条带失败出口）</text>
+  <text x="350" y="204" class="t bs">边界与约束</text>
+  <text x="350" y="228" class="t bs">验收证据与覆盖边界</text>
+  <text x="350" y="252" class="t bs">未决项（owner + 时间）</text>
+  <text x="350" y="276" class="t bs">owner、版本、变更记录</text>
+  <text x="350" y="310" class="t s">不写容易过期的文件路径、</text>
+  <text x="350" y="330" class="t s">临时 demo、实现细节。</text>
+  <text x="350" y="362" class="t s">短到能读完，具体到能验收。</text>
+  <text x="350" y="394" class="t s">下游引用它，不复制它。</text>
+
+  <rect x="700" y="110" width="220" height="110" rx="10" fill="#dbeafe" stroke="#bfdbfe"/>
+  <text x="718" y="138" class="t bt">验收证据</text>
+  <text x="718" y="162" class="t bs">能运行的命令</text>
+  <text x="718" y="184" class="t bs">真实表面的操作</text>
+  <text x="718" y="206" class="t bs">覆盖边界</text>
+
+  <rect x="700" y="250" width="220" height="110" rx="10" fill="#ede9fe" stroke="#ddd6fe"/>
+  <text x="718" y="278" class="t bt">实现任务</text>
+  <text x="718" y="302" class="t bs">工作包与阻塞边</text>
+  <text x="718" y="324" class="t bs">验收条件</text>
+
+  <line x1="260" y1="165" x2="330" y2="165" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="260" y1="305" x2="330" y2="305" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="630" y1="165" x2="700" y2="165" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="630" y1="305" x2="700" y2="305" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="150" y="470" width="660" height="52" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="480" y="494" text-anchor="middle" class="t bs">判断一段内容该不该进规格：会改变实现或验收吗？容易过期吗？下游能从代码或测试得到吗？</text>
+  <text x="480" y="514" text-anchor="middle" class="t s">三个问题里有一个"否"，就考虑移出去。</text>
+</svg>
