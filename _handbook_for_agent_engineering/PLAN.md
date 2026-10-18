@@ -1,6 +1,6 @@
 # AI 辅助工程手册：写作与章节计划
 
-> **状态：骨架推进中。** 定位、术语与结构已完成；教程 `00–08` 已写，其余待写。本文件是唯一实施看板，不另建脱离正文的任务清单。
+> **状态：教程完成，手册待写。** 教程 `00–11`、教程后导航与 12 张教程图已完成；手册 6 章 20 个单元待写。本文件是唯一实施看板，不另建脱离正文的任务清单。
 
 ## 0. 推进看板
 
@@ -14,8 +14,7 @@
 - [x] 建立术语表 `CONTEXT.md`，覆盖定义、委派、证据、交付、演进。
 - [x] 固定教程与手册的双读法，以及各自的页面契约。
 - [x] 固定六章结构、20 个实战单元与 12 个教程台阶。
-- [x] 写 `tutorial/00`–`08`，并补九张教程图。
-- [ ] 写 `tutorial/09` 到 `tutorial/11`。
+- [x] 写 `tutorial/00`–`11` 与 `after-tutorial.md`，并补十二张教程图。
 - [ ] 写 `manual/` 六章。
 - [ ] 为每个实战单元配一张解释状态、证据或责任的图。
 - [ ] 全书交叉检查：术语、案例、链接、章节间交接。
@@ -34,9 +33,10 @@
 - [x] `tutorial/06-build-a-feedback-loop.md`
 - [x] `tutorial/07-delegate-and-keep-control.md`
 - [x] `tutorial/08-prove-the-promise.md`
-- [ ] `tutorial/09-review-for-merge.md`
-- [ ] `tutorial/10-ship-observe-and-loop.md`
-- [ ] `tutorial/11-improve-the-environment.md`
+- [x] `tutorial/09-review-for-merge.md`
+- [x] `tutorial/10-ship-observe-and-loop.md`
+- [x] `tutorial/11-improve-the-environment.md`
+- [x] `tutorial/after-tutorial.md`（非编号导航页）
 
 #### 手册
 
