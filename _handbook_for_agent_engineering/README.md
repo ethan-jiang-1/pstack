@@ -2,7 +2,7 @@
 
 这是一份面向软件产品生命周期（Software Development Life Cycle, SDLC）参与者的独立手册，讨论人和 AI 智能体（agent）如何共同定义、设计、委派、验证、交付及演进软件产品。
 
-> **状态：骨架推进中。** 定位、术语与章节结构已经定下；教程 `00–01` 已写，其余为计划。完整结构见 [PLAN.md](./PLAN.md)，术语表见 [CONTEXT.md](./CONTEXT.md)。
+> **状态：骨架推进中。** 定位、术语与章节结构已经定下；教程 `00–04` 已写，其余为计划。完整结构见 [PLAN.md](./PLAN.md)，术语表见 [CONTEXT.md](./CONTEXT.md)。
 
 ## 选择读法
 

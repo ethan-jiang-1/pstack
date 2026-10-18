@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" role="img" aria-label="一张行为卡的组成">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .t { font-family: -apple-system, "PingFang SC", "Helvetica Neue", Arial, sans-serif; }
+      .h { font-size: 22px; font-weight: 700; fill: #0f172a; }
+      .s { font-size: 12px; fill: #64748b; }
+      .bt { font-size: 15px; font-weight: 700; fill: #0f172a; }
+      .bs { font-size: 11.5px; fill: #475569; }
+      .lab { font-size: 11px; font-weight: 700; fill: #92400e; }
+    </style>
+  </defs>
+  <rect width="960" height="560" fill="#ffffff"/>
+  <text x="480" y="38" text-anchor="middle" class="t h">一张行为卡</text>
+  <text x="480" y="62" text-anchor="middle" class="t s">承诺描述意图；行为描述在什么条件下、看到什么、就算兑现</text>
+
+  <rect x="60" y="88" width="580" height="350" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <rect x="60" y="88" width="580" height="46" rx="12" fill="#dbeafe" stroke="#bfdbfe"/>
+  <text x="80" y="116" class="t bt">承诺：勾选后导出，只包含勾选行</text>
+
+  <text x="82" y="164" class="t lab">GIVEN</text>
+  <text x="150" y="164" class="t bs">当前筛选结果有 12 行订单</text>
+  <text x="82" y="198" class="t lab">WHEN</text>
+  <text x="150" y="198" class="t bs">勾选第 2、5、9 行，点击导出</text>
+  <text x="82" y="232" class="t lab">THEN</text>
+  <text x="150" y="232" class="t bs">CSV 有 3 行数据；列头与全量导出一致</text>
+
+  <rect x="80" y="252" width="540" height="84" rx="8" fill="#fee2e2" stroke="#fecaca"/>
+  <text x="96" y="276" class="t bt">失败出口</text>
+  <text x="96" y="298" class="t bs">无勾选：按钮禁用，提示"请先选择行"，不发请求</text>
+  <text x="96" y="318" class="t bs">行已删除：导出成功，标注缺失；无权限：403，不生成文件</text>
+
+  <rect x="80" y="348" width="540" height="36" rx="8" fill="#fef3c7" stroke="#fde68a"/>
+  <text x="96" y="371" class="t bs">人工接手：超过 5 万行的等待策略；财务要求 Excel 时怎么办</text>
+
+  <rect x="80" y="392" width="540" height="34" rx="8" fill="#dcfce7" stroke="#bbf7d0"/>
+  <text x="96" y="414" class="t bs">非目标：不做 Excel；不做后台任务；不改全量入口</text>
+
+  <rect x="680" y="120" width="240" height="220" rx="12" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="700" y="148" class="t bt">每条结果一个观察位置</text>
+  <text x="700" y="176" class="t bs">文件 → 下载文件的行数</text>
+  <text x="700" y="200" class="t bs">列头 → 第一行对比</text>
+  <text x="700" y="224" class="t bs">按钮 → 状态与提示文案</text>
+  <text x="700" y="248" class="t bs">403 → 接口响应与页面</text>
+  <text x="700" y="284" class="t s">观察位置决定测试从哪进入。</text>
+  <text x="700" y="304" class="t s">没有观察位置，就不是行为。</text>
+
+  <line x1="640" y1="232" x2="680" y2="232" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <rect x="200" y="466" width="560" height="54" rx="10" fill="#faf5ff" stroke="#e9d5ff"/>
+  <text x="480" y="490" text-anchor="middle" class="t bt">失败出口不是"报错"，而是用户看到什么、留下什么、下一步是什么</text>
+  <text x="480" y="510" text-anchor="middle" class="t s">人工接手点标出来，比让 agent 临场选默认值安全</text>
+</svg>
