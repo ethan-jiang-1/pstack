@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" role="img" aria-label="工作包、阻塞边、当前前沿与共享状态">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .t { font-family: -apple-system, "PingFang SC", "Helvetica Neue", Arial, sans-serif; }
+      .h { font-size: 22px; font-weight: 700; fill: #0f172a; }
+      .s { font-size: 12px; fill: #64748b; }
+      .bt { font-size: 14px; font-weight: 700; fill: #0f172a; }
+      .bs { font-size: 11px; fill: #475569; }
+    </style>
+  </defs>
+  <rect width="960" height="560" fill="#ffffff"/>
+  <text x="480" y="38" text-anchor="middle" class="t h">工作包与依赖图</text>
+  <text x="480" y="62" text-anchor="middle" class="t s">按"可独立验证"切；箭头是阻塞边；没有未完成前置的包才是当前前沿</text>
+
+  <rect x="40" y="100" width="230" height="96" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+  <text x="58" y="126" class="t bt">P1 导出器核心 + 测试</text>
+  <text x="58" y="148" class="t bs">勾选 3 个 id → 3 行 CSV</text>
+  <text x="58" y="168" class="t bs">可写：exporter/ + 测试</text>
+  <text x="58" y="188" class="t s">前沿</text>
+
+  <rect x="40" y="250" width="230" height="96" rx="10" fill="#dcfce7" stroke="#16a34a" stroke-width="3"/>
+  <text x="58" y="276" class="t bt">P4 全量导出回归</text>
+  <text x="58" y="298" class="t bs">现有全量行为不变</text>
+  <text x="58" y="318" class="t bs">可写：现有回归测试</text>
+  <text x="58" y="338" class="t s">前沿，可与 P1 并行</text>
+
+  <rect x="420" y="100" width="220" height="96" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="438" y="126" class="t bt">P2 页面勾选与调用</text>
+  <text x="438" y="148" class="t bs">勾选 3 行 → 下载 3 行文件</text>
+  <text x="438" y="168" class="t bs">阻塞边：P1</text>
+  <text x="438" y="188" class="t s">等接口定下</text>
+
+  <rect x="420" y="250" width="220" height="96" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="438" y="276" class="t bt">P3 缺失行提示</text>
+  <text x="438" y="298" class="t bs">删除 1 行 → missing 含该 id</text>
+  <text x="438" y="318" class="t bs">阻塞边：P1</text>
+  <text x="438" y="338" class="t s">等结果形状定下</text>
+
+  <rect x="700" y="100" width="230" height="246" rx="12" fill="#fef3c7" stroke="#fde68a"/>
+  <text x="718" y="128" class="t bt">每个包的六项</text>
+  <text x="718" y="154" class="t bs">目标行为</text>
+  <text x="718" y="178" class="t bs">可写范围 / 不可写</text>
+  <text x="718" y="202" class="t bs">输入：权威产物指针</text>
+  <text x="718" y="226" class="t bs">验收：能运行的检查</text>
+  <text x="718" y="250" class="t bs">阻塞边</text>
+  <text x="718" y="274" class="t bs">完成记录：证据 + 下一位入口</text>
+  <text x="718" y="308" class="t s">再加 owner 或领取条件；</text>
+  <text x="718" y="328" class="t s">陌生人读得懂才算写好。</text>
+
+  <line x1="270" y1="140" x2="420" y2="140" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="270" y1="175" x2="420" y2="285" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="640" y1="148" x2="700" y2="148" stroke="#475569" stroke-width="1.5" stroke-dasharray="5 4"/>
+
+  <rect x="40" y="400" width="890" height="50" rx="10" fill="#fee2e2" stroke="#fecaca"/>
+  <text x="60" y="424" class="t bt">先处理共享可变状态</text>
+  <text x="60" y="442" class="t s">同一文件、同一分支、同一配置、同一张表上的写入不是并行；先分 worktree，或让前置包先定接口。</text>
+
+  <rect x="40" y="466" width="430" height="50" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="60" y="490" class="t bt">依赖图必须无环</text>
+  <text x="60" y="508" class="t s">有环通常意味着两个包该合并，或接口还没定。</text>
+
+  <rect x="490" y="466" width="440" height="50" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="510" y="490" class="t bt">包的大小</text>
+  <text x="510" y="508" class="t s">一个上下文能完成；brief 比实现短；一条检查能证明完成。</text>
+</svg>
