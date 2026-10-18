@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" role="img" aria-label="模型面板、角色与预算">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .t { font-family: -apple-system, "PingFang SC", "Helvetica Neue", Arial, sans-serif; }
+      .h { font-size: 22px; font-weight: 700; fill: #0f172a; }
+      .s { font-size: 12px; fill: #64748b; }
+      .bt { font-size: 15px; font-weight: 700; fill: #0f172a; }
+      .bs { font-size: 11.5px; fill: #475569; }
+      .mono { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px; fill: #334155; }
+    </style>
+  </defs>
+  <rect width="960" height="560" fill="#ffffff"/>
+  <text x="480" y="40" text-anchor="middle" class="t h">模型面板</text>
+  <text x="480" y="64" text-anchor="middle" class="t s">角色比模型名稳定；预算是一根全局旋钮；降级必须同家族并自报</text>
+
+  <!-- settings file -->
+  <rect x="40" y="84" width="880" height="86" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="60" y="110" class="t bt">设置文件</text>
+  <text x="60" y="132" class="t mono">Cursor: ~/.cursor/rules/pstack-models.mdc</text>
+  <text x="60" y="152" class="t mono">其他: ~/.agents/pstack-models.md</text>
+  <text x="470" y="110" class="t bt"># budget: large (xhigh)</text>
+  <text x="470" y="132" class="t mono">judgment and prose: claude-opus-5-5-xhigh</text>
+  <text x="470" y="152" class="t mono">feature, refactoring: grok-4.7-xhigh-fast</text>
+
+  <!-- roles -->
+  <rect x="40" y="200" width="270" height="126" rx="10" fill="#dbeafe" stroke="#bfdbfe"/>
+  <text x="58" y="226" class="t bt">代码角色</text>
+  <text x="58" y="248" class="t bs">feature · refactoring · bug-fix</text>
+  <text x="58" y="268" class="t bs">perf-issue · hillclimb · swarm workers</text>
+  <text x="58" y="296" class="t mono">默认 grok-4.7-xhigh-fast</text>
+  <text x="58" y="314" class="t bs">快、便宜、适合边界清晰的实现</text>
+
+  <rect x="330" y="200" width="270" height="126" rx="10" fill="#dcfce7" stroke="#bbf7d0"/>
+  <text x="348" y="226" class="t bt">判断与文字角色</text>
+  <text x="348" y="248" class="t bs">judgment and prose · hardest tasks</text>
+  <text x="348" y="268" class="t bs">why synthesizer · how explainer</text>
+  <text x="348" y="296" class="t mono">默认 claude-opus-5-5-xhigh</text>
+  <text x="348" y="314" class="t bs">跨切面设计、并发、微妙算法、解释</text>
+
+  <rect x="620" y="200" width="300" height="126" rx="10" fill="#ede9fe" stroke="#ddd6fe"/>
+  <text x="638" y="226" class="t bt">面板角色（列表）</text>
+  <text x="638" y="248" class="t bs">arena runners · architect runners</text>
+  <text x="638" y="268" class="t bs">interrogate reviewers · cross-judge pool</text>
+  <text x="638" y="296" class="t mono">默认 opus + grok</text>
+  <text x="638" y="314" class="t bs">列表长度 = fan-out 数量；多样性是收益来源</text>
+
+  <!-- spawn -->
+  <rect x="250" y="362" width="460" height="54" rx="10" fill="#fef3c7" stroke="#fde68a"/>
+  <text x="480" y="386" text-anchor="middle" class="t bt">每个 spawn 前二次调整</text>
+  <text x="480" y="404" text-anchor="middle" class="t bs">最难升一档 · 判断降一档 · 例行降两档 · 仅紧急用 fast</text>
+
+  <line x1="175" y1="326" x2="380" y2="362" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="465" y1="326" x2="465" y2="362" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="770" y1="326" x2="580" y2="362" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <!-- budget ladder -->
+  <text x="40" y="456" class="t bt">预算阶梯</text>
+  <rect x="40" y="470" width="200" height="46" rx="8" fill="#fee2e2" stroke="#fecaca"/>
+  <text x="140" y="490" text-anchor="middle" class="t bs">unlimited → max</text>
+  <text x="140" y="507" text-anchor="middle" class="t s">Grok 最高仍到 xhigh</text>
+
+  <rect x="256" y="470" width="200" height="46" rx="8" fill="#fef3c7" stroke="#fde68a"/>
+  <text x="356" y="490" text-anchor="middle" class="t bs">large → xhigh</text>
+  <text x="356" y="507" text-anchor="middle" class="t s">技能默认</text>
+
+  <rect x="472" y="470" width="200" height="46" rx="8" fill="#dcfce7" stroke="#bbf7d0"/>
+  <text x="572" y="490" text-anchor="middle" class="t bs">medium → high</text>
+  <text x="572" y="507" text-anchor="middle" class="t s">判断类常用</text>
+
+  <rect x="688" y="470" width="232" height="46" rx="8" fill="#dbeafe" stroke="#bfdbfe"/>
+  <text x="804" y="490" text-anchor="middle" class="t bs">small → medium</text>
+  <text x="804" y="507" text-anchor="middle" class="t s">例行任务</text>
+
+  <text x="480" y="544" text-anchor="middle" class="t s">风险：默认 slug 是快照；角色是自由文本无校验；面板角色会把成本叠加</text>
+</svg>

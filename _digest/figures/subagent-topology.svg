@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 620" width="960" height="620" role="img" aria-label="父 agent 与不同 worker 形状的关系">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .t { font-family: -apple-system, "PingFang SC", "Helvetica Neue", Arial, sans-serif; }
+      .h { font-size: 22px; font-weight: 700; fill: #0f172a; }
+      .s { font-size: 12px; fill: #64748b; }
+      .bt { font-size: 14px; font-weight: 700; fill: #0f172a; }
+      .bs { font-size: 11px; fill: #475569; }
+      .small { font-size: 10.5px; fill: #64748b; }
+    </style>
+  </defs>
+  <rect width="960" height="620" fill="#ffffff"/>
+  <text x="480" y="38" text-anchor="middle" class="t h">子代理拓扑</text>
+  <text x="480" y="62" text-anchor="middle" class="t s">父 agent 拥有 playbook、todo 和最终判断；worker 的输入输出必须封闭</text>
+
+  <rect x="330" y="80" width="300" height="72" rx="12" fill="#dbeafe" stroke="#bfdbfe"/>
+  <text x="480" y="108" text-anchor="middle" class="t bt">父 agent / coordinator</text>
+  <text x="480" y="130" text-anchor="middle" class="t bs">保留判断权 · 自己复核 diff · 写自己的总结</text>
+
+  <rect x="20" y="196" width="170" height="150" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="105" y="222" text-anchor="middle" class="t bt">单委托</text>
+  <text x="36" y="248" class="t bs">feature / bug fix</text>
+  <text x="36" y="268" class="t bs">refactoring 的实现</text>
+  <text x="36" y="296" class="t small">父 agent review 后提交</text>
+  <text x="36" y="316" class="t small">fresh + 完整 brief</text>
+
+  <rect x="200" y="196" width="170" height="150" rx="10" fill="#dcfce7" stroke="#bbf7d0"/>
+  <text x="285" y="222" text-anchor="middle" class="t bt">分区 swarm</text>
+  <text x="216" y="248" class="t bs">覆盖多个切片</text>
+  <text x="216" y="268" class="t bs">批量审计</text>
+  <text x="216" y="296" class="t small">每个切片都要有结果</text>
+  <text x="216" y="316" class="t small">缺口不算 pass</text>
+
+  <rect x="380" y="196" width="170" height="150" rx="10" fill="#fef3c7" stroke="#fde68a"/>
+  <text x="465" y="222" text-anchor="middle" class="t bt">竞速 swarm</text>
+  <text x="396" y="248" class="t bs">同一 brief 多个 worker</text>
+  <text x="396" y="268" class="t bs">先声明选择规则</text>
+  <text x="396" y="296" class="t small">first pass / rank all</text>
+  <text x="396" y="316" class="t small">best-of</text>
+
+  <rect x="560" y="196" width="170" height="150" rx="10" fill="#ede9fe" stroke="#ddd6fe"/>
+  <text x="645" y="222" text-anchor="middle" class="t bt">arena</text>
+  <text x="576" y="248" class="t bs">候选 + 跨模型裁判</text>
+  <text x="576" y="268" class="t bs">父 agent 选 base</text>
+  <text x="576" y="296" class="t small">手工 graft 强项</text>
+  <text x="576" y="316" class="t small">同一 prompt 是契约</text>
+
+  <rect x="740" y="196" width="200" height="150" rx="10" fill="#fee2e2" stroke="#fecaca"/>
+  <text x="840" y="222" text-anchor="middle" class="t bt">多评审</text>
+  <text x="756" y="248" class="t bs">interrogate / reflect</text>
+  <text x="756" y="268" class="t bs">每模型一个 reviewer</text>
+  <text x="756" y="296" class="t small">综合成统一结论</text>
+  <text x="756" y="316" class="t small">不自动应用改动</text>
+
+  <line x1="400" y1="152" x2="110" y2="196" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="440" y1="152" x2="290" y2="196" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="480" y1="152" x2="470" y2="196" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="530" y1="152" x2="640" y2="196" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="570" y1="152" x2="820" y2="196" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <rect x="40" y="392" width="880" height="120" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="60" y="418" class="t bt">收敛规则</text>
+  <text x="60" y="442" class="t bs">1. 默认 fresh subagent，带 consolidated scope；只有状态搬不走时才 resume。</text>
+  <text x="60" y="464" class="t bs">2. 结果必须记录 brief 要求的 SHA 与方法；缺了就重派一次，第二次仍缺记为 gap。</text>
+  <text x="60" y="486" class="t bs">3. 父 agent 自己复核，不原样转述；共享写入先分开，不能靠锁。</text>
+
+  <text x="480" y="548" text-anchor="middle" class="t s">多层 program：coordinator → sub-coordinator → worker / verifier，深度最多 3，in-flight 约 10</text>
+  <text x="480" y="572" text-anchor="middle" class="t s">成本随 N 增长；brief 质量决定上限，因为 worker 不能反问你</text>
+</svg>

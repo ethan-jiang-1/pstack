@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 580" width="960" height="580" role="img" aria-label="八个模式如何共同组织 pstack">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .t { font-family: -apple-system, "PingFang SC", "Helvetica Neue", Arial, sans-serif; }
+      .h { font-size: 22px; font-weight: 700; fill: #0f172a; }
+      .s { font-size: 12px; fill: #64748b; }
+      .bt { font-size: 14px; font-weight: 700; fill: #0f172a; }
+      .bs { font-size: 11px; fill: #475569; }
+      .n { font-size: 11px; fill: #94a3b8; }
+    </style>
+  </defs>
+  <rect width="960" height="580" fill="#ffffff"/>
+  <text x="480" y="38" text-anchor="middle" class="t h">八个模式</text>
+  <text x="480" y="62" text-anchor="middle" class="t s">入口选路 → 判断与并行 → 收口与演进</text>
+
+  <!-- entry -->
+  <rect x="350" y="86" width="260" height="64" rx="12" fill="#dbeafe" stroke="#bfdbfe"/>
+  <text x="480" y="112" text-anchor="middle" class="t bt">Mode as Router</text>
+  <text x="480" y="132" text-anchor="middle" class="t bs">一个入口，可复制的步骤协议</text>
+
+  <!-- judgment -->
+  <rect x="30" y="204" width="280" height="90" rx="10" fill="#fef3c7" stroke="#fde68a"/>
+  <text x="170" y="230" text-anchor="middle" class="t bt">Principles as Vocabulary</text>
+  <text x="46" y="252" class="t bs">24 条可点名的判断规则</text>
+  <text x="46" y="272" class="t bs">引用必须说明改变了哪个决定</text>
+
+  <rect x="340" y="204" width="280" height="90" rx="10" fill="#ede9fe" stroke="#ddd6fe"/>
+  <text x="480" y="230" text-anchor="middle" class="t bt">Model Diversity</text>
+  <text x="356" y="252" class="t bs">候选、对抗评审、独立验证</text>
+  <text x="356" y="272" class="t bs">一致是强信号，分歧也是信息</text>
+
+  <rect x="650" y="204" width="280" height="90" rx="10" fill="#dcfce7" stroke="#bbf7d0"/>
+  <text x="790" y="230" text-anchor="middle" class="t bt">Subagent Topology</text>
+  <text x="666" y="252" class="t bs">父 agent 保留控制面</text>
+  <text x="666" y="272" class="t bs">fresh brief · 验证者分离</text>
+
+  <!-- closure -->
+  <rect x="20" y="360" width="215" height="96" rx="10" fill="#fee2e2" stroke="#fecaca"/>
+  <text x="127" y="386" text-anchor="middle" class="t bt">Evidence First</text>
+  <text x="36" y="408" class="t bs">真实表面 · 独立 verdict</text>
+  <text x="36" y="428" class="t bs">测量方法 · 决策轨迹</text>
+
+  <rect x="255" y="360" width="215" height="96" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="362" y="386" text-anchor="middle" class="t bt">Prose Discipline</text>
+  <text x="271" y="408" class="t bs">unslop · technical-writing</text>
+  <text x="271" y="428" class="t bs">回复与 PR 也是接口</text>
+
+  <rect x="490" y="360" width="215" height="96" rx="10" fill="#faf5ff" stroke="#e9d5ff"/>
+  <text x="597" y="386" text-anchor="middle" class="t bt">Environment as Product</text>
+  <text x="506" y="408" class="t bs">correct · reflect · automate-me</text>
+  <text x="506" y="428" class="t bs">下一次运行起步更好</text>
+
+  <rect x="725" y="360" width="215" height="96" rx="10" fill="#e2e8f0" stroke="#cbd5e1"/>
+  <text x="832" y="386" text-anchor="middle" class="t bt">Harness Portability</text>
+  <text x="741" y="408" class="t bs">显式映射 · 可见降级</text>
+  <text x="741" y="428" class="t bs">镜像分支隔离本地改写</text>
+
+  <line x1="400" y1="150" x2="170" y2="204" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="480" y1="150" x2="480" y2="204" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="560" y1="150" x2="790" y2="204" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <line x1="170" y1="294" x2="170" y2="360" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="420" y1="294" x2="362" y2="360" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="540" y1="294" x2="597" y2="360" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <line x1="790" y1="294" x2="832" y2="360" stroke="#475569" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <text x="480" y="500" text-anchor="middle" class="t s">上层决定入口，中层决定判断与并行，下层决定什么算完成、怎样表达、下一次是否更好</text>
+  <text x="480" y="524" text-anchor="middle" class="t s">模式不是步骤；它们是反复出现、可以迁移到别的 agent 系统的设计手法</text>
+  <text x="480" y="554" text-anchor="middle" class="t n">图省略了例外与操作细节，以各模式页为准</text>
+</svg>

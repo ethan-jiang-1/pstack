@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" role="img" aria-label="24 条 principle 的分组与用法">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .t { font-family: -apple-system, "PingFang SC", "Helvetica Neue", Arial, sans-serif; }
+      .h { font-size: 22px; font-weight: 700; fill: #0f172a; }
+      .s { font-size: 12px; fill: #64748b; }
+      .g { font-size: 15px; font-weight: 700; fill: #0f172a; }
+      .n { font-size: 12px; fill: #92400e; }
+      .bs { font-size: 11.5px; fill: #475569; }
+    </style>
+  </defs>
+  <rect width="960" height="560" fill="#ffffff"/>
+  <text x="480" y="40" text-anchor="middle" class="t h">24 条 principle：词汇，不是检查表</text>
+  <text x="480" y="64" text-anchor="middle" class="t s">一次任务通常只用 2-4 条；规则冲突时要显式判断</text>
+
+  <!-- Core -->
+  <rect x="30" y="92" width="170" height="250" rx="12" fill="#fef3c7" stroke="#fde68a"/>
+  <text x="115" y="120" text-anchor="middle" class="t g">Core</text>
+  <text x="115" y="140" text-anchor="middle" class="t n">10 条 · 建多少</text>
+  <text x="46" y="168" class="t bs">Laziness Protocol</text>
+  <text x="46" y="188" class="t bs">Foundational Thinking</text>
+  <text x="46" y="208" class="t bs">Redesign from First…</text>
+  <text x="46" y="228" class="t bs">Attack the Premise</text>
+  <text x="46" y="248" class="t bs">Subtract Before You Add</text>
+  <text x="46" y="268" class="t bs">Minimize Reader Load</text>
+  <text x="46" y="288" class="t bs">Outcome-Oriented…</text>
+  <text x="46" y="308" class="t bs">Experience First</text>
+  <text x="46" y="328" class="t bs">Exhaust the Design Space</text>
+
+  <!-- Architecture -->
+  <rect x="216" y="92" width="170" height="250" rx="12" fill="#dbeafe" stroke="#bfdbfe"/>
+  <text x="301" y="120" text-anchor="middle" class="t g">Architecture</text>
+  <text x="301" y="140" text-anchor="middle" class="t n">6 条 · 放哪里</text>
+  <text x="232" y="168" class="t bs">Model the Domain</text>
+  <text x="232" y="188" class="t bs">Boundary Discipline</text>
+  <text x="232" y="208" class="t bs">Type System Discipline</text>
+  <text x="232" y="228" class="t bs">Make Operations…</text>
+  <text x="232" y="248" class="t bs">Migrate Callers…</text>
+  <text x="232" y="268" class="t bs">Separate Before…</text>
+
+  <!-- Verification -->
+  <rect x="402" y="92" width="170" height="250" rx="12" fill="#dcfce7" stroke="#bbf7d0"/>
+  <text x="487" y="120" text-anchor="middle" class="t g">Verification</text>
+  <text x="487" y="140" text-anchor="middle" class="t n">5 条 · 什么算证明</text>
+  <text x="418" y="168" class="t bs">Prove It Works</text>
+  <text x="418" y="188" class="t bs">Fix Root Causes</text>
+  <text x="418" y="208" class="t bs">Sequence Verifiable…</text>
+  <text x="418" y="228" class="t bs">Test Behavior, Not…</text>
+  <text x="418" y="248" class="t bs">Explain the Number</text>
+
+  <!-- Delegation -->
+  <rect x="588" y="92" width="170" height="250" rx="12" fill="#ede9fe" stroke="#ddd6fe"/>
+  <text x="673" y="120" text-anchor="middle" class="t g">Delegation</text>
+  <text x="673" y="140" text-anchor="middle" class="t n">2 条 · 不互相污染</text>
+  <text x="604" y="168" class="t bs">Guard the Context…</text>
+  <text x="604" y="188" class="t bs">Never Block on the…</text>
+  <text x="604" y="224" class="t bs">并行时先分开共享状态</text>
+  <text x="604" y="244" class="t bs">再考虑加协调</text>
+
+  <!-- Meta -->
+  <rect x="774" y="92" width="160" height="250" rx="12" fill="#fee2e2" stroke="#fecaca"/>
+  <text x="854" y="120" text-anchor="middle" class="t g">Meta</text>
+  <text x="854" y="140" text-anchor="middle" class="t n">1 条 · 让环境变好</text>
+  <text x="790" y="168" class="t bs">Encode Lessons in</text>
+  <text x="790" y="188" class="t bs">Structure</text>
+  <text x="790" y="224" class="t bs">第二次写同一条</text>
+  <text x="790" y="244" class="t bs">指令时，编码它</text>
+
+  <!-- usage loop -->
+  <rect x="200" y="382" width="560" height="64" rx="12" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="480" y="408" text-anchor="middle" class="t g">用户点名 → 读完整 leaf skill → 说明它改变了哪个决定</text>
+  <text x="480" y="430" text-anchor="middle" class="t s">只报名字不说改变，等于 name-dropping</text>
+
+  <line x1="280" y1="342" x2="280" y2="382" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="480" y1="342" x2="480" y2="382" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="680" y1="342" x2="680" y2="382" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <text x="480" y="492" text-anchor="middle" class="t s">核心张力：laziness-protocol 倾向最小改动，redesign-from-first-principles 倾向按目标架构重做</text>
+  <text x="480" y="516" text-anchor="middle" class="t s">冲突不是缺陷；它要求人显式选择，而不是假装两条都满足</text>
+</svg>

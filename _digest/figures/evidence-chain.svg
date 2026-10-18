@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" role="img" aria-label="从声明到独立验证的证据阶梯">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#475569"/>
+    </marker>
+    <style>
+      .t { font-family: -apple-system, "PingFang SC", "Helvetica Neue", Arial, sans-serif; }
+      .h { font-size: 22px; font-weight: 700; fill: #0f172a; }
+      .s { font-size: 12px; fill: #64748b; }
+      .bt { font-size: 15px; font-weight: 700; fill: #0f172a; }
+      .bs { font-size: 11.5px; fill: #475569; }
+      .lab { font-size: 11px; fill: #94a3b8; }
+    </style>
+  </defs>
+  <rect width="960" height="560" fill="#ffffff"/>
+  <text x="480" y="40" text-anchor="middle" class="t h">证据阶梯</text>
+  <text x="480" y="64" text-anchor="middle" class="t s">同一个"完成"，在不同层上有不同的证明力</text>
+
+  <rect x="20" y="110" width="160" height="160" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
+  <text x="100" y="138" text-anchor="middle" class="t bt">声明</text>
+  <text x="36" y="166" class="t lab">能证明</text>
+  <text x="36" y="184" class="t bs">意图</text>
+  <text x="36" y="214" class="t lab">不能证明</text>
+  <text x="36" y="232" class="t bs">任何行为</text>
+
+  <rect x="210" y="110" width="160" height="160" rx="10" fill="#dbeafe" stroke="#bfdbfe"/>
+  <text x="290" y="138" text-anchor="middle" class="t bt">单元测试</text>
+  <text x="226" y="166" class="t lab">能证明</text>
+  <text x="226" y="184" class="t bs">该分支的行为</text>
+  <text x="226" y="214" class="t lab">不能证明</text>
+  <text x="226" y="232" class="t bs">真实用户路径</text>
+
+  <rect x="400" y="110" width="160" height="160" rx="10" fill="#dcfce7" stroke="#bbf7d0"/>
+  <text x="480" y="138" text-anchor="middle" class="t bt">真实表面</text>
+  <text x="416" y="166" class="t lab">能证明</text>
+  <text x="416" y="184" class="t bs">用户能看到的行为</text>
+  <text x="416" y="214" class="t lab">不能证明</text>
+  <text x="416" y="232" class="t bs">规模、并发</text>
+
+  <rect x="590" y="110" width="160" height="160" rx="10" fill="#fef3c7" stroke="#fde68a"/>
+  <text x="670" y="138" text-anchor="middle" class="t bt">独立验证</text>
+  <text x="606" y="166" class="t lab">能证明</text>
+  <text x="606" y="184" class="t bs">非作者复核过的兑现</text>
+  <text x="606" y="214" class="t lab">不能证明</text>
+  <text x="606" y="232" class="t bs">未覆盖的风险</text>
+
+  <rect x="780" y="110" width="160" height="160" rx="10" fill="#fee2e2" stroke="#fecaca"/>
+  <text x="860" y="138" text-anchor="middle" class="t bt">测量 + 方法</text>
+  <text x="796" y="166" class="t lab">能证明</text>
+  <text x="796" y="184" class="t bs">数字与它的边界</text>
+  <text x="796" y="214" class="t lab">不能证明</text>
+  <text x="796" y="232" class="t bs">数字之外的相关性</text>
+
+  <line x1="180" y1="190" x2="210" y2="190" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="370" y1="190" x2="400" y2="190" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="560" y1="190" x2="590" y2="190" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+  <line x1="750" y1="190" x2="780" y2="190" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
+
+  <line x1="40" y1="310" x2="900" y2="310" stroke="#94a3b8" stroke-width="1.5" marker-end="url(#arrow)"/>
+  <text x="40" y="336" class="t s">成本与伪造难度递增</text>
+
+  <rect x="180" y="368" width="600" height="58" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
+  <text x="480" y="392" text-anchor="middle" class="t bs">pstack 的常见门槛：shipping 要求第 4 层；任何性能声明要求第 5 层</text>
+  <text x="480" y="412" text-anchor="middle" class="t bs">绿 CI、bot approval、作者自证，都不等于独立验证</text>
+
+  <text x="480" y="470" text-anchor="middle" class="t s">控制面：create-verification-skill 生成项目本地的真实驱动；maintain-verification-skill 防止它腐烂</text>
+  <text x="480" y="494" text-anchor="middle" class="t s">轨迹：show-me-your-work 记录决定与证据指针；交付前用 transcript 审计并做跨模型复查</text>
+  <text x="480" y="530" text-anchor="middle" class="t s">"Inconclusive" 或错误的表面，不是 pass</text>
+</svg>
