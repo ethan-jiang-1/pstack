@@ -28,7 +28,7 @@ rebase 会改 SHA，但补丁可能不变。用 `git patch-id` 比较 verdict �
 
 ### 5. 自底向上，一次合一个
 
-先合连续段最低的未合并 PR。合并后读回状态，确认 base 是主干、状态是 merged；再把下一个 PR 的 base 移到主干（这是 step 4 唯一允许的拓扑改动，配套 `--force-with-lease`），其他拓扑不改。源码：`shipping.md` step 4、5。
+先合连续段最低的未合并 PR。合并后读回状态，确认 base 是主干、状态是 merged；再把下一个 PR 的 base 移到主干，并把它的 patch 移到 merge result 上（rebase），然后以 `--force-with-lease` 推送（这是 step 4 唯一允许的拓扑改动）；其他拓扑不改。源码：`shipping.md` step 4、5。
 
 ### 6. pstack 到这里为止
 

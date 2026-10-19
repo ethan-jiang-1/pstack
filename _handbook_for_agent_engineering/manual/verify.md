@@ -111,7 +111,7 @@ PR 绿了，bot approve 了，作者说"我测过了"。这三样都不是 verdi
 2. verifier 跑 parent against head，像用户一样操作。
 3. 只有 `PASS` 或 `PASS+NOTES` 算通过；`FAIL` 是停止点。
 4. 从最低未合并 PR 往上，取连续有 `PASS` 或 `PASS+NOTES` 的一段；第一个没有的 PR 就是停止点。它上面的 PR 默认不能先合；只有当一个 PR 既不包含也不依赖下面那段代码时，才可以先移到 trunk 单独落地，并且要先拿新的 verdict。
-5. rebase 后用 `git patch-id` 比较 verdict 时的 SHA 和当前 head；补丁不同时，只有测试、文档或 lint config 的差异且 lane 在两边构建等价时，旧结果才可以保留。改动本身仍要新检查和新评审。
+5. rebase 后用 `git patch-id` 比较 verdict 时的 SHA 和当前 head；补丁不同时，只有测试、文档或 lint config 的差异且 lane 在两边构建等价（不计 noise）时，旧结果才可以保留；没有 build output 的 lane（如 dev server）必须重跑，其他漂移也要重验。改动本身仍要新检查和新评审。
 6. 自底向上，一次合一个；落地过程中唯一允许的拓扑改动是 `shipping` step 4 的 next-PR retarget 与配套的 `--force-with-lease`，其他不改。
 
 ### 质量门

@@ -8,7 +8,7 @@ pstack 的自主写在 `poteto-mode` 的两处：**Autonomy** 规定可逆工作
 
 | 类别 | 行为 | 出处 |
 |---|---|---|
-| **full grant** | "Don't stop" / "going to bed" / "run until done" / "be fully autonomous" 把授权延长到整个任务。`Autopilot-full` 是它的结构化形式；`Autopilot-stack` 只授权构建，落地仍归 operator。grant 覆盖的 call 自己做，报告结果，不请求确认。 | `SKILL.md#Autonomy`、`#Non-negotiables` |
+| **full grant** | "Don't stop" / "going to bed" / "run until done" / "be fully autonomous" 把授权延长到整个任务。`Autopilot-full` 是它的结构化形式；`Autopilot-stack` 只授权构建与验证，落地仍归 operator。grant 覆盖的 call 自己做，报告结果，不请求确认。 | `SKILL.md#Autonomy`、`#Non-negotiables` |
 | **product / preference calls** | 真正的产品、偏好或方向选择，实验无法定论。没有 grant 时问人，给选项，人用自己的话回答；grant 覆盖时自己决定并报告。 | `#Non-negotiables` |
 | **operator-only calls** | 只有 operator 能做的选择。没有 grant 时仍要等 operator；在 grant 下用一个默认值推进，完整报告，并说明 operator 可以让你改成什么。 | `#Non-negotiables` |
 | **named gates** | operator 明确点名的 gate，即使有 grant 也要等。例：`multi-phase-plan` 的 review gate；`Autopilot-full` 里 operator 声明属于自己的 item。 | `playbooks/multi-phase-plan.md`、`playbooks/autopilot-full.md` |
@@ -26,7 +26,7 @@ grant 不覆盖的 call 按 product/preference call、operator-only call、named
 
 | gate | 可检查条件 | 失败出口 |
 |---|---|---|
-| Bug fix step 1 | 在 matching surface 上用 control skill 实际复现 | 合成触发、收紧条件、加 instrumentation；只有 control surface 够不到目标时才请用户，并给出具体原因 |
+| Bug fix step 1 | 在 matching surface 上用 control skill 实际复现 | 合成触发、收紧条件、加 instrumentation；只有 control surface 够不到目标时才请用户，并给出具体原因；请之前要先把 control surface 驱动到极限 |
 | Bug fix step 2 | 存活的机制有运行时证据 | 继续二分，不猜 |
 | Shipping step 1 | 每个 PR 有一个没写这份代码的 verifier 的 `PASS` 或 `PASS+NOTES` | 没有 verdict 或只有 `FAIL` 的 PR 不进入落地序列 |
 | Shipping step 2 | 从最低未合并 PR 向上连续的 verified run | 遇到第一个没有 `PASS` 或 `PASS+NOTES` 的就停；独立 PR 需新 verdict 才能单独落地 |
@@ -49,7 +49,7 @@ ts  phase  decision  why  evidence  result
 
 - 只追加，不修改、不删除。错误用新行覆盖，并指向正确的证据。
 - evidence 是指针（commit SHA、PR 号、`file:line`、artifact 路径），不是一段话。
-- 一个 run 是一段对话；pickup、替换 agent、新会话都算新 run，第一行用 `phase=start`。
+- 一个 run 是一段对话；pickup、替换 agent、新会话都算新 run。当 log 已有行时，新 run 的第一行用 `phase=start`。
 - 交付前用 transcript 审计轨迹：每行是否对应真实决定或动作，证据是否能解析。
 - 再派一个不同模型家族的 subagent 复查轨迹，回复末尾给 **Attention** 段，列出该看的行与风险。
 

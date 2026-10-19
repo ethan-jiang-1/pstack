@@ -24,7 +24,7 @@ playbook 步骤里的委派默认用 `poteto-agent`；`how`、`why`、`interroga
 
 ### 4. 验证与收口
 
-"测试绿了"不是完成。`prove-it-works` 要求在真实产物上验证；`benchmark-checklist` 在报告任何性能数字前逐项检查；`create-verification-skill` 把"像用户一样驱动应用"固化成项目内的 `verify-*` control skill。需要开 PR 的 playbook 以 `Opening a PR` 收尾。`shipping` 默认只落地从最低未合并 PR 开始连续的 verified run，每个 PR 要有一个没写这份代码的 verifier 给出 `PASS` 或 `PASS+NOTES`；独立 PR 不包含也不依赖下面那段代码时，先拿新 verdict 再单独落地。
+"测试绿了"不是完成。`prove-it-works` 要求在真实产物上验证；`benchmark-checklist` 在报告任何性能数字前逐项检查；`create-verification-skill` 把"像用户一样驱动应用"固化成项目内的 `verify-*` verification skill。需要开 PR 的 playbook 以 `Opening a PR` 收尾。`shipping` 默认只落地从最低未合并 PR 开始连续的 verified run，每个 PR 要有一个没写这份代码的 verifier 给出 `PASS` 或 `PASS+NOTES`；独立 PR 不包含也不依赖下面那段代码时，先拿新 verdict 再单独落地。
 
 ## 其他入口
 
@@ -50,8 +50,8 @@ playbook 步骤里的委派默认用 `poteto-agent`；`how`、`why`、`interroga
 ## 容易误读的地方
 
 1. **它几乎不自动触发。** 54 个 skill 里 53 个写了 `disable-model-invocation: true`。模型不会自己挑 skill；要么人输入命令，要么 mode 在 playbook 步骤里点名。
-2. **23 个 playbook 不是一条单链。** mode 按请求选一个；`figure-it-out` 与 `Orchestrate` 是没有窄 playbook 时的两个出口。
-3. **playbook 不是 prompt 模板。** 步骤要逐字复制，跳过的步骤要写原因；playbook 带 gate、失败出口和 `Reply:`。
+2. **23 个 playbook 不是一条单链。** mode 按请求选一个；`figure-it-out` 是跨切面大改或离开后复查的出口（即使 Feature 能套），`Orchestrate` 是 standing program 的出口。
+3. **playbook 不是 prompt 模板。** 步骤要逐字复制，跳过的步骤要写原因；多数 playbook 带 gate、失败出口和 `Reply:`（`babysit`、`Opening a PR` 例外）。
 4. **多模型不是所有流程的前提。** `arena` 和 `interrogate` 的收益来自不同模型；`swarm` 默认让每个 worker 用 `swarm workers` 的模型，模型竞速是可选。
 5. **文档是交接接口。** PR 正文、回复、`show-me-your-work` 的 decision trail 都要能被下一位（人或 agent）复核。
 

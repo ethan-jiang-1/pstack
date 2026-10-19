@@ -72,7 +72,7 @@
 ## 依赖关系
 
 - **上游**：`how` 给出代码做什么，`why` 给出为什么长这样，并提供 Step 2 的 PR 与 commit 拉取方式；`git`、`gh`、项目自己的测试框架提供执行手段。
-- **下游**：合并前的检查；`poteto-mode` 的 `orchestrate` playbook 用"blast radius 高低"决定是否派独立 verifier；`docs/guide/06-verify-and-ship.md` 推荐对不放心的小 diff 用它。
+- **下游**：合并前的检查；`poteto-mode` 的 `orchestrate` playbook 在验证昂贵、依赖判断或 blast radius 高时派独立 verifier；`docs/guide/06-verify-and-ship.md` 推荐对不放心的小 diff 用它。
 - **共享**：`arena`、`unslop`、`why` 的证据纪律。
 - **对照**：`interrogate` 评审 diff 本身；`blast-radius` 看 diff 之外的破坏，并证明那条让改动安全的事实。
 

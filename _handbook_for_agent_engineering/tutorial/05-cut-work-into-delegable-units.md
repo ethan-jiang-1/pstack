@@ -38,9 +38,9 @@
 
 | PR | Depends on | Files | You see | Verify（unit / live / perf） |
 |---|---|---|---|---|
-| P1 | none | `exporter/export.ts`、`exporter/export.test.ts`、`export-page/ExportButton.tsx` | 勾选 3 行，下载文件 3 行 | unit：`pnpm test exporter`；live：`control-ui` 勾选 3 行下载 |
-| P2 | P1 | `export-page/` | 无勾选时按钮禁用并提示；删 1 行后结果标注该 id | unit：组件测试；live：`control-ui` 走这两种状态 |
-| P3 | none | `exporter/regression.test.ts` | 全量导出行为不变 | unit + live：trunk 与 head 各跑一次全量导出 |
+| P1 | none | `exporter/export.ts`、`exporter/export.test.ts`、`export-page/ExportButton.tsx` | 勾选 3 行，下载文件 3 行 | unit：`pnpm test exporter`；live：`control-ui` 勾选 3 行下载；perf：n/a - 无性能敏感路径 |
+| P2 | P1 | `export-page/` | 无勾选时按钮禁用并提示；删 1 行后结果标注该 id | unit：组件测试；live：`control-ui` 走这两种状态；perf：n/a - 无性能敏感路径 |
+| P3 | none | `exporter/regression.test.ts` | 全量导出行为不变 | unit + live：trunk 与 head 各跑一次全量导出；perf：n/a - 无性能敏感路径 |
 
 P2 改了交互（无勾选时按钮禁用并提示），所以带 **Review gate**：operator 在 merge 前看截图和视频，停在 merge-ready。P1 与 P3 不改交互，写 `**Review gate.** None. <PR id> is not review-gated.`，下面不写 box。
 

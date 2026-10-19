@@ -54,7 +54,7 @@
 
 playbook 的约束不是结尾一句"请谨慎"，而是步骤内的可检查条件：
 
-- **Bug fix step 1**：在 matching surface 上用 control skill 自己复现；只有 control surface 确实够不到目标时才请用户，且要说明具体原因。
+- **Bug fix step 1**：在 matching surface 上用 control skill 自己复现；只有 control surface 确实够不到目标时才请用户，且要说明具体原因；请之前要先把 control surface 驱动到极限。
 - **Bug fix step 2**：存活的机制有运行时证据；继续二分，不猜。
 - **Shipping step 1**：每个 PR 由没写这份代码的 verifier 独立验证，`PASS` 或 `PASS+NOTES` 才算数；绿 CI 和 bot approval 都不是 verdict。
 - **Shipping step 2**：默认只落地从最低未合并 PR 向上的 contiguous verified run；遇到第一个没有 `PASS` 或 `PASS+NOTES` 的就停。独立 PR 不包含也不依赖下面那段代码时，先拿新 verdict 再单独落地。

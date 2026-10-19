@@ -270,7 +270,7 @@ STANDING    preferences.md 逐字粘贴
 
 ### 做法
 
-**第一步，先判断要不要计划。** 一两个文件、路径明显时，`multi-phase-plan` step 1 说跳过 plan，直接说"这次不需要 plan"然后停。（`skills/poteto-mode/playbooks/multi-phase-plan.md`）
+**第一步，先判断要不要计划。** 一两个文件、方法显然时，`multi-phase-plan` step 1 说跳过 plan，直接说"这次不需要 plan"然后停。（`skills/poteto-mode/playbooks/multi-phase-plan.md`）
 
 **第二步，跨 phase 或跨 PR 时写 plan 文件。** 把 `multi-phase-plan` 的 skeleton 复制进 plan 文件，逐个填占位符；每个 PR 一节；一个 PR 是一个变更，带自己的证据（`sequence-verifiable-units`）。（`skills/poteto-mode/playbooks/multi-phase-plan.md`）
 
@@ -301,7 +301,7 @@ STANDING    preferences.md 逐字粘贴
 
 ### 质量门
 
-- brief 的每个字段都填满；填不满的字段被当成"这个 unit 还没 scope 好"。
+- brief 按 unit 大小收放；一条命令的 unit 可压成一段，仍点名 goal、scope、verify、report。填不满的字段被当成"这个 unit 还没 scope 好"，拒绝 spawn。
 - GOAL 能被一个没有聊天记录的人执行。
 - SCOPE 同时写了可写与不可写。
 - ACCEPTANCE 一行一条、可检查；VERIFY 是确切命令或 control skill 路径。

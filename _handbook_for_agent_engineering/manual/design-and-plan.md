@@ -142,7 +142,7 @@ data shape 定了，但接口还没定。你面前有几个形状选择：
 
 **第六步，写调用者的用法，再反推类型。** `architect` 的 Outputs 要求先写调用者怎么用，再从用法推出类型草图；小改动一个文件，大改动 module map 加类型定义。`not implemented` 函数体加伪代码，此时改接口还很便宜。（`skills/architect/SKILL.md` Outputs）
 
-**第七步，接住 arena 的综合结果。** `arena` 返回一个综合后的设计包；它的 synthesis decision 填进 rationale 的 "Synthesis decision" 一节。候选收敛到一个形状，是强一致，记下来直接走；候选严重分歧，说明 Phase A 没定够，重新 frame 再跑，而不是把分歧平均掉。（`skills/arena/SKILL.md` Phase E）
+**第七步，接住 arena 的综合结果。** `arena` 返回一个综合后的设计包；它的 synthesis decision 填进 rationale 的 "Synthesis decision" 一节。（`skills/architect/SKILL.md` Phase B/Outputs）候选收敛到一个形状，是强一致，记下来直接走；候选严重分歧，说明 Phase A 没定够，重新 frame 再跑，而不是把分歧平均掉。（`skills/arena/SKILL.md` Phase E）
 
 **第八步，实现时把草图当契约。** Phase D 把 `not implemented` 换成代码，把伪代码换成逻辑。偏离草图是信号，要浮出来，不要默默吸收；一个函数需要草图没预料到的参数时，先问是草图错了、需求漏了，还是实现越界。（`skills/architect/SKILL.md` Phase D）
 
@@ -198,7 +198,7 @@ Smallest safe decomposition. 如果一个 worker 最好，写明为什么。
 
 跨多个 PR 时再加一份 `multi-phase-plan` 的 plan 文件。它的骨架是固定的：
 
-- 固定标题：`## How to read this`、`## Program checklist`、`## <Task as a verb phrase> (<PR id>)`、`## Close the program`，以及四个 appendix（A Prototype evidence、B Alternatives rejected、C Risks、D Links and reading list）；`check-plan.mjs` 缺标题会失败；
+- 固定标题：`## How to read this`、`## Program checklist`、`## <Task as a verb phrase> (<PR id>)`、`## Close the program`，以及四个 appendix（A Prototype evidence、B Alternatives rejected、C Risks、D Links and reading list）。`check-plan.mjs` 检查 H1、`## How to read this`、`## Program checklist`、`## Close the program`、至少一个中间 section，以及一个含 Prototype evidence 的 appendix；PR 标题和 Appendix B/C/D 是 skeleton 要求，脚本不查；
 - Program checklist：arm the program、spawn owners、每个 PR 的 PR mechanics、verdict 与 merge、live lane 的 boot recipe；
 - 每个 PR 一节：`Task as a verb phrase (<PR id>)`、Depends on、Files、Build、You see、Verify, unit / Verify, live / Verify, perf、Review gate、Merge；
 - Close the program：每个 box 都勾上并附证据；回复按执行 playbook 的 report 形状；
@@ -218,7 +218,7 @@ Smallest safe decomposition. 如果一个 worker 最好，写明为什么。
 
 **第五步，把 checkpoint 放在 owner 手里。** 代码耦合的工作（一个 feature、一次 migration）交给一个 owner，checkpoint 内联；这个 owner 在 blocking phase 之后自己 fan-out。父级 fan-out 留给产出独立产物的片段（audit、跨子系统调查、并行实验）。换 phase 时重写 checkpoint，用新的 owner，不要用 interrupt 链住旧 owner。（`skills/poteto-mode/playbooks/feature.md`）
 
-**第六步，一两个文件且路径明显时，跳过 plan。** `multi-phase-plan` step 1：直接说这次不需要 plan，然后停。（`skills/poteto-mode/playbooks/multi-phase-plan.md`）
+**第六步，一两个文件且方法显然时，跳过 plan。** `multi-phase-plan` step 1：直接说这次不需要 plan，然后停。（`skills/poteto-mode/playbooks/multi-phase-plan.md`）
 
 **第七步，跨 PR 时先关开放问题。** 每个开放问题先跑 Prototype，保留分支、SHA 和截图，写进 plan 的 Appendix A；只有产品与偏好决定才问 operator，并且给选项。（`skills/poteto-mode/playbooks/multi-phase-plan.md` step 2）
 
@@ -244,10 +244,10 @@ Smallest safe decomposition. 如果一个 worker 最好，写明为什么。
 - 四个 checkpoint item 都在，不适用的写了 `n/a: <reason>`。
 - 代码耦合工作有一个 owner，checkpoint 在它手里。
 - 没有两个 unit 写同一份共享状态；共享写入要么拆开，要么显式串行。
-- 一两个文件的明显改动没有 plan。
+- 一两个文件、方法显然的改动没有 plan。
 - 跨 PR 的 plan 一个 PR 一节，一个 PR 一个变更，带自己的证据。
 - 每个 PR 的 unit、live、perf 三块都有勾选证据。
-- plan 检查脚本没有输出。
+- `check-plan.mjs` 的输出已贴回，且打印的每一行都已修。
 - 执行前有 operator 的 explicit go。
 
 ### 进阶

@@ -48,7 +48,7 @@ origin/main          上游镜像线：Cursor 的 pstack 内容 + 镜像侧编�
    git diff --stat <上次同步的短 SHA>..main
    ```
 
-   重点看 `skills/**/SKILL.md`、`skills/poteto-mode/playbooks/`、`docs/guide/`、`plugin.json` 的版本号。新增或删除 skill、改 frontmatter、改 playbook 步骤，都会影响解读。
+   重点看 `skills/**/SKILL.md`、`skills/poteto-mode/playbooks/`、`docs/guide/`、`plugin.json` 的版本号。新增或删除 skill、改 frontmatter、改 playbook 步骤，都会影响解读。另外按 `MIRROR.md` 第 6 步刷新 `skills/no-comments/references/comment-sicko.md`，并扫描上游 diff 里新增的 Cursor-only 指令。
 
 3. 并入消化层。
 

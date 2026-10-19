@@ -78,7 +78,7 @@ diff 里混着叙述阶段的注释、注释掉的旧代码、解释 workaround 
 
 1. 每个 PR 一个非作者 verifier；verifier 在真实表面跑用户路径，给 `PASS`、`PASS+NOTES` 或 `FAIL`。
 2. 从最低未合并 PR 往上，停在第一个没有 `PASS` 或 `PASS+NOTES` 的 PR；它下面是 contiguous verified run。上面的 PR 默认不能先合；只有当一个 PR 既不包含也不依赖下面那段代码时，才可以先移到 trunk 单独落地，并且要先拿新的 verdict。
-3. rebase 后用 `git patch-id` 比较 verdict 时的 SHA 和当前 head；补丁不同时，只有测试、文档或 lint config 的差异且 lane 在两边构建等价时，旧结果才可以保留。改动本身仍要新检查和新评审。
+3. rebase 后用 `git patch-id` 比较 verdict 时的 SHA 和当前 head；补丁不同时，只有测试、文档或 lint config 的差异且 lane 在两边构建等价（不计 noise）时，旧结果才可以保留；没有 build output 的 lane（如 dev server）必须重跑，其他漂移也要重验。改动本身仍要新检查和新评审。
 4. 自底向上，一次合一个；合并后读回状态，确认 base 是主干、状态是 merged。
 5. 落地过程中唯一允许的拓扑改动是 `shipping` step 4 的 next-PR retarget 与配套的 `--force-with-lease`；其他 rebase、retarget 或 force-push 不改。
 

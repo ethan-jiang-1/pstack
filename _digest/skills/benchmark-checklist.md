@@ -24,7 +24,7 @@
 
 ### 2. 七问
 
-1. **Why not double?** 命名 limiter。profiler 会拖慢被测工作，所以 profile 放在不报告的那次运行里：CPU per process（`top`、`pidstat`）、runtime profiler（`node --cpu-prof`、`py-spy`、`perf`）、I/O wait、syscall 计数（`strace -c`），再把热点映射回源码。也要看 load generator：它先饱和，你测的就是它。改动没动数字时，limiter 解释原因，所以要先找它，再判定改动无用。
+1. **Why not double?** 命名 limiter。profiler 会拖慢被测工作，所以 profile 放在不报告的那次运行里：CPU per process（`top`、`pidstat`）、runtime profiler（`node --cpu-prof`、`py-spy`、`perf`）、I/O wait、syscall 计数（`strace -c`，Linux），再把热点映射回源码。也要看 load generator：它先饱和，你测的就是它。改动没动数字时，limiter 解释原因，所以要先找它，再判定改动无用。
 2. **Was it tuned?** 两边都按生产的方式跑：release build、生产 flags 和 env、batching 和事务设置、连接池、缓存冷暖、同样的版本和数据。一边跑默认值，比的就是配置，不是实现。如果 limiter 本身是一个设置（每行一次 commit、debug build、缺索引），那一边就是没调优；调完再测，调不了就不要从那次运行里选赢家。用户是在选采用什么时，把 claim 缩窄成"今天 ship 的代码"也不解决问题，因为他采用选项，不是今天的设置。
 3. **Did it break limits?** 做算术。bytes/s 对磁盘和网络带宽；ops/s 乘每次操作成本对核数；省下的时间对被改部分占的时间。去掉占 10% 的部分，最多快约 11%。超过上限的结果一定测了别的东西：cache、no-op 或 bug。
 4. **Did it error?** 数失败和非成功响应，并检查输出正确，不只是存在。rejection 往往快，timeout 和 retry 慢。脚本不数错误，就加上计数。
@@ -59,7 +59,7 @@ PR body 只放一个主数字，这是 `Opening a PR` playbook 的规定；runs�
 
 - **上游**：`Perf issue` playbook 在从 baseline 规划之前要用它 vet baseline，之后每个数字也要 vet；`Hillclimb` playbook 在冻结 harness 之前要用它 vet harness。任何报告 before/after 的工作、回归声明、库或配置选型，都在它的触发范围内。
 - **下游**：报告、PR body、以及 `Hillclimb` 的每次 keep-or-revert。冻结后的 hillclimb harness 会打印 error count 和 work count，于是这两问每次自动被检查。
-- **共享**：`uptime`、`nproc`、`strace -c`、`node --cpu-prof`、`py-spy`、`perf` 这些测量工具；`Opening a PR` 的主数字规则；principle 层的 `explain-the-number` 是同一族判断（源码没有点名它）。
+- **共享**：`uptime`、`nproc`、`strace -c`（Linux）、`node --cpu-prof`、`py-spy`、`perf` 这些测量工具；`Opening a PR` 的主数字规则；principle 层的 `explain-the-number` 是同一族判断（源码没有点名它）。
 - **对照**：`prove-it-works` 管"在真实产物上验证行为"，`benchmark-checklist` 管"数字本身的测量合法性"；`show-me-your-work` 的 result 列可以记下 verdict，这里定义 verdict 需要什么证据。
 
 ## 使用边界

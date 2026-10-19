@@ -77,7 +77,7 @@ STANDING: <preferences.md 原文，逐字贴入>
 
 ### 质量门
 
-- 九个字段都有值。
+- 九个字段按 unit 大小收放；一条命令的 unit 可压成一段，仍点名 goal、scope、verify、report；填不出的字段拒绝 spawn。
 - ACCEPTANCE 能通过或失败。
 - VERIFY 是命令或真实表面，不是"检查一下"。
 - FORBIDDEN 至少挡住一种扩大解释。
@@ -96,7 +96,7 @@ pstack 的默认是 fresh：新任务带 consolidated scope（原始 brief、后
 
 - fresh 时，把上一个 agent 的报告和分支指针放进 CONTEXT，不要把它的整段对话塞进去。
 - resume 只在状态搬不走时用；resume 链会安静地丢指令，源码明确警告过。
-- 角色行从设置文件读：`judgment and prose`、`hardest tasks`、`how explorer`、`how explainer`、`why investigators`、`why synthesizer`、`reflect tooling`、`reflect judgment, divergent, synthesizer`、`arena runners`、`arena cross-judge pool`、`swarm workers`、`architect runners`、`interrogate reviewers`。
+- 角色行从设置文件读，例如 `feature, refactoring`、`bug-fix`、`perf-issue`、`hillclimb`、`judgment and prose`、`hardest tasks`、`how explorer`、`how explainer`、`why investigators`、`why synthesizer`、`reflect tooling`、`reflect judgment, divergent, synthesizer`、`arena runners`、`arena cross-judge pool`、`swarm workers`、`architect runners`、`interrogate reviewers`。
 - 角色行缺失时，退回 skill 内默认值；不要把默认值硬编码进 brief。
 
 ### 质量门
@@ -118,7 +118,7 @@ pstack 的默认是 fresh：新任务带 consolidated scope（原始 brief、后
 - **Coordinator（本地）**：写 brief、排空 inbox、维护 human report、做判断；绝不写代码。冲突合并、chain rebase、代码改动都是 task。
 - **Sub-coordinator**：只在 program 超过一个 coordinator 的 drain 能力时加；每条 track 一个，持久、本地。它能自己 drain 的 track 不需要中间层；嵌套最多 3 层。
 - **Worker / verifier**：默认 cloud，除非任务需要本机（`control-ui` / `control-cli`、本地 transcript、模拟器、只在本机的 auth）。一个 worktree 或 branch 一个写者；verifier 与 worker 不同模型家族。
-- **brief 是产品**：每个 spawn 都带完整九字段 brief；填不出的字段说明 unit 还没切好。
+- **brief 是产品**：每个 spawn 都带按 unit 大小收放的 brief；一条命令的 unit 可以压成一段，但仍点名 goal、scope、verify 和 report。填不出的字段说明 unit 还没切好。
 - **状态**：`units.tsv` 一行一个 unit；读写走 `scripts/orch/orch.ts`，一条命令进、一行出。
 - **协作**：`preferences.md` 记团队偏好；单一 stacker 只能改拓扑（chain rebase、force-push、base retarget、merge）；合并冲突和代码改动都是 task。
 
