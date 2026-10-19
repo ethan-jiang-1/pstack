@@ -264,7 +264,7 @@ REPORT      status、branch、head SHA、PR、verdict、实际跑了什么、偏
 STANDING    preferences.md 逐字粘贴
 ```
 
-`STANDING` 就是 `preferences.md` 的逐字粘贴；每次 spawn 和 resume 都带。字段填不满，说明这个 unit 还没有被 scope 好；缺字段是拒绝 spawn 的条件。（`skills/poteto-mode/playbooks/orchestrate.md#The brief`）
+`STANDING` 是 `preferences.md` 的内容；每次 resume 和 cloud spawn 都逐字粘贴，local spawn 可以按 store path 引用。字段填不满，说明这个 unit 还没有被 scope 好；缺字段是拒绝 spawn 的条件。（`skills/poteto-mode/playbooks/orchestrate.md#The brief`）
 
 跨多个 PR 时，离意图最近的固定产物是 `multi-phase-plan` 的 plan 文件：每个 PR 一节，一个 PR 是一个变更，带自己的证据。（`skills/poteto-mode/playbooks/multi-phase-plan.md`）
 

@@ -24,7 +24,7 @@
 - 读代码、读历史：`how` 解释运行机制，`why` 追决策动机，`teach` 把两者讲成一段可理解的说明。
 - 重建自己的工作上下文：`recall` 重建当前状态；接手别人的在途工作用 Session pickup。`ketchup` 用平实语言补齐这段对话的变化。
 - 设计没把握：`architect` 先画形状，`arena` 让多个候选互相竞争，`interrogate` 做多模型对抗评审。
-- 环境反复出同一种错：`correct` 把它变成 lint、类型或测试，`reflect` 把这次会话的经验写回 skill。
+- 环境反复出同一种错：`correct` 先改架构让错误写不出来，再依次用类型、lint、测试、文档，`reflect` 把这次会话的经验写回 skill。
 
 整套系统靠四条原则保持可控：
 
@@ -85,11 +85,11 @@ _digest/
 └── _change_log/     上游同步记录与影响矩阵
 ```
 
-`_digest` 是解释层，不是行为的单一事实来源。当前行为以仓库中的 `skills/**/SKILL.md` 为准；解读与源码冲突时，应修正解读。历史变化只记录在 [`_change_log`](./_change_log/README.md)，当前页尽量保持无时间依赖。
+`_digest` 是解释层，不是行为的单一事实来源。当前行为以仓库中的 `skills/**/SKILL.md` 与 `skills/poteto-mode/playbooks/` 为准；解读与源码冲突时，应修正解读。历史变化只记录在 [`_change_log`](./_change_log/README.md)，当前页尽量保持无时间依赖。
 
 ## 与 `docs/guide/` 的分工
 
-pstack 自带的 `docs/guide/` 是**操作教程**：英文，面向"今天要跑一遍"的使用者，按 setup → mode → understand → design → build → verify → overnight 的顺序走。
+pstack 自带的 `docs/guide/` 是**操作教程**：英文，面向"今天要跑一遍"的使用者，按 setup → mode → understand → design → build → verify → overnight，再到 principles → make it yours → recipes and pitfalls 的顺序走。
 
 本目录是**结构与设计解读**：中文，面向想理解"为什么这样拆、代价是什么、每个机制在源码里的位置"的读者。两者会引用同一批 skill，但不互相复制：guide 教流程，digest 解释机制。
 

@@ -120,7 +120,7 @@ pstack 的默认是 fresh：新任务带 consolidated scope（原始 brief、后
 - **Worker / verifier**：默认 cloud，除非任务需要本机（`control-ui` / `control-cli`、本地 transcript、模拟器、只在本机的 auth）。一个 worktree 或 branch 一个写者；verifier 与 worker 不同模型家族。
 - **brief 是产品**：每个 spawn 都带完整九字段 brief；填不出的字段说明 unit 还没切好。
 - **状态**：`units.tsv` 一行一个 unit；读写走 `scripts/orch/orch.ts`，一条命令进、一行出。
-- **协作**：`preferences.md` 记团队偏好；单一 stacker 处理文本冲突；coordinator 不做代码冲突。
+- **协作**：`preferences.md` 记团队偏好；单一 stacker 只能改拓扑（chain rebase、force-push、base retarget、merge）；合并冲突和代码改动都是 task。
 
 ### 质量门
 
@@ -133,4 +133,4 @@ pstack 的默认是 fresh：新任务带 consolidated scope（原始 brief、后
 
 ## 本章与 pstack 的边界
 
-pstack 用 `orchestrate` 的 roles、`preferences.md`、one writer per worktree 和单一 stacker 处理协作；文本冲突由 stacker 处理。不要给这些机制另起名字。
+pstack 用 `orchestrate` 的 roles、`preferences.md`、one writer per worktree 和单一 stacker 处理协作；stacker 只改拓扑，合并冲突和代码改动都是 task。不要给这些机制另起名字。

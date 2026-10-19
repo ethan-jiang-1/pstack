@@ -16,13 +16,13 @@ brief 是 GOAL / SCOPE / CONTEXT / ACCEPTANCE / VERIFY / TIMEBOX / FORBIDDEN / R
 
 ```text
 GOAL: 让勾选导出只导出选中的行。
-SCOPE: exporter 的 export(selection) 与页面接线；不改导出格式。
+SCOPE: 可以写 exporter/ 与 export-page/；不改导出格式；独占 branch feat/export-selection。
 CONTEXT: 类型在 src/exporter/types.ts；现有测试 dev-notes 里有 fixture。
 ACCEPTANCE: 勾选 3 行导出 3 行，表头与全量一致；无勾选时按钮禁用并提示。
 VERIFY: pnpm test exporter；再跑一次真实导出，贴行数。
 TIMEBOX: 一个 session。
-FORBIDDEN: 不改 CSV 列顺序；不加新依赖；不动权限。
-REPORT: 改了哪些文件、跑了什么、结果、未解风险。
+FORBIDDEN: 不 retarget/merge PR、不 rebase、不 force-push、不修 scope 外代码；不改 CSV 列顺序；不加依赖；不动权限。
+REPORT: status、branch、head SHA、PR、verdict、实际跑了什么、偏离、建议的后续。
 STANDING: <preferences.md 原文，逐字贴入>
 ```
 

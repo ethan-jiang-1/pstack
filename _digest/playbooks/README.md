@@ -17,7 +17,7 @@
 行为不变，只改结构                    → Refactoring
 一个设计选择需要先看见才能定          → Prototype
 两套实现要像素一致                    → Visual parity
-改 skill / prompt，要测行为变化       → Eval / Authoring a skill
+改 skill / prompt，要测行为变化       → Eval / Authoring or modifying a skill
 PR 要推到可合并                       → Babysit
 栈已绿，要落地                        → Shipping
 一个任务跑到可检查的谓词              → Autonomous run
@@ -27,7 +27,7 @@ PR 要推到可合并                       → Babysit
 接管别人未完成的工作                  → Session pickup
 要干净地暂停                          → Pause safely
 跨阶段或跨 PR                         → Multi-phase plan
-回收磁盘                              → Worktree cleanup
+回收磁盘                              → Worktree and simulator cleanup
 没有更窄的 playbook 可用              → figure-it-out（skill，不是 playbook）
 需要开 PR 的工作的收尾            → Opening a PR
 ```
@@ -122,7 +122,7 @@ PR 要推到可合并                       → Babysit
 
 干净地暂停。在原子步骤边界停下，取消 nested subagent，不启动新工作，不推送（除非之前已经推过）；把未提交改动做成一个 `wip:` 提交；在上下文之外写恢复说明。只用于明确暂停，不用于"继续"。
 
-### [Worktree cleanup](../../skills/poteto-mode/playbooks/worktree-cleanup.md)
+### [Worktree and simulator cleanup](../../skills/poteto-mode/playbooks/worktree-cleanup.md)
 
 回收磁盘：worktree 与陈旧的 iOS 模拟器。先审计 worktree（大小、年龄、合并状态、未提交工作、PR 状态、最近会话），把删除建议当参考而不是许可；被固定的会话、正在使用的 worktree、未提交工作都要停下来确认。这是唯一没有代码评审兜底的删除流程。
 
@@ -159,4 +159,4 @@ N. Run **Opening a PR**.   ← 只读或不再交付改动的流程以 Reply 结
 - **有重叠。** `Babysit` 与 `Shipping`、`Autonomous run` 与 `Orchestrate`、`Autopilot-full` 与 `Autopilot-stack` 都需要读描述才能分对。
 - **`figure-it-out` 不是 playbook。** 它是一个 skill，用来在没有合适 playbook 时设计一份一次性流程。
 - **playbook 依赖 mode 的上下文。** 单独读一份 playbook 能理解步骤，但"逐字复制进 todo"、"按角色选模型"、"回复按 unslop"这些要求写在 `poteto-mode` 里。
-- **不是所有 playbook 都开 PR。** 是否开由步骤决定；Investigation、Runtime forensics、Trace forensics、Pause safely 明确不开。
+- **不是所有 playbook 都开 PR。** 是否开由步骤决定；Investigation 和 Pause safely 明确不开 PR；Runtime/Trace forensics 只做诊断，未经要求不改代码。

@@ -32,7 +32,7 @@ prompt 由 `references/reviewer-prompt.md` 填充：intent 段落、diff 或文�
 
 `rubric.md` 是六个可选用视角：正确性、根因与症状、结构完整性、验证、复杂度预算、安全。源码要求"不要强行套用不相关的视角，一个简单 bug fix 不需要架构完整性段落"。
 
-`code-quality-review.md` 是一条恒定的质量底线，语气明显更硬：找"code judo"式重构、把接近 1k 行的文件当成强信号、把 spaghetti 式新增分支当设计问题、要求逻辑回到 canonical layer。它的 **Approval Bar** 说"不要因为行为看起来正确就 approve"，并把若干情况列为 presumptive blocker。
+`code-quality-review.md` 是一条恒定的质量底线，语气明显更硬：找"code judo"式重构、把 PR 把文件从 1k 行以下推过 1k 行当成强信号、把 spaghetti 式新增分支当设计问题、要求逻辑回到 canonical layer。它的 **Approval Bar** 说"不要因为行为看起来正确就 approve"，并把若干情况列为 presumptive blocker。
 
 ### 4. 综合与 lead 判断
 
@@ -74,7 +74,7 @@ lead-judgment 还给了一个校准：Act On 超过 5 条，通常说明过滤�
 ## 值得注意
 
 - **共享 prompt 削弱了独立性。** 所有 reviewer 拿同一个模板、同一份 rubric、同一段 intent；"多样性"只落在模型权重上，模板层面的共同偏差无法靠多模型消除。
-- **两套 lens 的优先级没有写死。** code-quality 的 Approval Bar 把 1k 行、spaghetti、缺 abstraction 当 presumptive blocker，而 lead-judgment 要求 dismiss "I would have done it differently"。同一个发现可以同时落进两边，谁赢取决于 lead 的判断。
+- **两套 lens 的优先级没有写死。** code-quality 的 Approval Bar 把 1k 行、spaghetti、多余/不必要的 abstraction 当 presumptive blocker，而 lead-judgment 要求 dismiss "I would have done it differently"。同一个发现可以同时落进两边，谁赢取决于 lead 的判断。
 - **Act On 不超过 5 条是启发式。** 它防止 verdict 变成清单，也可能把第 6 个真实问题压进 Consider。
 - **Dismissed 依赖 lead 的上下文，而上下文本身可能错。** 源码把"reviewer 没理解上下文"当作 dismiss 理由，但没有要求 lead 证明自己的上下文是对的。
 

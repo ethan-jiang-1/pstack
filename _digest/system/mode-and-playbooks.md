@@ -46,9 +46,9 @@
 
 `Orchestrate` 的 landing 从第一个 verified unit 开始，与剩余 wave 并行，不是最后一步；在本地 git 便宜的仓库，coordinator 可以自己落地 verified unit。源码：`skills/poteto-mode/playbooks/orchestrate.md` step 6。
 
-## 没有窄 playbook 时
+## 什么时候交给 `figure-it-out`
 
-有更窄的 playbook 能覆盖就用它。没有，且任务是一次跨切面的大改、或用户会离开后复查的工作，交给 `figure-it-out`：它为这一件事设计一份一次性 playbook。持续多天、多个 PR、几十上百个 subagent 的 standing program 交给 `Orchestrate`。区别是：`figure-it-out` 设计一次 run，`Orchestrate` 跑一个 program；`Autonomous run` 是把一个任务跑到谓词。这几条边界在正文里比名字清楚，选错时先读描述。
+跨切面的大改（跨多个 call site 的迁移、宏大的多部分改动），或用户会离开后复查的工作，即使有更窄的 playbook（如 Feature）能覆盖，也交给 `figure-it-out`：它为这一件事设计一份一次性 playbook。完全没有 bundled playbook 能用时，也用它。持续多天、多个 PR、几十上百个 subagent 的 standing program 交给 `Orchestrate`。区别是：`figure-it-out` 设计一次 run，`Orchestrate` 跑一个 program；`Autonomous run` 是把一个任务跑到谓词。这几条边界在正文里比名字清楚，选错时先读描述。
 
 ## gate 写在步骤里
 
@@ -60,7 +60,7 @@ playbook 的约束不是结尾一句"请谨慎"，而是步骤内的可检查条
 - **Shipping step 2**：默认只落地从最低未合并 PR 向上的 contiguous verified run；遇到第一个没有 `PASS` 或 `PASS+NOTES` 的就停。独立 PR 不包含也不依赖下面那段代码时，先拿新 verdict 再单独落地。
 - **Babysit step 1**：先声明 `drive`、`background`、`threads-only` 或 `check`，再轮询；未声明默认 `drive`，但小 PR 或 docs-only 默认 `check`。
 - **Feature step 3**：写 throughput checkpoint（阻塞步骤、可并行工作流、共享可变状态、最小安全拆解），不适用也要留 `n/a`。
-- **Benchmark**：报告任何性能数字前走 `benchmark-checklist` 的七问。
+- **Benchmark**：正式报告走 `benchmark-checklist` 的七问；用户只要 ballpark 时至少答第 4、7 问，并说明只有一次运行。
 
 这些 gate 只在具体转移处生效，不是把 agent 变成每步都要请示的工作流引擎。
 

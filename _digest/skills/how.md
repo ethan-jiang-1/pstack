@@ -66,7 +66,7 @@
 
 ## 依赖关系
 
-- **上游**：`poteto-mode` 的 Investigation、Feature、Bug fix、Refactoring 都会先调用 `how`；`teach` 把 `how` 与 `why` 组合起来。
+- **上游**：`poteto-mode` 的 Investigation、Feature、Refactoring 在第 1 步调用 `how`；Bug fix 在第 2 步用 `how` 播种假设；`teach` 把 `how` 与 `why` 组合起来。
 - **下游**：`blast-radius` 在 `how` 的解释之上追跨模块影响；`architect` 在理解形状之后画目标形状。
 - **共享**：模型设置文件（两个角色）、`poteto-mode` 的 Subagents 规则（模型档位、后台、fresh）。
 - **对照**：`why` 回答动机，`how` 回答机制。两者可以并行，但不要互相替代。

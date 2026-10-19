@@ -10,7 +10,7 @@
 
 | 位置 | 回答什么 | 事实来源 | 允许写时间性内容 |
 |---|---|---|---|
-| `skills/**/SKILL.md`、`agents/`、`docs/guide/` | 今天实际会怎样 | 它们自己 | 只在自身的 CHANGELOG/历史里 |
+| `skills/**/SKILL.md`、`skills/poteto-mode/playbooks/`、`agents/`、`docs/guide/` | 今天实际会怎样 | 它们自己 | 只在自身的 CHANGELOG/历史里 |
 | [`_digest/`](./README.md) | 系统怎样组织、为什么这样拆 | 以上源码 | 否，只写当前态 |
 | [`_faq_on_digest/`](../_faq_on_digest/README.md) | 我此刻该怎么做 | 结论对齐源码 | 否，只写当前态 |
 | [`_handbook_for_agent_engineering/`](../_handbook_for_agent_engineering/README.md) | pstack 的概念与用法 | pstack 源码，逐页映射 | 否，只写当前态 |
@@ -48,7 +48,7 @@ origin/main          上游镜像线：Cursor 的 pstack 内容 + 镜像侧编�
    git diff --stat <上次同步的短 SHA>..main
    ```
 
-   重点看 `skills/**/SKILL.md`、`playbooks/`、`docs/guide/`、`plugin.json` 的版本号。新增或删除 skill、改 frontmatter、改 playbook 步骤，都会影响解读。
+   重点看 `skills/**/SKILL.md`、`skills/poteto-mode/playbooks/`、`docs/guide/`、`plugin.json` 的版本号。新增或删除 skill、改 frontmatter、改 playbook 步骤，都会影响解读。
 
 3. 并入消化层。
 
@@ -118,5 +118,5 @@ origin/main          上游镜像线：Cursor 的 pstack 内容 + 镜像侧编�
 2. 历史只写在 `_change_log`；当前页改写后要能脱离历史独立成立。
 3. FAQ 与 digest 不互相抄结论：FAQ 负责决策，digest 负责机制。
 4. handbook 只讲 pstack 自身的概念，不引入外部方法。
-5. 新增或删除 pstack skill 时，三处必须同时改：`_digest/skills/README.md`、对应单页、`_change_log` 的最新记录。
+5. 新增或删除非 principle 的 pstack skill 时，三处必须同时改：`_digest/skills/README.md`、对应单页、`_change_log` 的最新记录；`principle-*` 没有单页，改 `_digest/principles/README.md` 和 change-log 计数。
 6. 所有相对链接在提交前实际打开过。

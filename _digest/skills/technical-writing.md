@@ -10,7 +10,7 @@
 
 ## 它解决什么
 
-技术文档最常见的失败不是知道得少，而是类型错了：tutorial 里塞进 reference 表格，how-to 里开始教学，reference 里出现观点。第二常见的失败是句子没有对准读者：被动语态藏起动作的执行者，一句话塞两个念头，`this` 指代一整段，读者需要回读才能解析。
+技术文档最常见的失败不是知道得少，而是类型错了：tutorial 里塞进 reference 表格，how-to 里开始教学，reference 里出现观点。第二常见的失败是句子没有对准读者：被动语态藏起动作的执行者，一句话塞两个念头，`this` 指代整个从句，读者需要回读才能解析。
 
 "写得清楚"太模糊，无法逐句执行。`technical-writing` 把标准拆成层：结构层决定这份文档是什么，句法层决定每句话怎样落地，最后的判断标准只有一个，疲惫的工程师第一遍就能读懂。
 
@@ -24,7 +24,7 @@
 
 内容是指导行动（doing）还是帮助理解（thinking），服务学习还是工作。四象限给出 tutorial、how-to、reference、explanation。一个文档只用一个模式；这个罗盘既可以用在整篇，也可以用在单独一句话上。混模式要拆开并链接，不能靠过渡句糊过去。
 
-每个模式有自己的禁则。tutorial 对学习者的成功负责，每一步都要有可见结果，用 "we" 和命令式写，解释压到一句加一个链接。how-to 假设读者已经会了，只给动作，允许 "If you want x, do y" 的分叉，标题按任务命名（"How to calibrate the radar array"，不是 "Radar array calibration"）。reference 只描述，不指导、不说服、不发表意见，结构镜像被描述的对象，能生成就生成。explanation 是唯一允许观点的地方，围绕一个真实的 why 问题，标题前面能加上 "About..."。
+每个模式有自己的禁则。tutorial 对学习者的成功负责，每一步都要有可见结果，用 "we" 和命令式写，解释压到一句从句加一个链接。how-to 假设读者已经会了，只给动作，允许 "If you want x, do y" 的分叉，标题按任务命名（"How to calibrate the radar array"，不是 "Radar array calibration"）。reference 只描述，不指导、不说服、不发表意见，结构镜像被描述的对象，能生成就生成。explanation 是唯一允许观点的地方，围绕一个真实的 why 问题，标题前面能加上 "About..."。
 
 ### 3. Google 层：句子对着读者
 

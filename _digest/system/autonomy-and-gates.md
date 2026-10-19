@@ -32,7 +32,7 @@ grant 不覆盖的 call 按 product/preference call、operator-only call、named
 | Shipping step 2 | 从最低未合并 PR 向上连续的 verified run | 遇到第一个没有 `PASS` 或 `PASS+NOTES` 的就停；独立 PR 需新 verdict 才能单独落地 |
 | Babysit step 1 | 已声明 `drive` / `background` / `threads-only` / `check` | 未声明默认 `drive`；小 PR 或 docs-only 默认 `check` |
 | Feature step 3 | 四项 throughput checkpoint 都有值或 `n/a: <reason>` | 缺项不能进 fan-out |
-| Benchmark | `benchmark-checklist` 的七问都有真实运行的证据 | 只有一次运行就说只有一次；选项比较不算 ballpark |
+| Benchmark | 正式报告有 `benchmark-checklist` 七问的证据；ballpark 至少第 4、7 问 | 只有一次运行就说只有一次；选项比较不算 ballpark |
 | 长任务 | `show-me-your-work` 的轨迹与 transcript 对得上 | 补一行 supersede，不删历史 |
 
 这些 gate 的共同点是：条件能被工具输出、artifact、用户确认或状态标签证实。"我觉得理解了"不是条件。

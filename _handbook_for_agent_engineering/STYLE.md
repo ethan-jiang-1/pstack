@@ -16,7 +16,7 @@
 - patch-id、contiguous verified run
 - feature map
 - decision trail / decision log（`decisions.tsv`）
-- control surface / control skill（只指 `control-ui` / `control-cli`）
+- control surface / control skill（`control-ui` / `control-cli`，或项目本地的 `verify-*` skill）
 - Always pause
 - todo、`skip: <reason>`
 - role：`judgment and prose`、`hardest tasks`、`how explorer`、`how explainer`、`why investigators`、`why synthesizer`、`reflect tooling`、`reflect judgment, divergent, synthesizer`、`arena runners`、`arena cross-judge pool`、`swarm workers`、`architect runners`、`interrogate reviewers`
