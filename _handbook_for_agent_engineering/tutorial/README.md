@@ -43,7 +43,7 @@
 | [`04` 用 architect 画 public surface](./04-design-a-testable-shape.md) | Phase B 草图 | 一个 `not implemented` 草图 | 已重写 |
 | [`05` 把工作切小](./05-cut-work-into-delegable-units.md) | throughput checkpoint / plan | 四条 checkpoint 或一个 plan | 已重写 |
 | [`06` 用 tdd 先看见红](./06-build-a-feedback-loop.md) | red-green 与 skip | 一条先失败后通过的检查 | 已重写 |
-| [`07` 用 brief 派 subagent](./07-delegate-and-keep-control.md) | brief 八字段 | 一份可独立执行的 brief | 已重写 |
+| [`07` 用 brief 派 subagent](./07-delegate-and-keep-control.md) | brief 九字段 | 一份可独立执行的 brief | 已重写 |
 | [`08` 用 verdict 证明](./08-prove-the-promise.md) | verdict / patch-id | 非作者 `PASS` 或 `PASS+NOTES` | 已重写 |
 | [`09` 用 interrogate 评审](./09-review-for-merge.md) | 多模型评审与四桶 | 一个 lead verdict | 已重写 |
 | [`10` 把验证过的一段栈落地](./10-ship-observe-and-loop.md) | shipping / babysit | 一段 contiguous verified run | 已重写 |

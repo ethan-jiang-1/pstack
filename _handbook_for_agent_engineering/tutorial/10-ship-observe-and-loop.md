@@ -18,13 +18,13 @@ PR 都绿了，评审也过了。团队说"可以合了"。但绿 CI 不是 verd
 
 `shipping` 不信任绿 CI，也不信任作者自证。每个 PR 一个 verifier，verifier 不能是写这份代码的人，在真实表面跑用户路径，给出 `PASS`、`PASS+NOTES` 或 `FAIL`。源码：`shipping.md` step 1。
 
-### 3. 找 continuous verified run
+### 3. 找 contiguous verified run
 
-从最低未合并 PR 往上走，停在第一个没有 `PASS` 或 `PASS+NOTES` 的 PR。它下面的 PR 构成 contiguous verified run；上面的 PR 即使通过，也不能先合。源码：`shipping.md` step 2。
+从最低未合并 PR 往上走，停在第一个没有 `PASS` 或 `PASS+NOTES` 的 PR。它下面的 PR 构成 contiguous verified run；上面的 PR 默认不能先合。只有当一个 PR 既不包含也不依赖下面那段代码时，才可以先移到 trunk 单独落地，并且要先拿新的 verdict。源码：`shipping.md` step 2。
 
 ### 4. 检查 patch-id
 
-rebase 会改 SHA，但补丁可能不变。用 `git patch-id` 比较 verdict 时的 SHA 和当前 head；补丁不同就重新验证。源码：`shipping.md` step 3。
+rebase 会改 SHA，但补丁可能不变。用 `git patch-id` 比较 verdict 时的 SHA 和当前 head；补丁不同时，只有测试、文档或 lint config 的差异且 lane 在两边构建等价时，旧结果才可以保留。改动本身仍要新检查和新评审。源码：`shipping.md` step 3。
 
 ### 5. 自底向上，一次合一个
 

@@ -1,6 +1,6 @@
-# 评审变更是否值得合入
+# 用 `interrogate` 评审
 
-> 教程 09 / 12 · 上一页：[08 证明兑现的是原承诺](./08-prove-the-promise.md) · 下一页：[10 把验证过的一段栈落地](./10-ship-observe-and-loop.md)
+> 教程 09 / 12 · 上一页：[08 用 verdict 证明](./08-prove-the-promise.md) · 下一页：[10 把验证过的一段栈落地](./10-ship-observe-and-loop.md)
 
 ## 眼前困惑
 
@@ -13,7 +13,7 @@ P2 的导出 PR 已经打开。diff 不大，测试绿了，执行者说"按 bri
 
 问题不在于你读得不够仔细，而在于读的人只有一个模型。你自己的盲点会原样留在结论里，而一个没写这份代码的模型不会共享这些盲点。
 
-pstack 用 `interrogate` 做这件事：同一段 diff、同一段 intent，发给多个模型；每个模型独立挑错；再由 lead reviewer 按工程判断收成一个结论。它不投票，也不自动改代码。
+pstack 用 `interrogate` 做这件事：同一段 diff、同一段 intent，发给多个 reviewer（尽量不同模型）；每个独立挑错；再由 lead reviewer 按工程判断收成一个结论。它不投票，也不自动改代码。
 
 源码：`skills/interrogate/SKILL.md`。
 

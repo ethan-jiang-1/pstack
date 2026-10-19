@@ -45,13 +45,13 @@ Verify, live: 在真实导出页勾选 3 行，下载并打开文件，数行数
 
 源码：`skills/poteto-mode/playbooks/multi-phase-plan.md`、`skills/poteto-mode/playbooks/feature.md`。
 
-### 5. 用 `tdd` 和真实表面各给一条证据
+### 5. 用 unit 测试和真实表面各给一条证据
 
-data shape 定完后，验证分两层：有便宜测试路径就 `tdd` 写 unit 证据；用户可见行为还要在真实表面跑一条路径。两者不是二选一：测试只证明分支行为，真实表面证明用户路径。验证方式在下一页和教程 06 展开。
+data shape 定完后，验证分两层：有便宜测试路径就写一条 unit 测试；`tdd` 只在它的触发条件成立时用（教程 06）。用户可见行为还要在真实表面跑一条路径。两者不是二选一：测试只证明分支行为，真实表面证明用户路径。验证方式在下一页和教程 06 展开。
 
 ## 可见成果
 
-一张输入 / 输出 / 失败出口的 data shape，加 `You see` 和 unit / live 两条验证。
+一张输入 / 输出 / 失败出口的 data shape，加 `You see` 与 unit / live / perf 三处验证（不适用时写 `n/a`）。
 
 ## 休息点
 

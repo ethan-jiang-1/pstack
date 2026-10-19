@@ -26,11 +26,11 @@ verifier 不能是写这份代码的人。它在真实表面上跑用户路径�
 
 ### 3. 只有 `PASS` 或 `PASS+NOTES` 才算通过
 
-落地时从最低未合并 PR 往上，取连续有 `PASS` 或 `PASS+NOTES` 的一段。第一个没有 `PASS` 或 `PASS+NOTES` 的 PR 就是停止点；它上面的 PR 即使通过，也不能先合。源码：`shipping.md` step 2。
+落地时从最低未合并 PR 往上，取连续有 `PASS` 或 `PASS+NOTES` 的一段。第一个没有 `PASS` 或 `PASS+NOTES` 的 PR 就是停止点；它上面的 PR 默认不能先合。只有当一个 PR 既不包含也不依赖下面那段代码时，才可以先移到 trunk 单独落地，并且要先拿新的 verdict。源码：`shipping.md` step 2。
 
 ### 4. rebase 后检查 patch-id
 
-rebase 会改提交 SHA，但补丁内容可能不变。用 `git patch-id` 比较 verdict 时的 SHA 和当前 head：补丁相同，旧 verdict 仍覆盖；补丁不同，重新验证。源码：`shipping.md` step 3。
+rebase 会改提交 SHA，但补丁内容可能不变。用 `git patch-id` 比较 verdict 时的 SHA 和当前 head：补丁相同，旧 verdict 仍覆盖；补丁不同，先按 step 3 判断——只有测试、文档或 lint config 的差异，且 lane 在两边构建等价时，旧结果可以保留。改动本身仍要新检查和新评审。源码：`shipping.md` step 3。
 
 ### 5. 把证据写进回复
 
@@ -38,7 +38,7 @@ rebase 会改提交 SHA，但补丁内容可能不变。用 `git patch-id` 比�
 
 ## 可见成果
 
-一个来自非作者 verifier 的 `PASS` 或 `PASS+NOTES`，加一条 patch-id 检查。它不叫"承诺-证据对照表"；它就是 verdict 加证据。
+一个来自非作者 verifier 的 `PASS` 或 `PASS+NOTES`，加一条 patch-id 检查。它就是 verdict 加证据。
 
 ## 休息点
 

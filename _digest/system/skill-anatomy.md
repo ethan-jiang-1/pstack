@@ -43,7 +43,7 @@ color: yellow
 正文没有固定模板，常见的有：
 
 - **编号步骤。** playbook 和大多数 skill 用编号步骤推进状态，步骤带完成条件与失败出口。例：`bug-fix` step 1 在 matching surface 上复现；`shipping` step 1 要独立 verdict；`babysit` step 1 先声明 mode。
-- **Phase 名。** `arena`、`swarm`、`reflect` 用 Phase A/B/C 或 1-6，阶段名本身就是进度状态。
+- **Phase 名。** `arena` 用 Phase A–F，`swarm` 用 Phase A–D，`reflect` 用编号 1–6；阶段名本身就是进度状态。
 - **规则表。** `unslop`、`typescript-best-practices`、`benchmark-checklist` 是规则表，不推进状态，只约束判断。`unslop` 的编号是稳定 id，删一条要留空号，别处会引用 "unslop rule 14"。
 - **`Reply:` 行。** 规定交付文本必须包含什么。`bug-fix` 要求 what was broken、root cause、fix、how you verified，并逐字粘贴失败到通过的输出。
 

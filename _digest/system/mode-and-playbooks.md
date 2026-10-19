@@ -56,7 +56,7 @@ playbook 的约束不是结尾一句"请谨慎"，而是步骤内的可检查条
 - **Bug fix step 2**：存活的机制有运行时证据；继续二分，不猜。
 - **Shipping step 1**：每个 PR 由没写这份代码的 verifier 独立验证，`PASS` 或 `PASS+NOTES` 才算数；绿 CI 和 bot approval 都不是 verdict。
 - **Shipping step 2**：只落地从最低未合并 PR 向上的 contiguous verified run；遇到第一个没有 `PASS` 或 `PASS+NOTES` 的就停。
-- **Babysit step 1**：先声明 `drive`、`background`、`threads-only` 或 `check`，再轮询；未声明默认 `drive`。
+- **Babysit step 1**：先声明 `drive`、`background`、`threads-only` 或 `check`，再轮询；未声明默认 `drive`，但小 PR 或 docs-only 默认 `check`。
 - **Feature step 3**：写 throughput checkpoint（阻塞步骤、可并行工作流、共享可变状态、最小安全拆解），不适用也要留 `n/a`。
 - **Benchmark**：报告任何性能数字前走 `benchmark-checklist` 的七问。
 
@@ -66,7 +66,7 @@ playbook 的约束不是结尾一句"请谨慎"，而是步骤内的可检查条
 
 `Opening a PR` 自称在每个其他 playbook 的结尾被调用。它统一了 worktree、提交顺序、PR 形状、forge 选择、栈的规则和"开 PR 不等于开始 babysit"。
 
-源码内部有一条张力：Investigation、Runtime forensics、Trace forensics 和 Pause safely 明确不开 PR，但 `opening-a-pr` 的描述写的是 "every other playbook"。合理读法是：它是需要交付改动时的默认收尾，不是无条件收尾。这让"最后一个步骤"只有一个事实来源。
+源码内部有一条张力：Investigation 和 Pause safely 明确说不开 PR；Runtime forensics 与 Trace forensics 只做诊断、未经要求不改代码；但 `opening-a-pr` 的描述写的是 "every other playbook"。合理读法是：它是需要交付改动时的默认收尾，不是无条件收尾。这让"最后一个步骤"只有一个事实来源。
 
 ## 边界
 

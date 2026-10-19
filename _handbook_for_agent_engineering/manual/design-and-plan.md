@@ -198,8 +198,10 @@ Smallest safe decomposition. 如果一个 worker 最好，写明为什么。
 
 跨多个 PR 时再加一份 `multi-phase-plan` 的 plan 文件。它的骨架是固定的：
 
-- program checklist：arm the program、spawn owners、每个 PR 的 PR mechanics、verdict 与 merge、live lane 的 boot recipe；
+- 固定标题：`## How to read this`、`## Program checklist`、`## <Task as a verb phrase> (<PR id>)`、`## Close the program`、`## Appendix A–D`；`check-plan.mjs` 缺标题会失败；
+- Program checklist：arm the program、spawn owners、每个 PR 的 PR mechanics、verdict 与 merge、live lane 的 boot recipe；
 - 每个 PR 一节：`Task as a verb phrase (<PR id>)`、Depends on、Files、Build、You see、Verify, unit / Verify, live / Verify, perf、Review gate、Merge；
+- Close the program：最终 drain、reconcile、predicate、verdict、trail audit、preferences；
 - Appendix A 到 D：prototype 证据、被拒的备选、风险、链接与阅读清单。
 
 一个 box 是一段工作；每个 box 点名检查它的证据；证据存在才勾。（`skills/poteto-mode/playbooks/multi-phase-plan.md`）

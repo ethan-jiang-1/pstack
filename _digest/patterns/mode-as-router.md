@@ -9,7 +9,7 @@
 - SKILL.md 的 Playbooks 一节列 23 个标题与各自适用情形。匹配后打开 `playbooks/<title>.md`，标题转 kebab-case（保留连字符，去掉其他标点）。条目自带文件的用它的文件：`playbooks/authoring-a-skill.md`、`playbooks/multi-phase-plan.md`、`playbooks/worktree-cleanup.md`。
 - 步骤逐字复制，不概括。不做的步骤留在 todo 里，写一行 `skip: <reason>`。
 - 没有自带的 playbook 覆盖，或工作大到横跨多个 call site 时，走 `figure-it-out`。工作是持续数天、几十上百个 subagent 的项目时，走 `orchestrate`。一个任务跑到某个 predicate 停，走 `autonomous-run`。
-- SKILL.md 的 Non-negotiables 是第二处选择点：设计没把握进 `architect`，并行 fan-out 进 `swarm`，设计或代码 bakeoff 进 `arena`，有争议的设计进 `interrogate`，任何文字进 `unslop`。
+- SKILL.md 的 Non-negotiables 是第二处选择点：非平凡改动、架构决定或"确定吗"进 `how`；代码跨函数边界进 `architect`；并行 fan-out 进 `swarm`；设计或代码 bakeoff 进 `arena`；有争议的设计进 `interrogate`；任何文字进 `unslop`。
 
 源码：[`skills/poteto-mode/SKILL.md#playbooks`](../../skills/poteto-mode/SKILL.md#playbooks)、[`playbooks/`](../../skills/poteto-mode/playbooks/)。
 
@@ -29,7 +29,7 @@
 
 - 23 个标题不是 23 个显而易见的区别。`babysit` 与 `shipping`、`autonomous-run` 与 `orchestrate` 的边界要读描述才知道。
 - 选错会放大。长流程里选错 playbook，代价远大于一次普通回答选错。
-- 依赖安装完整度。mode 需要大多数 skill 在场，少一个就可能走到断链的步骤。
+- 缺工具时的 fallback。缺 `deslop`、`control-cli`、`control-ui` 时，按 Harness 一节自己补，而不是假设它们都在。
 - 没有机械校验。"逐字复制"靠执行者遵守，没有脚本比对 todo 与 playbook。
 
 ## 关键洞察

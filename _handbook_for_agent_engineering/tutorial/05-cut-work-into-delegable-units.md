@@ -1,6 +1,6 @@
 # 把工作切成可委派的单元
 
-> 教程 05 / 12 · 上一页：[04 设计一个可测试的形状](./04-design-a-testable-shape.md) · 下一页：[06 用 tdd 先看见红](./06-build-a-feedback-loop.md)
+> 教程 05 / 12 · 上一页：[04 用 architect 画 public surface](./04-design-a-testable-shape.md) · 下一页：[06 用 tdd 先看见红](./06-build-a-feedback-loop.md)
 
 ## 眼前困惑
 
@@ -34,7 +34,7 @@
 
 ### 2. 一个 PR 是一个 section，自带证据
 
-一处变更跨多个 PR 时，用 `multi-phase-plan` 写计划。它的骨架把每个 PR 写成一段，字段是 **Depends on / Files / Build / You see / Verify, unit / Verify, live / Verify, perf / Merge**。规则是一句话："One PR is one change with its own evidence." 源码：`skills/poteto-mode/playbooks/multi-phase-plan.md` 第 4 步与骨架。
+一处变更跨多个 PR 时，用 `multi-phase-plan` 写计划。它的骨架把每个 PR 写成一段，字段是 **Depends on / Files / Build / You see / Verify, unit / Verify, live / Verify, perf / Review gate / Merge**。规则是一句话："One PR is one change with its own evidence." 源码：`skills/poteto-mode/playbooks/multi-phase-plan.md` 第 4 步与骨架。
 
 | PR | Depends on | Files | You see | Verify（unit / live / perf） |
 |---|---|---|---|---|
@@ -42,13 +42,15 @@
 | P2 | P1 | `export-page/` | 无勾选时按钮禁用并提示；删 1 行后结果标注该 id | unit：组件测试；live：`control-ui` 走这两种状态 |
 | P3 | none | `exporter/regression.test.ts` | 全量导出行为不变 | unit + live：trunk 与 head 各跑一次全量导出 |
 
+P2 改了交互（无勾选时按钮禁用并提示），所以带 **Review gate**：operator 在 merge 前看截图和视频，停在 merge-ready。P1 与 P3 不改交互，写 `Review gate. None.`。
+
 **You see** 必须是能看见的结果，不是"改完了"。框只在证据存在时才勾：一个文件、一行日志、一张截图、一次测试运行或一个 SHA。源码：骨架的 How to read 段。
 
 ### 3. 从 Depends on 读出当前 ready work
 
 P1 和 P3 没有未完成的前置，是当前 **ready work**；P2 等 P1。ready work 不是"最重要的那一段"，而是"现在就能开始的那一段"。
 
-`orchestrate` 在每轮排空后重新计算 ready work，并在依赖图里写明：依赖的工作等父 PR 合并后再开始，执行 playbook 允许 stacking 时也可以基于父分支。源码：`skills/poteto-mode/playbooks/orchestrate.md` 的 Steps 与 Spawn owners。
+`orchestrate` 在每轮排空后重新计算 ready work，并在依赖图里写明：依赖的工作等父 PR 合并后再开始，执行 playbook 允许 stacking 时也可以基于父分支。源码：`skills/poteto-mode/playbooks/multi-phase-plan.md` 的 Spawn owners；`skills/poteto-mode/playbooks/orchestrate.md` Steps 第 4 步（Recompute ready work）。
 
 ready work 不是 frontier。frontier 只指 PR 栈的合并前沿，`babysit` 每轮只处理最低的未合并 PR。源码：`skills/poteto-mode/playbooks/babysit.md` 第 2 步、`orchestrate.md#Stack safety`。
 
@@ -78,7 +80,7 @@ todo 里的 checkpoint，加一份按 PR 分段的计划：
 ```text
 throughput checkpoint
 - [x] 阻塞先行：OrderExporter.export 与 ExportResult 先定
-- [x] 独立工作流：三段各写各的文件
+- [x] 独立工作流：P1 与 P3 各写各的文件；P2 等 P1 合入后再动 `export-page/`
 - [x] 共享可变状态：接口只定一次，每段一个 branch
 - [x] 最小安全切分：一个 feature 一个 owner，阻塞步骤后 owner 自己 fan-out
 
@@ -92,6 +94,6 @@ throughput checkpoint
 
 ## 下一段
 
-下一页 [06 用 tdd 先看见红](./06-build-a-feedback-loop.md)，会拿当前 ready work 里的 P1，按 `tdd` 先让一条检查因为正确的原因失败，再写最小实现。
+下一页 [06 用 tdd 先看见红](./06-build-a-feedback-loop.md)：如果 P1 里有一个能便宜复现的 bug，按 `tdd` 先红后绿；如果只是 feature，直接写 unit 测试，再进入实现。
 
 想先看完整方法，查 [手册：设计与计划](../manual/design-and-plan.md)；想回到教程起点，见 [教程地图](./README.md)。

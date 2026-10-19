@@ -16,9 +16,9 @@ pstack 的触发条件是：任何 code crossing a function boundary，先跑 `a
 
 ### 2. 看每个候选的 public surface
 
-public surface 是调用者和测试共同跨越、观察外部行为的位置。它应该是窄的：调用者正确使用模块必须知道的全部事实，包括可表达的业务意图、可观察结果、不变量、顺序约束、错误方式和必要配置。源码：`skills/architect/SKILL.md#Phase-B-Sketch`。
+Phase B 用 interface depth 比较候选：优先选把更多复杂度藏在更小、更简单 public surface 后面的设计。一个丰富的 interface 可以把能力集中起来，让调用链更短，而不是把能力散到多层。源码：`skills/architect/SKILL.md#Phase-B-Sketch`。
 
-如果测试必须越过 public surface 去读私有状态，说明 surface 太深，或者状态放错了位置。
+如果测试必须越过 public surface 去读私有状态，说明 public surface 没有暴露要观察的行为（shallow module），或者状态放错了位置。
 
 ### 3. 要 `not implemented` 草图，不要实现
 
@@ -26,19 +26,19 @@ public surface 是调用者和测试共同跨越、观察外部行为的位置�
 
 ### 4. 查 design red flags
 
-`skills/architect/references/design-red-flags.md` 列了常见红旗：shallow module、pass-through wrapper、隐藏的共享状态、过早抽象。候选在 Phase B 之后用这份清单过一遍。
+`skills/architect/references/design-red-flags.md` 列了八类红旗：shallow module、information leakage、temporal decomposition、pass-through method、split ownership、two ways to do one task、importable internals、hand-synced list。每个候选在 Phase B 综合之前用这份清单过一遍。
 
 ### 5. 在实现前做一次对抗压力
 
-如果形状有争议，跑 `interrogate` 对综合草图施压；这是可选的，但它比实现后再返工便宜。源码：`skills/architect/SKILL.md`（Phase C）。
+如果形状有争议，跑 `interrogate` 对综合草图施压；它比实现后再返工便宜。Phase C 的人工 checkpoint 才是可选的。源码：`skills/architect/SKILL.md`（Phase C）。
 
 ### 6. 选定后，实现仍按 playbook 走
 
-`architect` 只到草图。实现、验证、提交顺序仍由当前 playbook 的步骤决定；不要用草图替代 todo 里的门。
+本页只取 `architect` 的 Phase B 草图；Phase D 的实现和提交仍按当前 playbook 走。不要用草图替代 todo 里的门。
 
 ## 可见成果
 
-一个 `architect` 草图：public surface、`not implemented` 函数体、不变量、失败出口，以及一份 rationale。它不叫"模块形状卡"，也不需要另起名字。
+一个 `architect` 草图：public surface、`not implemented` 函数体、不变量、失败出口，以及一份 rationale。
 
 ## 休息点
 

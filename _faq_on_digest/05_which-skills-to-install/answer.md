@@ -42,7 +42,8 @@ README 的依赖表是入口，但它是人工维护的，可能滞后。源码�
 | Cursor | `.cursor/skills/` | `~/.cursor/skills/` |
 | Claude Code | `.claude/skills/` | `~/.claude/skills/` |
 | Pi | `.pi/skills/` | `~/.pi/agent/skills/` |
-| Codex / OpenCode / 其他 | `.agents/skills/` | `~/.agents/skills/` |
+| Codex | `.agents/skills/` | `~/.codex/skills/` |
+| OpenCode / 其他 | `.agents/skills/` | `~/.agents/skills/` |
 
 模型设置文件是另一条路径，见 [04](../04_model-panel-and-budget/answer.md)。
 

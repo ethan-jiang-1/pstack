@@ -66,7 +66,7 @@ operator 第三次说"你又把 missing 行静默丢了"。每次修完当前 di
 3. synthesizer 用 MCP 抽查引用，按固定判据筛：
    - durability、specificity、existing-skill-first、convergence、decision-changing；
    - structural-mechanism check：能由 lint、脚本、元数据或运行时检查更可靠执行的，路由到 Backlog；
-   - skill-was-used：只接受能路由到本会话真用过的 skill、工具或 MCP 的 finding；
+   - skill-was-used：只接受能路由到本会话真用过的 skill、工具或 MCP 的 finding；如果 skill 该用却没用，路由到 `tune description: <skill path>`；两者都不满足，拒绝为 `skill-not-used`；
    - already-covered：接受任何正文改动前先读目标 skill。
 4. 展示完整的 Accepted / Rejected / Backlog，等明确批准后才应用 Accepted。
 5. Backlog 直接进团队的 devex / backlog tracker，不等批准。

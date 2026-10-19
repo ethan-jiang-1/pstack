@@ -9,13 +9,13 @@
 | 你现在的感觉 | 先读 | 你会拿到 |
 |---|---|---|
 | 请求说不清，不知道 prompt 写什么 | [1.1 prompt 的五项](./define.md) | 一条能进 mode 的 prompt |
-| 不知道用 mode 还是单 skill | [1.2 mode 与 playbook](./define.md) | 入口选择与 todo |
+| 不知道用 mode 还是单 skill | [1.2 mode、playbook 与 todo](./define.md) | 入口选择、todo 与 skip |
 | 不知道该不该问人 | [1.3 AskQuestion 分类](./define.md) | 问 / 不问的判断 |
 | 写代码前不知道 data shape | [2.1 先给数据一个形状](./design-and-plan.md) | 输入、输出、失败出口 |
 | 代码跨函数边界，不知道接口怎么定 | [2.2 architect Phase B](./design-and-plan.md) | public surface 与 `not implemented` 草图 |
 | 工作太大，不知道怎样切 | [2.3 throughput checkpoint 与 plan](./design-and-plan.md) | `feature` step 3 与 `multi-phase-plan` |
 | 派了 subagent，回来失控 | [3.1 Subagents 默认值](./delegate-and-collaborate.md) | 默认值与父 agent 复核 |
-| brief 写完还是做偏 | [3.2 brief 八字段](./delegate-and-collaborate.md) | GOAL / SCOPE / … / REPORT |
+| brief 写完还是做偏 | [3.2 brief 九字段](./delegate-and-collaborate.md) | GOAL / … / REPORT / STANDING |
 | 不知道 fresh 还是 resume | [3.3 fresh、resume 与角色](./delegate-and-collaborate.md) | 判断与 role line |
 | 多个 agent 跑多天 program | [3.4 orchestrate roles](./delegate-and-collaborate.md) | coordinator / worker / verifier 与单一 stacker |
 | 测试绿了但不确定兑现 | [4.1 tdd](./verify.md) / [4.2 prove-it-works](./verify.md) | 红绿检查或真实表面证据 |
@@ -33,9 +33,9 @@
 ### [1 定义：prompt、mode 与 todo](./define.md)
 
 1.1 prompt 的五项。
-1.2 mode 与 playbook。
+1.2 mode、playbook 与 todo。
 1.3 AskQuestion 分类。
-1.4 todo、`skip` 与回复形状。
+1.4 brief；pstack 不写 spec。
 
 ### [2 设计与计划：data shape、architect、feature](./design-and-plan.md)
 
@@ -46,7 +46,7 @@
 ### [3 委派：Subagent 与 brief](./delegate-and-collaborate.md)
 
 3.1 Subagents 默认值。
-3.2 brief 八字段。
+3.2 brief 九字段。
 3.3 fresh、resume 与角色。
 3.4 `orchestrate` 的 roles、one writer 与单一 stacker。
 

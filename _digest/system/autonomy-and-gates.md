@@ -30,7 +30,7 @@ grant 不覆盖的 call 按 product/preference call、operator-only call、named
 | Bug fix step 2 | 存活的机制有运行时证据 | 继续二分，不猜 |
 | Shipping step 1 | 每个 PR 有一个没写这份代码的 verifier 的 `PASS` 或 `PASS+NOTES` | 没有 verdict 或只有 `FAIL` 的 PR 不进入落地序列 |
 | Shipping step 2 | 从最低未合并 PR 向上连续的 verified run | 遇到第一个没有 `PASS` 或 `PASS+NOTES` 的就停 |
-| Babysit step 1 | 已声明 `drive` / `background` / `threads-only` / `check` | 未声明默认 `drive` |
+| Babysit step 1 | 已声明 `drive` / `background` / `threads-only` / `check` | 未声明默认 `drive`；小 PR 或 docs-only 默认 `check` |
 | Feature step 3 | 四项 throughput checkpoint 都有值或 `n/a: <reason>` | 缺项不能进 fan-out |
 | Benchmark | `benchmark-checklist` 的七问都有真实运行的证据 | 只有一次运行就说只有一次；选项比较不算 ballpark |
 | 长任务 | `show-me-your-work` 的轨迹与 transcript 对得上 | 补一行 supersede，不删历史 |

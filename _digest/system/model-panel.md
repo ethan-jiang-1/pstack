@@ -77,7 +77,7 @@ arena runners: claude-opus-5-5-xhigh, grok-4.7-xhigh-fast
 1. 设置文件或该行缺失：用 skill 内的默认值。
 2. 值是 `auto` / `inherit-parent`：省略 `model`，跟随父会话。
 3. 调整后的 slug 被 harness 拒绝：用 role line 或默认值，并说明。
-4. 默认值也被拒绝：用错误信息或 harness 模型列表里同家族、同档位最近的 slug；仍不行就报告。降级必须可解释，不悄悄换家族。
+4. 默认值也被拒绝：用错误信息或 harness 模型列表里同家族最近的 slug，并说明。降级必须可解释，不悄悄换家族。
 
 ## 边界
 

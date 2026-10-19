@@ -9,7 +9,7 @@
 | 单元 | 卡点 | 带走 |
 |---|---|---|
 | 3.1 | 不知道 subagent 默认该怎样跑 | `poteto-mode#Subagents` 的默认值 |
-| 3.2 | brief 写完，worker 还是做偏 | 八字段 brief |
+| 3.2 | brief 写完，worker 还是做偏 | brief 的九个字段 |
 | 3.3 | 该新开还是续用？角色模型怎么选？ | fresh / resume 判断与 role line |
 
 ---
@@ -24,7 +24,7 @@ pstack 的 Subagents 一节先把默认值定死：后台运行、agent 模式�
 
 ### 做法
 
-- code-writing 的委派默认用 `poteto-agent`。`how`、`why`、`interrogate`、`reflect`、`swarm` 自带 `subagent_type`，不被覆盖。
+- playbook 步骤里的任何 subagent 默认用 `poteto-agent`，不只是写代码。`how`、`why`、`interrogate`、`reflect`、`swarm` 自带 `subagent_type`，不被覆盖。
 - 默认后台运行（`run_in_background: true`），agent 模式；`readonly` 会剥掉 MCP，除非 skill 明确要只读，否则不要加。
 - 给文件指针，不把整段上下文内联。
 - 每个角色显式指定模型；难度决定 effort，参考 `setup-pstack` 的 role lines。
@@ -42,40 +42,41 @@ pstack 的 Subagents 一节先把默认值定死：后台运行、agent 模式�
 
 ---
 
-## 3.2 brief 的八个字段
+## 3.2 brief 的九个字段
 
 ### 工作情境
 
 你写了一句"把勾选导出做完"，worker 做出来的东西和你想的不一样。它不能反问你，只能按自己的默认值补。
 
-`orchestrate` 的 brief 有八个字段，缺一个就少一个约束。源码：`skills/poteto-mode/playbooks/orchestrate.md#The brief`。
+brief 有九个字段，缺一个就不能 spawn；缺字段是拒绝条件，不是少一个约束。`STANDING` 把 `preferences.md` 逐字贴进去。源码：`skills/poteto-mode/playbooks/orchestrate.md#The brief`。
 
 ### 带走什么
 
 ```text
 GOAL: 要改变什么，为谁。
 SCOPE: 哪些文件、模块、层；不做什么。
-CONTEXT: 权威输入在哪；指路径，不内联。
+CONTEXT: 文件和 PR 的指针；依赖的上游报告逐字粘贴，因为 worker 看不到兄弟。
 ACCEPTANCE: 什么算完成，能通过或失败。
 VERIFY: 跑什么命令、看什么表面、贴什么输出。
-TIMEBOX: 一个 session，还是更长。
+TIMEBOX: 运行时间上限；到点返回部分发现并停下，不要跑过头。
 FORBIDDEN: 不许动什么；不许加什么依赖。
-REPORT: 回来时必须给什么。
+REPORT: status、branch、head SHA、PR、verdict、实际跑了什么、偏离、建议的后续。
+STANDING: <preferences.md 原文，逐字贴入>
 ```
 
 ### 做法
 
 1. 先写 GOAL 和 ACCEPTANCE。写不出 ACCEPTANCE，说明工作还没切开。
 2. SCOPE 和 FORBIDDEN 分开写。SCOPE 说"做哪里"，FORBIDDEN 说"哪里不能碰"。
-3. CONTEXT 只给指针：spec、issue、文件路径、上一个 agent 的报告。不要把整段聊天粘进去。
+3. CONTEXT 用文件和 PR 指针；依赖的上游报告逐字粘贴，因为 worker 看不到兄弟。不要把整段聊天粘进去。
 4. VERIFY 写成可执行命令或可观察表面。`prove-it-works` 认的是真实产物，不是"我跑过了"。
-5. REPORT 规定回来时的形状：改了哪些文件、跑了什么、结果、未解风险。
+5. REPORT 规定回来时的形状：status、branch、head SHA、PR、verdict、实际跑了什么、偏离、建议的后续。
 
 源码里有一句判断标准：A field you cannot fill is a unit you have not scoped yet。
 
 ### 质量门
 
-- 八个字段都有值；没有"待定"。
+- 九个字段都有值。
 - ACCEPTANCE 能通过或失败。
 - VERIFY 是命令或真实表面，不是"检查一下"。
 - FORBIDDEN 至少挡住一种扩大解释。
@@ -113,10 +114,10 @@ pstack 的默认是 fresh：新任务带 consolidated scope（原始 brief、后
 
 ### 做法
 
-- **Coordinator（本地）**：只写 brief、排空 inbox、维护 human report、做判断；绝不写代码。冲突合并、chain rebase、代码改动都是 task。
+- **Coordinator（本地）**：写 brief、排空 inbox、维护 human report、做判断；绝不写代码。冲突合并、chain rebase、代码改动都是 task。
 - **Sub-coordinator**：只在 program 超过一个 coordinator 的 drain 能力时加；每条 track 一个，持久、本地。它能自己 drain 的 track 不需要中间层；嵌套最多 3 层。
 - **Worker / verifier**：默认 cloud，除非任务需要本机（`control-ui` / `control-cli`、本地 transcript、模拟器、只在本机的 auth）。一个 worktree 或 branch 一个写者；verifier 与 worker 不同模型家族。
-- **brief 是产品**：每个 spawn 都带完整八字段；填不出的字段说明 unit 还没切好。
+- **brief 是产品**：每个 spawn 都带完整九字段 brief；填不出的字段说明 unit 还没切好。
 - **状态**：`units.tsv` 一行一个 unit；读写走 `scripts/orch/orch.ts`，一条命令进、一行出。
 - **协作**：`preferences.md` 记团队偏好；单一 stacker 处理文本冲突；coordinator 不做代码冲突。
 

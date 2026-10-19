@@ -10,9 +10,9 @@ pstack 的 subagent 默认值是：后台运行、agent 模式（`readonly` 会�
 
 ## 现在动作
 
-### 1. 写 brief 的八个字段
+### 1. 写 brief 的九个字段
 
-`orchestrate` 的 brief 是 GOAL / SCOPE / CONTEXT / ACCEPTANCE / VERIFY / TIMEBOX / FORBIDDEN / REPORT。每个字段都要能独立读懂：
+brief 是 GOAL / SCOPE / CONTEXT / ACCEPTANCE / VERIFY / TIMEBOX / FORBIDDEN / REPORT / STANDING。每个字段都要能独立读懂：
 
 ```text
 GOAL: 让勾选导出只导出选中的行。
@@ -23,11 +23,12 @@ VERIFY: pnpm test exporter；再跑一次真实导出，贴行数。
 TIMEBOX: 一个 session。
 FORBIDDEN: 不改 CSV 列顺序；不加新依赖；不动权限。
 REPORT: 改了哪些文件、跑了什么、结果、未解风险。
+STANDING: <preferences.md 原文，逐字贴入>
 ```
 
 源码：`skills/poteto-mode/playbooks/orchestrate.md#The brief`。
 
-缺字段的 brief 会安静地失败，因为 worker 不能反问你。源码里有一句很直白：A field you cannot fill is a unit you have not scoped yet。
+填不出的字段说明 unit 还没切好，先不要 spawn；含糊的 brief 会安静地失败，因为 worker 不能反问你。源码里有一句很直白：A field you cannot fill is a unit you have not scoped yet。
 
 ### 2. 默认开 fresh subagent
 
@@ -47,7 +48,7 @@ pstack 的 `control surface` / `control skill` 指 `control-ui`、`control-cli` 
 
 ## 可见成果
 
-一份八字段 brief，加一个明确的 subagent 类型与 fresh/resume 选择。
+一份九字段 brief，加一个明确的 subagent 类型与 fresh/resume 选择。
 
 ## 休息点
 

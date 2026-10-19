@@ -25,9 +25,9 @@
 
 | 章 | 单元 | 主要源码 |
 |---|---|---|
-| 1 Prompt、mode 与 todo | 1.1 prompt 五项；1.2 mode/playbook；1.3 todo、skip 与回复；1.4 AskQuestion 分类 | `docs/guide/02`、`poteto-mode` |
+| 1 Prompt、mode 与 todo | 1.1 prompt 五项；1.2 mode/playbook/todo/skip；1.3 AskQuestion 分类；1.4 brief 与 spec 边界 | `docs/guide/02`、`poteto-mode` |
 | 2 Architect、feature 与 multi-phase-plan | 2.1 data shape；2.2 architect Phase B；2.3 feature step 3 + multi-phase plan | `architect`、`feature.md`、`multi-phase-plan.md` |
-| 3 Subagent 与 brief | 3.1 Subagents 默认值；3.2 brief 八字段；3.3 fresh / resume；3.4 orchestrate roles | `poteto-mode#Subagents`、`orchestrate.md` |
+| 3 Subagent 与 brief | 3.1 Subagents 默认值；3.2 brief 九字段；3.3 fresh / resume；3.4 orchestrate roles | `poteto-mode#Subagents`、`orchestrate.md` |
 | 4 验证与 verdict | 4.1 tdd；4.2 prove-it-works；4.3 benchmark-checklist；4.4 verdict / patch-id / contiguous run | `tdd`、`prove-it-works`、`benchmark-checklist`、`shipping.md` |
 | 5 评审与落地 | 5.1 interrogate；5.2 no-comments；5.3 shipping；5.4 babysit / session pickup / pause safely | `interrogate`、`no-comments`、`shipping.md`、`babysit.md`、`session-pickup.md`、`pause-safely.md` |
 | 6 环境 | 6.1 correct；6.2 reflect；6.3 encode-lessons-in-structure + create/maintain-verification-skill | `correct`、`reflect`、`encode-lessons-in-structure`、`create-verification-skill` |

@@ -48,7 +48,6 @@ Cursor 自动加载 `~/.cursor/rules/pstack-models.mdc`。别处由 `/setup-psta
 - 同一段映射在多处重复。上游改一处，本地要跟多处。
 - 没有单一事实来源，几份映射会逐渐不一致。
 - "能跑"不等于"等价"。没有云端 agent，隔离假设就变了；没有 control skill，验证走的是另一条路径。
-- 部分 harness 不执行某些 frontmatter，例如 `disable-model-invocation` 的语义并不统一。
 
 ## 关键洞察
 

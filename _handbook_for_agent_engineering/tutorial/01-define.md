@@ -23,9 +23,9 @@ prompt 写好了，下一步是输入 `/poteto-mode`，还是直接调 `how`、`
 | 对抗评审一个 diff | 单用 `interrogate` | 它本身就是完整流程 |
 | 清理英文、写 PR 正文 | 单用 `unslop` / `technical-writing` | 一次编辑动作，没有跨阶段状态 |
 | bug 有便宜的测试路径，只想先红后绿 | 单用 `tdd` | 目标单一；Bug fix 会在需要时调用它 |
-| 任务还没说清 | 先 `sharpen`，再进 mode | 先把目标、规格松紧和外部检查想清楚 |
+| 任务过粗或过细，想先按专家打法做 | 单用 `sharpen` | 它直接做，不回传改写后的 prompt |
 
-拿不准就用 mode。它的成本是 token 和安装完整度，不是学习成本。源码：`skills/poteto-mode/SKILL.md#Playbooks`。
+拿不准就用 mode。它的成本是 token，以及 harness 缺工具时的降级；不是学习成本。源码：`skills/poteto-mode/SKILL.md#Harness`。
 
 ### 2. 该问人的时候再问
 

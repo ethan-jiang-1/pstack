@@ -10,7 +10,7 @@
 | `poteto-agent` 与 `orchestrate` 的 brief 字段 | [Subagent 与 brief](./subagent-topology.md) | [`orchestrate.md#the-brief`](../../skills/poteto-mode/playbooks/orchestrate.md#the-brief) |
 | verdict、patch-id 与 decision trail | [验证与 verdict](./evidence-first.md) | [`shipping.md`](../../skills/poteto-mode/playbooks/shipping.md) |
 | `unslop`、`technical-writing` 与回复的写法 | [unslop 与 technical-writing](./prose-discipline.md) | [`unslop`](../../skills/unslop/SKILL.md) |
-| `correct`、`reflect` 与项目本地的 verification skill | [correct、reflect 与验证 skill](./environment-as-product.md) | [`correct`](../../skills/correct/SKILL.md) |
+| `correct`、`reflect` 与项目本地的 verification skill | [correct、reflect 与验证 skill](./correct-reflect-verification.md) | [`correct`](../../skills/correct/SKILL.md) |
 | Harness 一节的跨 harness 映射 | [poteto-mode 的 Harness](./harness-portability.md) | [`SKILL.md#harness`](../../skills/poteto-mode/SKILL.md#harness) |
 
 ## 按问题找
@@ -23,7 +23,7 @@
 | 什么时候派 subagent，怎样写 brief？ | [Subagent 与 brief](./subagent-topology.md) | [调用模型](../system/invocation-model.md) |
 | 怎样防止"测试绿了"被当成完成？ | [验证与 verdict](./evidence-first.md) | [自主与门](../system/autonomy-and-gates.md) |
 | 回复和 PR 正文为什么也算交付？ | [unslop 与 technical-writing](./prose-discipline.md) | [`unslop` 单页](../skills/unslop.md) |
-| 怎样让下一次运行起步更好？ | [correct、reflect 与验证 skill](./environment-as-product.md) | [`reflect` 单页](../skills/reflect.md) |
+| 怎样让下一次运行起步更好？ | [correct、reflect 与验证 skill](./correct-reflect-verification.md) | [`reflect` 单页](../skills/reflect.md) |
 | 换 harness 时哪些东西会坏？ | [poteto-mode 的 Harness](./harness-portability.md) | [分发与安装](../system/distribution.md) |
 
 ## 读这些页时的约定

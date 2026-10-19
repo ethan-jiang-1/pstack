@@ -8,7 +8,7 @@ pstack 不把模型写死在 skill 里。每个 skill 声明自己需要哪些�
 
 设置文件是 Cursor 的 `~/.cursor/rules/pstack-models.mdc` 或其余 harness 的 `~/.agents/pstack-models.md`。值可以是单个 slug、逗号分隔的列表，或 `inherit-parent` / `auto`（两者都表示这个角色跑在父 chat 的模型上，省略子代理的 `model`）。
 
-面板角色有几项就跑几个 subagent，列表长度就是 fan-out 数量：`arena runners`、`architect runners`、`interrogate reviewers`。`arena cross-judge pool` 也是列表，但 `arena` 只从里面选一个与父模型不同家族的模型。`swarm workers` 是所有 worker 的默认模型，除非 race 或对照给每条 arm 另配模型。
+面板角色有几项就跑几个 subagent，列表长度就是 fan-out 数量：`arena runners`、`architect runners`、`interrogate reviewers`。`arena cross-judge pool` 也是列表，但 `arena` 优先选一个与父模型不同家族的模型；池里没有别的家族时仍从池里选一个。`swarm workers` 是所有 worker 的默认模型，除非 race 或对照给每条 arm 另配模型。
 
 源码：[`skills/setup-pstack/SKILL.md`](../../skills/setup-pstack/SKILL.md)、[role line](../system/model-panel.md)。
 

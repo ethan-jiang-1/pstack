@@ -25,14 +25,14 @@
 | 单元 | 讲的 pstack 机制 | 源码 |
 |---|---|---|
 | 1.1 | prompt 五项 | `docs/guide/02-poteto-mode.md` |
-| 1.2 | mode 与 playbook；23 个 playbook 的匹配 | `skills/poteto-mode/SKILL.md#Playbooks` |
-| 1.3 | todo、`skip`、reply 形状 | `skills/poteto-mode/SKILL.md#Writing the reply` |
-| 1.4 | AskQuestion 分类：可观察的事实不问人；operator-only 才问 | `skills/poteto-mode/SKILL.md#Non-negotiables` |
+| 1.2 | mode 与 playbook；23 个 playbook 的匹配；todo 与 `skip` | `skills/poteto-mode/SKILL.md#Playbooks` |
+| 1.3 | AskQuestion 分类：可观察的事实不问人；operator-only 才问 | `skills/poteto-mode/SKILL.md#Non-negotiables` |
+| 1.4 | brief 九字段与 pstack 不写 spec 的边界 | `playbooks/orchestrate.md#The brief`、`docs/guide/02-poteto-mode.md` |
 | 2.1 | named data shape | `principle-model-the-domain`、`skills/poteto-mode/SKILL.md#Non-negotiables` |
 | 2.2 | `architect` Phase B / public surface / design red flags | `skills/architect/SKILL.md` |
 | 2.3 | `feature` step 3 throughput checkpoint 与 `multi-phase-plan` 的 per-PR 计划 / You see / Verify | `playbooks/feature.md`、`playbooks/multi-phase-plan.md` |
 | 3.1 | Subagents 默认值：后台、agent 模式、文件指针、角色模型 | `skills/poteto-mode/SKILL.md#Subagents` |
-| 3.2 | brief 八字段 | `playbooks/orchestrate.md#The brief` |
+| 3.2 | brief 九字段 | `playbooks/orchestrate.md#The brief` |
 | 3.3 | fresh subagent / resume 的边界 | `skills/poteto-mode/SKILL.md#Subagents` |
 | 3.4 | `orchestrate` roles、`preferences.md`、one writer per worktree | `playbooks/orchestrate.md` |
 | 4.1 | `tdd` workflow 与 skip | `skills/tdd/SKILL.md` |

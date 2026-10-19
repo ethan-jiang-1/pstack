@@ -21,7 +21,7 @@ pstack 不把"做完了"当一句话。它要求四种不同的证据：`tdd` �
 
 bug 修完，测试绿了。但测试是从实现反推出来的，实现错的时候它也一起错。
 
-`tdd` 的规则是：用户明确要求 TDD，或测试路径便宜、清晰时，先写一个会失败的回归测试，再改实现。源码：`skills/tdd/SKILL.md`。
+`tdd` 的规则是：用户明确要求 TDD、失败测试或回归测试，或 bug 有便宜清晰的本地测试目标时，先写一个会失败的回归测试，再改实现。源码：`skills/tdd/SKILL.md`。
 
 ### 做法
 
@@ -111,8 +111,8 @@ PR 绿了，bot approve 了，作者说"我测过了"。这三样都不是 verdi
 2. verifier 跑 parent against head，像用户一样操作。
 3. 只有 `PASS` 或 `PASS+NOTES` 算通过；`FAIL` 是停止点。
 4. 从最低未合并 PR 往上，取连续有 `PASS` 或 `PASS+NOTES` 的一段；第一个没有的 PR 就是停止点。
-5. rebase 后用 `git patch-id` 比较 verdict 时的 SHA 和当前 head；补丁不同就重新验证。
-6. 自底向上，一次合一个；落地过程中不改栈的拓扑。
+5. rebase 后用 `git patch-id` 比较 verdict 时的 SHA 和当前 head；补丁不同时，只有测试、文档或 lint config 的差异且 lane 在两边构建等价时，旧结果才可以保留。改动本身仍要新检查和新评审。
+6. 自底向上，一次合一个；落地过程中唯一允许的拓扑改动是 `shipping` step 4 的 next-PR retarget，其他不改。
 
 ### 质量门
 

@@ -24,7 +24,7 @@ playbook 有 23 个，标题和描述就是匹配信号。你不需要先选；m
 
 ### 2. 看 todo 的前几项
 
-匹配后，todo 的最前面应该出现 playbook 的步骤，逐字复制。以 Bug fix 为例（下面只摘每步的短标题，实际 todo 是整段复制）：
+匹配后，todo 的最前面应该出现 playbook 的步骤，逐字复制。以 Bug fix 为例（下面只写每步的主旨，不是逐字复制；实际 todo 是整段复制）：
 
 ```text
 1. Reproduce on the same surface yourself.
@@ -33,10 +33,9 @@ playbook 有 23 个，标题和描述就是匹配信号。你不需要先选；m
 4. Verify on the same surface.
 5. Stage the failing repro before the fix.
 6. Opening a PR.
-...
 ```
 
-这些文字来自 playbook，不是 agent 的概括。概括会丢条件："reproduce it yourself" 被写成 "reproduce it"，责任主体就没了。
+实际 todo 里的整段文字来自 playbook，不是 agent 的概括。概括会丢条件："reproduce it yourself" 被写成 "reproduce it"，责任主体就没了。
 
 ### 3. 跳过的步骤留在列表里
 
@@ -46,7 +45,7 @@ playbook 有 23 个，标题和描述就是匹配信号。你不需要先选；m
 5. Stage the failing repro before the fix.   skip: test path is integration-heavy
 ```
 
-这样"没做"和"忘了"可区分。不适用某个维度时，同理写 `n/a: <reason>`。
+这样"没做"和"忘了"可区分。不做的 playbook 步骤只写 `skip: <reason>`。`n/a: <reason>` 是另一件事：`feature` step 3 的四个 checkpoint 维度确实不适用时，用它标注那个维度。
 
 ### 4. 再写任务特有的 todo
 
@@ -54,7 +53,7 @@ playbook 步骤之后，才是这次任务特有的项：哪个文件、哪个�
 
 ## 可见成果
 
-一个 todo 列表，前几项是 playbook 步骤，带 `skip` / `n/a` 原因；后面才是任务特有项。你扫一眼就知道这次会经过哪些门。
+一个 todo 列表，前几项是 playbook 步骤，带 `skip` 原因；`feature` 的 checkpoint 维度不适用时带 `n/a`。后面才是任务特有项。你扫一眼就知道这次会经过哪些门。
 
 ## 休息点
 

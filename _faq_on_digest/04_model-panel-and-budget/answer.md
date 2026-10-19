@@ -4,7 +4,7 @@
 
 ## 直接回答
 
-跑一次 `/setup-pstack`，让它探测当前 harness 真正可用的 slug，预算先用 `large`（xhigh），角色保持"代码用快模型、判断与文字用强模型"的分工。面板角色保留至少两个不同家族，否则 `arena` 和 `interrogate` 的多样性收益会消失。
+跑一次 `/setup-pstack`，让它探测当前 harness 真正可用的 slug，预算先用 `large`（xhigh），角色保持"代码用快模型、判断与文字用强模型"的分工。判断型面板（`interrogate`、设计比较）尽量保留至少两个不同家族；生成型 `arena` 可以同模型跑 N 次。
 
 ## 第一步：让它探测，不要手写
 

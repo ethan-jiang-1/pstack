@@ -2,7 +2,7 @@
 
 > 源码：[`skills/correct/SKILL.md`](../../skills/correct/SKILL.md)
 > 调用：**U**（user-invoked，只有人能触发）
-> 索引：[技能索引](./README.md) · [`correct`、`reflect` 与验证 skill](../patterns/environment-as-product.md)
+> 索引：[技能索引](./README.md) · [`correct`、`reflect` 与验证 skill](../patterns/correct-reflect-verification.md)
 
 ## 一句话
 

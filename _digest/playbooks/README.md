@@ -102,7 +102,7 @@ PR 要推到可合并                       → Babysit
 
 ### [Orchestrate](../../skills/poteto-mode/playbooks/orchestrate.md)
 
-一个持续数天、几十上百个 subagent 的 program。coordinator 只写 brief、排空队列、守 frontier、做判断，不写代码；sub-coordinator 按 track 分；验证按单元成本决定：便宜的由 worker 跑、coordinator 抽查收据，昂贵、判断密集或高爆炸半径的才派独立 verifier，并用不同模型家族。brief 是唯一产品。
+一个持续数天、几十上百个 subagent 的 program。coordinator 写 brief、排空队列、守 frontier、做判断，不写代码；sub-coordinator 按 track 分；验证按单元成本决定：便宜的由 worker 跑、coordinator 抽查收据，昂贵、判断密集或高爆炸半径的才派独立 verifier，并用不同模型家族。brief 是唯一产品。
 
 ### [Autopilot-full](../../skills/poteto-mode/playbooks/autopilot-full.md)
 

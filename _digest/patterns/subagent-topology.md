@@ -14,7 +14,7 @@
 
 ## `orchestrate` 的 brief
 
-八个字段：GOAL / SCOPE / CONTEXT / ACCEPTANCE / VERIFY / TIMEBOX / FORBIDDEN / REPORT。`orchestrate` 再追加 STANDING，把 `preferences.md` 逐字贴进去。
+九个字段：GOAL / SCOPE / CONTEXT / ACCEPTANCE / VERIFY / TIMEBOX / FORBIDDEN / REPORT / STANDING。STANDING 把 `preferences.md` 逐字贴进去。
 
 - GOAL 一句话，一个没有 chat 访问权限的陌生人也能执行。
 - SCOPE 写可写的路径、不可写的路径、独占的 worktree 或 branch。

@@ -1,12 +1,12 @@
 # 用 `tdd` 先看见红
 
-> 教程 06 / 12 · 上一页：[05 把工作切小](./05-cut-work-into-delegable-units.md) · 下一页：[07 用 brief 派 subagent](./07-delegate-and-keep-control.md)
+> 教程 06 / 12 · 上一页：[05 把工作切成可委派的单元](./05-cut-work-into-delegable-units.md) · 下一页：[07 用 brief 派 subagent](./07-delegate-and-keep-control.md)
 
 ## 眼前困惑
 
 bug 修到最后，测试绿了。但绿可能只证明测试和实现互相一致：如果测试是从实现反推出来的，它会在实现错的时候一起错；如果测试只覆盖顺利路径，它会在边界上沉默。
 
-`tdd` 的规则是：用户明确要求 TDD，或测试路径便宜、清晰时，先写一个会失败的回归测试，再改实现。源码：`skills/tdd/SKILL.md`。
+`tdd` 的规则是：用户明确要求 TDD、失败测试或回归测试，或 bug 有便宜清晰的本地测试目标时，先写一个会失败的回归测试，再改实现。源码：`skills/tdd/SKILL.md`。
 
 ## 现在动作
 

@@ -13,7 +13,7 @@
 | `Autonomous run` | 一个任务跑到一个可检查的谓词 | 不要把谓词改松来宣布成功 |
 | `Autopilot-stack` | 一批改动形成待人工落地的栈 | 不要自动合并；落地的决定权在人 |
 | `Autopilot-full` | 一个 PR 队列；owner 在验证后合并 | 不要越过 operator 明确保留的 gate |
-| `Orchestrate` | 一个多天 program；coordinator 只写 brief、不写代码 | 不要让 coordinator 直接改代码 |
+| `Orchestrate` | 一个多天 program；coordinator 写 brief、主持 program，不写代码 | 不要让 coordinator 直接改代码 |
 
 "going to bed" / "run until done" 覆盖当前任务；换一个新任务要重新判断授权，不能继承。
 
@@ -25,7 +25,7 @@
 | 独立验证 | Shipping 要求没写代码的 verifier 给 `PASS` 或 `PASS+NOTES`；作者自证不算 |
 | 基准 | 报告性能数字前走 `benchmark-checklist`：正式报告答七问；用户只要 ballpark 时至少答第 4、7 问，并说明只有一次运行 |
 | 不可逆写入 | force-push 共享分支、部署、删数据、给客户发消息 |
-| 合并 | 只有明确要求 land/ship，或开启 `Autopilot-full` 时，合并才在授权内；`Autopilot-stack` 只交付待人工落地的栈 |
+| 合并 | 只有明确要求 merge/land/ship/merge when ready，或开启 `Autopilot-full` / `Orchestrate` 时，合并才在授权内；`Autopilot-stack` 只交付待人工落地的栈 |
 
 ## 审计的三个动作
 

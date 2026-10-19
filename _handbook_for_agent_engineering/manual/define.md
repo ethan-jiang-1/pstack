@@ -250,7 +250,7 @@ pstack 在 `poteto-mode` 的 Non-negotiables 里给这条岔口加了分类：�
 
 ### 带走什么
 
-一个填满字段的 `brief`：
+一个填满九个字段的 `brief`：
 
 ```text
 GOAL        一句话，结果，一个没有聊天记录的人也能执行
@@ -261,9 +261,10 @@ VERIFY      确切的命令或 control skill 路径，加上已知的坑
 TIMEBOX     运行时间上限；到点返回部分发现并停下，不要跑过头
 FORBIDDEN   不 retarget 或 merge PR、不 rebase、不 force-push、不修 scope 外的代码，加 unit 专属的禁令
 REPORT      status、branch、head SHA、PR、verdict、实际跑了什么、偏离、建议的后续
+STANDING    preferences.md 逐字粘贴
 ```
 
-`orchestrate` 的每次 spawn 和 resume 还会逐字粘贴 `preferences.md`。字段填不满，说明这个 unit 还没有被 scope 好；缺字段是拒绝 spawn 的条件。（`skills/poteto-mode/playbooks/orchestrate.md#The brief`）
+`STANDING` 就是 `preferences.md` 的逐字粘贴；每次 spawn 和 resume 都带。字段填不满，说明这个 unit 还没有被 scope 好；缺字段是拒绝 spawn 的条件。（`skills/poteto-mode/playbooks/orchestrate.md#The brief`）
 
 跨多个 PR 时，离意图最近的固定产物是 `multi-phase-plan` 的 plan 文件：每个 PR 一节，一个 PR 是一个变更，带自己的证据。（`skills/poteto-mode/playbooks/multi-phase-plan.md`）
 
