@@ -7,15 +7,6 @@
 
 Cursor's original README is [further down this page](#pstack).
 
-## Deep dives (this fork)
-
-This fork keeps the upstream mirror on `main`. A Chinese explanation layer lives on the `ethan` branch:
-
-- [`_digest/`](./_digest/README.md) — how pstack is organized, and why it is split this way.
-- [`_faq_on_digest/`](./_faq_on_digest/README.md) — decisions for common questions: mode vs single skill, partial installs, model panel, autonomy.
-- [`_handbook_for_agent_engineering/`](./_handbook_for_agent_engineering/README.md) — a tool-independent method handbook (skeleton).
-- [`_digest/MAINTAINING.md`](./_digest/MAINTAINING.md) — branch topology, page contracts, and the sync loop.
-
 ## Install
 
 pstack is a folder of plain [Agent Skills](https://agentskills.io) (`skills/<name>/SKILL.md`). You don't need Cursor. The [`skills` CLI](https://skills.sh) installs them into Claude Code, Codex, Pi, Cursor, OpenCode, and other agents:
