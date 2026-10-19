@@ -6,6 +6,16 @@
 
 源码说当前行为，digest 说结构与理由，FAQ 说现在怎么做，handbook 说 pstack 的概念与用法，change log 说历史。五者不能互相冒充。
 
+## 只改下划线目录
+
+**非 `_` 内容必须与 `origin/main` 一致。** `README.md`、`MIRROR.md`、`skills/`、`agents/`、`docs/`、`plugin.json` 等都属于上游内容，不改。本仓库只拥有三个下划线目录：
+
+- `_digest/`
+- `_faq_on_digest/`
+- `_handbook_for_agent_engineering/`
+
+需要入口说明时，写进 `_digest/` 或 handbook，不要改根 `README.md`。改完用 `git diff --name-only origin/main | grep -vE '^(_digest|_faq_on_digest|_handbook_for_agent_engineering)/'` 检查，输出必须为空。
+
 ## 五层边界
 
 | 位置 | 回答什么 | 事实来源 | 允许写时间性内容 |
