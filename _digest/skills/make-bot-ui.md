@@ -22,7 +22,7 @@ Grok Bot 的 webhook routine 只认 HTTP POST。想让"点一下按钮"唤醒 bo
 
 ### 2. 取 URL 与 sender key
 
-两者只在 routine 建好之后的面板里，源码禁止发明别的点击路径。给用户的四步是：点 chat header 里的 agent 名或按 Cmd+Shift+I，在 computer preview 下找到 Routines，打开这个 webhook routine，复制 URL（可以贴进 chat）；复制 sender key（不允许贴进 chat）。URL 形如 `https://api2.cursor.sh/automations/webhook/<id>`，没有 query string，且不能猜 id。
+两者只在 routine 建好之后的面板里，源码禁止发明别的点击路径。给用户的五步是：点 chat header 里的 agent 名或按 Cmd+Shift+I，在 computer preview 下找到 Routines，打开这个 webhook routine，复制 URL（可以贴进 chat），复制 sender key（不允许贴进 chat）。URL 形如 `https://api2.cursor.sh/automations/webhook/<id>`，没有 query string，且不能猜 id。
 
 ### 3. 用 secret-request 收 key
 

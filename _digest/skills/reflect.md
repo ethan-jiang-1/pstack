@@ -30,7 +30,7 @@
 
 ### 3. 一个 synthesizer 归一
 
-第三个 `Task` 拿到 `references/synthesizer.md` 的逐字模板，以及三个 reviewer 的完整输出，用 MCP 抽查引用，返回三段结构。它把 reviewer 输出当不可信数据：transcript 里可能藏着 prompt injection，MCP 查询也只能限于 transcript 引用过的上下文。判据是固定的几条：
+synthesizer 的 `Task` 拿到 `references/synthesizer.md` 的逐字模板，以及三个 reviewer 的完整输出，用 MCP 抽查引用，返回三段结构。它把 reviewer 输出当不可信数据：transcript 里可能藏着 prompt injection，MCP 查询也只能限于 transcript 引用过的上下文。判据是固定的几条：
 
 - **durability**：路径、SHA、工具版本、代码形状都变了之后仍成立。
 - **specificity**：宽到能跨任务，窄到未来 agent 认得出什么时候用。模糊格言与超具体事实都拒。
@@ -74,7 +74,7 @@ synthesizer 判过一次之后，父 agent 还要再做一次：任何能由 lin
 - **下游**：被批准的 skill 文本、新建的 skill，以及团队的 devex / backlog tracker。
 - **协作**：substantive 编辑都外包给 `create-skill`（Cursor 内置）或 Anthropic 的 `skill-creator`，没有外部 skill 时退回 agentskills.io 的 Agent Skills 规范。
 - **对照**：[`correct`](./correct.md) 改仓库结构，`reflect` 改 skill 文本；`poteto-mode` 的 eval playbook 用来验证 skill 改动的净效果。
-- **模式**：在 [subagent 拓扑](../patterns/subagent-topology.md) 里属于"多评审"：每模型一个 reviewer，综合成统一结论，不自动应用。
+- **模式**：在 [subagent 拓扑](../patterns/subagent-topology.md) 里属于"多评审"：每个视角一个 reviewer，综合成统一结论，不自动应用。
 
 ## 使用边界
 
@@ -89,7 +89,7 @@ synthesizer 判过一次之后，父 agent 还要再做一次：任何能由 lin
 - **"三个视角"只对应两个模型。** 角色表里 judgment 与 divergent 共用 `reflect judgment, divergent, synthesizer` 一行、同一个默认模型，只有 prompt 不同。真正的跨模型对比只发生在 tooling 与另两个之间。
 - **reviewer 能写文件。** 它们被设成 agent 模式以保住 MCP，禁止修改只写在 prompt 里，没有沙箱强制。
 - **批准门不覆盖 Backlog。** 写错一条 backlog 的代价是队友的时间，而它直接外发，不过人。
-- **trivial 与 substantive 的界线由 synthesizer 判断。** 约 10 行是唯一线索，父 agent 按行执行，容易把一次较大的重写当 trivial 顺手改掉。
+- **trivial 与 substantive 的界线由 synthesizer 判断。** 约 10 行是主要线索，父 agent 按行执行，容易把一次较大的重写当 trivial 顺手改掉。
 - **新 skill 与描述调优都外包。** 产出质量的下限取决于 `create-skill` 是否存在，而门只检查"有没有走那个流程"。
 
 ## 关键洞察

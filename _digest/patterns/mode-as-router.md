@@ -9,7 +9,7 @@ pstack 不把 23 个工作流程做成 23 个可以随便进的命令，而是�
 ## 源码里的形状
 
 1. `poteto-mode` 的 **Playbooks** 一节列出 23 个标题与各自适用情形。
-2. 匹配后打开 `playbooks/<title>.md`，把步骤复制进 todo，"跳过的步骤留 `skip: <reason>`"。
+2. 匹配后打开对应的 playbook 文件，把步骤复制进 todo，"跳过的步骤留 `skip: <reason>`"。路径默认按标题推导；条目自带文件的，用它给的文件（`authoring-a-skill`、`multi-phase-plan`、`worktree-cleanup`）。
 3. 步骤里的 skill 调用、验证要求、回复形状都由那份 playbook 定义。
 4. 没有合适 playbook 时，走 `figure-it-out`；是持续 program 时走 `Orchestrate`。
 

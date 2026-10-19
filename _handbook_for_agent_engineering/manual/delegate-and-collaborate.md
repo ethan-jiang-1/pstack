@@ -294,6 +294,8 @@ agent 不能成为 accountable owner。它可以执行、建议、提供证据�
 
 这类失败不是文本冲突，Git 不会提示。它是**语义冲突**：两条线对同一个词、同一个状态或同一个责任的理解不同。
 
+> 与 pstack 的边界：pstack 没有"语义冲突"分类。它的对应是 `orchestrate` 的单一 stacker 处理文本冲突、`separate-before-serializing-shared-state` 消除共享写入。把语义冲突单列出来并要求回上游 owner，是本手册的扩展。
+
 汇合与交接包的作用，是让"合回来"成为一次有证据的联合验证，而不是把几个绿 PR 堆在一起。
 
 ### 带走什么

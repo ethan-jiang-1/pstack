@@ -14,7 +14,7 @@
   </defs>
   <rect width="960" height="560" fill="#ffffff"/>
   <text x="480" y="40" text-anchor="middle" class="t h">24 条 principle：词汇，不是检查表</text>
-  <text x="480" y="64" text-anchor="middle" class="t s">一次任务通常只用 2-4 条；规则冲突时要显式判断</text>
+  <text x="480" y="64" text-anchor="middle" class="t s">一次任务通常只用少数几条；规则冲突时要显式判断</text>
 
   <!-- Core -->
   <rect x="30" y="92" width="170" height="250" rx="12" fill="#fef3c7" stroke="#fde68a"/>

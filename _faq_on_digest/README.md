@@ -19,7 +19,7 @@
 
 **只想马上开始。** 先读 [05](./05_which-skills-to-install/answer.md) 决定装什么，再读 [01](./01_mode-or-single-skill/answer.md) 决定用 mode 还是单 skill。模型配置见 [04](./04_model-panel-and-budget/answer.md)。
 
-**想理解完整系统。** 先读 [系统总览](../_digest/system/README.md)，再读 [mode 与 playbook](../_digest/system/mode-and-playbooks.md) 和 [证据优先](../_digest/patterns/evidence-first.md)。需要落到具体动作时，回到本目录。
+**想理解完整系统。** 先读 [系统总览](../_digest/system/README.md)，再读 [mode 与 playbook](../_digest/system/mode-and-playbooks.md) 和 [验证与 verdict](../_digest/patterns/evidence-first.md)。需要落到具体动作时，回到本目录。
 
 **想跑长任务或自主运行。** 从 [06](./06_how-much-autonomy-is-safe/answer.md) 开始，再读 [`orchestrate`](../skills/poteto-mode/playbooks/orchestrate.md) 与 [`shipping`](../skills/poteto-mode/playbooks/shipping.md)。先确认验证与审计，再谈自动化程度。
 

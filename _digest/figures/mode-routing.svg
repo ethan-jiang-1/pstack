@@ -62,7 +62,7 @@
 
   <rect x="60" y="368" width="220" height="70" rx="10" fill="#f8fafc" stroke="#e2e8f0"/>
   <text x="76" y="392" class="t bs">每个 spawn 按角色选模型</text>
-  <text x="76" y="412" class="t bs">验证者与实现者不同家族</text>
+  <text x="76" y="412" class="t bs">验证者不是实现者</text>
 
   <rect x="680" y="440" width="220" height="70" rx="10" fill="#f8fafc" stroke="#e2e8f0"/>
   <text x="696" y="464" class="t bs">"测试绿了" 不是完成</text>

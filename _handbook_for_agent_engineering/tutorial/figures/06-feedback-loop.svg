@@ -18,7 +18,7 @@
   <rect x="50" y="110" width="180" height="90" rx="10" fill="#fef3c7" stroke="#fde68a"/>
   <text x="68" y="138" class="t bt">行为卡</text>
   <text x="68" y="160" class="t bs">勾选 3 行 → 3 行 CSV</text>
-  <text x="68" y="180" class="t bs">切口：export()</text>
+  <text x="68" y="180" class="t bs">public surface：export()</text>
 
   <rect x="270" y="110" width="190" height="90" rx="10" fill="#dbeafe" stroke="#bfdbfe"/>
   <text x="288" y="138" class="t bt">独立预期</text>

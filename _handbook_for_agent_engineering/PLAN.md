@@ -1,224 +1,48 @@
-# AI 辅助工程手册：写作与章节计划
+# pstack 手册：结构与进度
 
-> **状态：完成（2026-10-19）。** 教程 `00–11`、教程后导航、12 张教程图，以及手册 6 章 20 个单元与 20 张图全部完成；全书链接、锚点与 SVG 渲染复核通过。可选后续：用一个真实项目做完整走查，把摩擦回写进手册。本文件是唯一实施看板，不另建脱离正文的任务清单。
+> **状态：严格重写中（2026-10-19）。** 目标不是写一本独立方法书，而是把 pstack 自己的概念讲清楚。没有 pstack 出处的章节删除；没有 pstack 对应物的名字不再发明。写作约束见 [`STYLE.md`](./STYLE.md)，术语见 [`CONTEXT.md`](./CONTEXT.md)。
 
-## 0. 推进看板
+## 教程：12 步
 
-- `[x]`：已完成并通过当前适用检查。
-- `[ ]`：尚未开始。
-- `[ ]` **进行中**：当前唯一可以处于进行状态的单元。
-
-### 总体进度
-
-- [x] 固定读者、范围与"独立于工具"的写作约定。
-- [x] 建立术语表 `CONTEXT.md`，覆盖定义、委派、证据、交付、演进。
-- [x] 固定教程与手册的双读法，以及各自的页面契约。
-- [x] 固定六章结构、20 个实战单元与 12 个教程台阶。
-- [x] 写 `tutorial/00`–`11` 与 `after-tutorial.md`，并补十二张教程图。
-- [x] 写 `manual/define.md` 的 1.1–1.4，并补四张图。
-- [x] 写 `manual/design-and-plan.md` 的 2.1–2.3，并补三张图。
-- [x] 写 `manual/delegate-and-collaborate.md` 的 3.1–3.3，并补三张图。
-- [x] 写 `manual/verify.md` 的 4.1–4.4，并补四张图。
-- [x] 写 `manual/ship-run-and-evolve.md` 的 5.1–5.3，并补三张图。
-- [x] 写 `manual/evolve-the-environment.md` 的 6.1–6.3，并补三张图。
-- [x] 全书交叉检查：术语、案例、链接、章节间交接。
-- [x] 为每个教程台阶和实战单元配图（12 + 20 张）。
-- [x] 链接、锚点与 SVG 渲染复核。
-- [ ] 可选后续：选择一个真实项目做一次完整走查，记录摩擦并回写方法。
-
-### 单元进度
-
-#### 教程
-
-- [x] `tutorial/00-start-here.md`
-- [x] `tutorial/01-define.md`
-- [x] `tutorial/02-give-words-a-home.md`
-- [x] `tutorial/03-make-a-promise-observable.md`
-- [x] `tutorial/04-design-a-testable-shape.md`
-- [x] `tutorial/05-cut-work-into-delegable-units.md`
-- [x] `tutorial/06-build-a-feedback-loop.md`
-- [x] `tutorial/07-delegate-and-keep-control.md`
-- [x] `tutorial/08-prove-the-promise.md`
-- [x] `tutorial/09-review-for-merge.md`
-- [x] `tutorial/10-ship-observe-and-loop.md`
-- [x] `tutorial/11-improve-the-environment.md`
-- [x] `tutorial/after-tutorial.md`（非编号导航页）
-
-#### 手册
-
-- [x] `manual/define.md`：1.1–1.4
-- [x] `manual/design-and-plan.md`：2.1–2.3
-- [x] `manual/delegate-and-collaborate.md`：3.1–3.3
-- [x] `manual/verify.md`：4.1–4.4
-- [x] `manual/ship-run-and-evolve.md`：5.1–5.3
-- [x] `manual/evolve-the-environment.md`：6.1–6.3
-
-## 1. 要解决的读者问题
-
-读者已经能用 agent 写出能跑的代码，问题不在于"怎样生成一段代码"，而在于：
-
-- 怎样把一句模糊请求变成可执行的共同问题；
-- 怎样把工作切开，交给一个或多个 agent，同时保留控制和责任；
-- 怎样判断"做完了"不是 agent 的自我感觉；
-- 怎样让人、多个 agent 和多个会话的工作汇合；
-- 怎样在下一轮不重复上一轮的摩擦。
-
-读完本手册后，读者应能把一项真实的软件工作从模糊请求推进到可验证的交付和后续演进，并知道在每个环节：
-
-- 当前最重要的结果是什么；
-- 应留下什么产物（artifact）；
-- 人和 agent 各自做什么、谁负责确认；
-- 什么证据说明这一步已完成，可以交给下一位参与者。
-
-## 2. 编排原则
-
-1. **先按学习优先级，再按完整工程地图组织。** 教程围绕读者最先感受到的困难安排；手册按可交付能力组织。
-2. **实践先行，理论后置，并设置休息点。** 每个教程台阶从一个可感知的困惑开始，以一个小产物结束。
-3. **有一条主线，但实际工作靠迭代推进。** "定义 → 设计 → 委派 → 验证 → 交付 → 演进"呈现依赖关系，不是一次性单向流水线。
-4. **委派是正文，不是旁注。** 人、人和 agent、多个 agent 的组合都必须有具名 owner、事实确认、审核与交接。
-5. **证据优先于叙述。** 每个"完成"都要有可检查的判据；作者自证不算独立验证。
-6. **环境也是产物。** 每次反复出现的纠正，要么改变当前 diff，要么改变下一次运行的环境。
-7. **独立于工具。** 正文不依赖任何一套 skill 集合；工具只作为可选实现出现。
-8. **中文优先。** 关键术语首次写作"中文（English）"；代码、命令、路径和产品名保留原样。
-
-## 3. 章节契约
-
-### 教程台阶
-
-| 区块 | 必须回答的问题 |
-|---|---|
-| 眼前困惑 | 学习者现在为什么会卡住，或为什么会怀疑 agent 是否理解？ |
-| 现在动作 | 这一次只让读者做什么？ |
-| 可见成果 | 10 到 20 分钟后，读者能看见、复述或留下什么？ |
-| 休息点 | 为什么现在可以停，而不必继续塞入下一层理论？ |
-| 下一段 | 继续哪个台阶；什么情况下才查手册？ |
-
-### 手册实战单元
-
-| 区块 | 必须回答的问题 |
-|---|---|
-| 工作情境 | 什么情况下会遇到这个问题？这次要把什么推进到下一步？ |
-| 带走什么 | 读者完成后拿到的产物、决定、验证或交接是什么？ |
-| 做法 | 从输入到结果的最小可执行步骤是什么？ |
-| 人机边界 | agent 可以处理什么；哪些事实、取舍、批准和责任必须由具名的人承担？ |
-| 质量门 | 怎样检查结果可信、可用、可交接？ |
-| 图解 | 哪张图能让读者一眼看见这次实践的结构？ |
-| 工具角色（可选） | 如果用一个工具实现，它承担哪一步、不能替人决定什么？ |
-| 进阶 | 为什么这样安排，以及何时需要更深的方法或更严格的过程？ |
-
-每个单元要有一个足够小、可在真实工作中复用的练习或模板，而不是只给一组原则。
-
-## 4. 正文结构
-
-### 教程：12 个台阶
-
-| 台阶 | 主题 | 读者带走 |
+| 步骤 | 讲什么 | 主要源码 |
 |---|---|---|
-| `00` | 从这里开始 | 一个可被说清的请求，以及"为什么先定义"的动机 |
-| `01` | 从一句模糊的话开始 | 一次追问后的共同问题与边界 |
-| `02` | 给共同语言一个位置 | 两三个会改变行为的术语 |
-| `03` | 让一个承诺变成可观察行为 | 一张行为卡：观察位置、失败出口、人工接手点 |
-| `04` | 设计一个可测试的形状 | 一个接口、一个切口、一条测试路径 |
-| `05` | 把工作切成可委派的单元 | 一个有阻塞边和验收条件的工作包 |
-| `06` | 先建立反馈，再改实现 | 一条能变红的验证回路 |
-| `07` | 委派出去，保持控制 | 一份能让陌生执行者独立完成的 brief |
-| `08` | 证明兑现的是原承诺 | 一张承诺-证据对照的结论 |
-| `09` | 评审变更是否值得合入 | 两条独立轴的评审结论 |
-| `10` | 交付、观察、开始下一轮 | 一个交付决定与一个运行信号 |
-| `11` | 让环境在下一轮更好 | 一条结构性约束或一次承诺退役 |
+| 00 | prompt 的五项：goal、done check、proof、what you already know、real constraints | `docs/guide/02-poteto-mode.md` |
+| 01 | 用 `/poteto-mode` 还是单 skill；AskQuestion 什么时候该问 | `skills/poteto-mode/SKILL.md#Non-negotiables` |
+| 02 | mode 匹配 playbook，把步骤逐字复制进 todo，跳过写 `skip` | `skills/poteto-mode/SKILL.md#Playbooks` |
+| 03 | 先命名 data shape；可观察结果写在 plan 的 verify block | `principle-model-the-domain`、`feature.md` |
+| 04 | `architect` Phase B：public surface、`not implemented` 草图、design red flags | `skills/architect/SKILL.md` |
+| 05 | `feature` step 3 的 throughput checkpoint；`multi-phase-plan` 的 one PR = one change | `feature.md`、`multi-phase-plan.md` |
+| 06 | `tdd` 的红绿回路，以及测试路径不便宜时跳过 | `skills/tdd/SKILL.md` |
+| 07 | 用 brief 派 subagent；`poteto-agent`、fresh、角色行 | `poteto-mode#Subagents`、`orchestrate.md#The brief` |
+| 08 | `prove-it-works`；`shipping` 的 verdict、PASS / PASS+NOTES / FAIL、patch-id | `principle-prove-it-works`、`shipping.md` |
+| 09 | `interrogate`：scope、frozen intent、rubric + code-quality、四个桶 | `skills/interrogate/SKILL.md` |
+| 10 | `shipping` 落地；`babysit` 推到 merge-ready；部署只是 Always pause | `shipping.md`、`babysit.md` |
+| 11 | `correct` 与 `reflect`：把重复错误和会话经验写回结构 | `skills/correct/SKILL.md`、`skills/reflect/SKILL.md` |
 
-### 手册：6 章 20 个单元
+教程后导航：`tutorial/after-tutorial.md`。
 
-#### `manual/define.md`：定义（4）
+## 手册：6 章
 
-| 单元 | 主题 | 带走 |
+| 章 | 单元 | 主要源码 |
 |---|---|---|
-| 1.1 | 从手头变更到共同问题 | 变更工作卡：目标、非目标、约束、owner、未知项 |
-| 1.2 | 把事实、假设、意见与未知项分开 | 事实底稿与待确认问题清单 |
-| 1.3 | 拿不定主意时，先获得会改变决定的证据 | 决策证据卡：两种答案各自的动作、停止条件 |
-| 1.4 | 把已经足够清楚的意图固定成可执行规格 | 行为、边界、验收证据和未决项清楚的 spec |
+| 1 Prompt、mode 与 todo | 1.1 prompt 五项；1.2 mode/playbook；1.3 todo、skip 与回复；1.4 AskQuestion 分类 | `docs/guide/02`、`poteto-mode` |
+| 2 Architect、feature 与 multi-phase-plan | 2.1 data shape；2.2 architect Phase B；2.3 feature step 3；2.4 multi-phase plan | `architect`、`feature.md`、`multi-phase-plan.md` |
+| 3 Subagent 与 brief | 3.1 Subagents 默认值；3.2 brief 八字段；3.3 fresh / resume；3.4 orchestrate roles | `poteto-mode#Subagents`、`orchestrate.md` |
+| 4 验证与 verdict | 4.1 tdd；4.2 prove-it-works；4.3 benchmark-checklist；4.4 verdict / patch-id / contiguous run | `tdd`、`prove-it-works`、`benchmark-checklist`、`shipping.md` |
+| 5 评审与落地 | 5.1 interrogate；5.2 no-comments；5.3 shipping；5.4 babysit / session pickup / pause safely | `interrogate`、`no-comments`、`shipping.md`、`babysit.md`、`session-pickup.md`、`pause-safely.md` |
+| 6 环境 | 6.1 correct；6.2 reflect；6.3 encode-lessons-in-structure + create/maintain-verification-skill | `correct`、`reflect`、`encode-lessons-in-structure`、`create-verification-skill` |
 
-#### `manual/design-and-plan.md`：设计与计划（3）
+## 明确不覆盖
 
-| 单元 | 主题 | 带走 |
-|---|---|---|
-| 2.1 | 先把承诺变成可观察的行为 | 行为地图：行为、失败出口、人工接手点 |
-| 2.2 | 设计可实现、可测试的模块形状 | 模块形状卡：接口、不变量、切口、测试表面 |
-| 2.3 | 拆成可以推进、可以交接的小工作 | 工作包与阻塞边，每个都有完成检查 |
+pstack 不写 spec，不做发布 / 灰度 / 回滚 / 发布后监控，也没有承诺退役记录。它停在 verified landing；部署只是 **Always pause** 里的一个不可逆动作。这些话题不建章节。
 
-#### `manual/delegate-and-collaborate.md`：委派与协作（3）
+## 进度
 
-| 单元 | 主题 | 带走 |
-|---|---|---|
-| 3.1 | 为一个工作包准备最小上下文 | 任务上下文包：权威产物、可写范围、禁止动作、验证 |
-| 3.2 | 为同一项变更安排人、agent 与会话 | 协作约定：owner、审核点、权限、升级路径 |
-| 3.3 | 让并行工作重新汇合并可交接 | 汇合与交接包：已接受输入、冲突、证据、下一位入口 |
-
-#### `manual/verify.md`：验证（4）
-
-| 单元 | 主题 | 带走 |
-|---|---|---|
-| 4.1 | 建立能让问题显形的反馈回路 | 回路卡：触发、切口、可观察结果、独立判据 |
-| 4.2 | 验证兑现的是不是最初承诺 | 承诺-证据对照表与覆盖边界 |
-| 4.3 | 评审变更是否真的值得合入 | 标准轴与规格轴并排的评审结论 |
-| 4.4 | 失败时知道应该回到哪里 | 失败回流记录：症状、影响、最小重放、回流分类 |
-
-#### `manual/ship-run-and-evolve.md`：交付、运行与演进（3）
-
-| 单元 | 主题 | 带走 |
-|---|---|---|
-| 5.1 | 在交付前给出可接受的风险结论 | 交付风险结论：暴露范围、观察、停止/回退、owner |
-| 5.2 | 从运行信号开启下一轮变更 | 运行信号记录与再进入工作卡 |
-| 5.3 | 按顺序落地一组变更 | 栈、独立 verdict、连续落地段与停止点 |
-
-#### `manual/evolve-the-environment.md`：让环境变好（3）
-
-| 单元 | 主题 | 带走 |
-|---|---|---|
-| 6.1 | 把反复摩擦变成有证据的改进 | 摩擦证据账本与改进提案 |
-| 6.2 | 把教训编码成结构 | 架构/类型/lint/测试层的约束，每条在历史错误上验证 |
-| 6.3 | 多轮之后收回累积的承诺与上下文 | 累积清单、承诺退役记录、阶段边界计划 |
-
-## 5. 图解与写作规范
-
-每个实战单元至少配一张与工作直接相关的图。优先使用：
-
-- 让读者看见循环和回流方向的流程图；
-- 让读者看见选择条件与停止条件的决策树；
-- 让读者看见输入如何变成输出的 artifact 转换图；
-- 让读者能逐项核对的证据链、责任图或带标注模板。
-
-图必须是解释的一部分，不是装饰。图里的箭头表示信息或工作状态的流动，不表示每次都必须走这条路线。
-
-写作上遵守：
-
-- 一段一个意思；能删的词删掉。
-- 术语第一次出现给英文；之后不再加注。
-- 不把会变的产品行为写成永恒事实；需要举例时写"某个工具可以……"。
-- 每个"完成"都给可检查的判据，不用"感觉已经理解"。
-
-## 6. 与现有工具的关系
-
-本手册不要求安装任何工具。现有 agent 工具可以作为：
-
-- **示例**：某个 skill 或流程分支是这条方法的一个可运行实现；
-- **对照**：某个工具选择不做什么，正好说明这一层需要人承担什么。
-
-正文不写命令目录，也不把工具步骤当课程。读者即使完全不使用这些工具，也应能按手册完成工作。
-
-## 7. 已验证的写作路径
-
-正文不必按目录顺序写。实现时先完成三个跨阶段单元，用来验证"每章都能落地"：
-
-1. **1.1 从手头变更到共同问题**：验证产品、设计、研发和 agent 如何共同起步。
-2. **4.2 验证兑现的是不是最初承诺**：验证如何把质量门讲成可执行的验证工作。
-3. **3.3 让并行工作重新汇合并可交接**：验证多人、人机、多 agent 协作与交接的核心价值。
-
-这三篇写完后，再按同一契约补全其余单元。
-
-## 8. 待决问题
-
-- 是否需要另写一本面向非软件信息工作的手册，还是只保留这一本。
-- 教程里的贯穿案例用几个：一个传统 Web 应用、一个 agentic workflow，还是每个台阶各自举最小例子。
-- 模板是否以独立文件提供，还是内嵌在单元正文里。
-- 图用手写 SVG 还是 Mermaid；目前倾向手写 SVG，便于控制术语与布局。
+- [x] `STYLE.md`、`CONTEXT.md`、`README.md`
+- [x] tutorial 00–11 与 after-tutorial（重写中，逐页验收）
+- [x] manual 1–6（重写中，逐页验收）
+- [ ] 32 张图：保留有 pstack 标签的，删除或重画依赖自造概念的
+- [ ] `PROVENANCE.md`：逐单元源码映射，去掉 EXTENSION 分类
+- [ ] 全量术语扫描：禁止词 0 命中
+- [ ] 链接、锚点、SVG、计数检查
+- [ ] 独立 review 并即时修正

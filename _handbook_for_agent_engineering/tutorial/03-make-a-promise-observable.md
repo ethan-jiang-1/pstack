@@ -15,8 +15,6 @@
 
 ![一张行为卡的组成](./figures/03-behavior-card.svg)
 
-![一张行为卡的组成](./figures/03-behavior-card.svg)
-
 ## 现在动作
 
 ### 1. 只挑一条承诺
@@ -111,6 +109,6 @@ Then：CSV 有 3 行数据；列头与全量导出一致。
 
 ## 下一段
 
-下一页 [04 设计一个可测试的形状](./04-design-a-testable-shape.md)，会把这张行为卡放进一个具体的接口和切口里：测试从哪里进入、实现隐藏什么、哪些不变量必须成立。
+下一页 [04 设计一个可测试的形状](./04-design-a-testable-shape.md)，会把这张行为卡放进一个具体的接口（public surface）里：测试从哪里进入、实现隐藏什么、哪些不变量必须成立。
 
 想先看完整方法，查 [手册：设计与计划](../manual/design-and-plan.md)；想回到教程起点，见 [教程地图](./README.md)。

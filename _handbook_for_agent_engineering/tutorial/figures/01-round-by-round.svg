@@ -20,19 +20,19 @@
   <text x="78" y="140" class="t bs">在"开始"之前不改代码</text>
 
   <rect x="380" y="92" width="300" height="64" rx="10" fill="#fef3c7" stroke="#fde68a"/>
-  <text x="398" y="118" class="t bt">1. 当前前沿的问题</text>
+  <text x="398" y="118" class="t bt">2. 当前 当前可问的问题 的问题</text>
   <text x="398" y="140" class="t bs">只问会改变接下来做什么的问题</text>
 
   <rect x="380" y="186" width="300" height="64" rx="10" fill="#dbeafe" stroke="#bfdbfe"/>
-  <text x="398" y="212" class="t bt">2. 每个问题带推荐答案</text>
+  <text x="398" y="212" class="t bt">3. 每个问题带推荐答案</text>
   <text x="398" y="234" class="t bs">给一个可以同意的起点，不是替你决定</text>
 
   <rect x="380" y="280" width="300" height="64" rx="10" fill="#dcfce7" stroke="#bbf7d0"/>
-  <text x="398" y="306" class="t bt">3. 人只回答决定</text>
+  <text x="398" y="306" class="t bt">4. 人只回答决定</text>
   <text x="398" y="328" class="t bs">"按推荐"，或说出为什么选备选</text>
 
   <rect x="380" y="374" width="300" height="64" rx="10" fill="#fee2e2" stroke="#fecaca"/>
-  <text x="398" y="400" class="t bt">4. agent 用自己的话复述</text>
+  <text x="398" y="400" class="t bt">5. agent 用自己的话复述</text>
   <text x="398" y="422" class="t bs">目标、非目标、约束、未知、下一步</text>
 
   <rect x="720" y="92" width="200" height="158" rx="10" fill="#f8fafc" stroke="#cbd5e1"/>
@@ -59,7 +59,7 @@
 
   <line x1="530" y1="438" x2="530" y2="486" stroke="#475569" stroke-width="2" marker-end="url(#arrow)"/>
 
-  <text x="120" y="300" class="t s">一轮问完前沿，</text>
+  <text x="120" y="300" class="t s">一轮问完 当前可问的问题，</text>
   <text x="120" y="320" class="t s">不要一次只问一个。</text>
   <text x="120" y="352" class="t s">答完这一批，</text>
   <text x="120" y="372" class="t s">下一批才会解锁。</text>

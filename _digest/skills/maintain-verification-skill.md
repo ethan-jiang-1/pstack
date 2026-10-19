@@ -2,7 +2,7 @@
 
 > 源码：[`skills/maintain-verification-skill/SKILL.md`](../../skills/maintain-verification-skill/SKILL.md)
 > 调用：**U**（user-invoked，只有人能触发）
-> 索引：[技能索引](./README.md) · [证据优先](../patterns/evidence-first.md)
+> 索引：[技能索引](./README.md) · [验证与 verdict](../patterns/evidence-first.md)
 
 ## 一句话
 
@@ -62,7 +62,7 @@ doctor 因 skill 漂移而失败也按漂移处理：在 edit scope 内修，重
 
 ## 依赖关系
 
-- **上游**：[`create-verification-skill`](../../skills/create-verification-skill/SKILL.md) 生成 target：`SKILL.md` 的 Launch、Doctor、Drive、Evidence、Cleanup 小节，以及 `features/` 下每个 feature 文件（四个 H2：`Sub-features`、`How to get to it (user POV)`、`Driving it with <harness>`、`Gotchas`）。根 `README.md` 的依赖表把这两个 skill 配成一对安装。
+- **上游**：[`create-verification-skill`](../../skills/create-verification-skill/SKILL.md) 生成 target：`SKILL.md` 的 Launch、Doctor、Drive、Evidence、Cleanup、Helpers 小节，以及 `features/` 下每个 feature 文件（四个 H2：`Sub-features`、`How to get to it (user POV)`、`Driving it with <harness>`、`Gotchas`）。根 `README.md` 的依赖表把这两个 skill 配成一对安装。
 - **上游**：`poteto-mode` 的 Subagents 规则决定 source reader 的模型档位、后台运行与 fresh 策略。
 - **共享接口**：feature map 的四个 H2 同时是生成端与维护端的契约。维护端读的是生成端写下的形状，任何一边改形状都会让另一边的假设失效。
 - **对照**：`swarm` 可以按 feature-map 条目切分一次全量 pass；`benchmark-checklist` 负责性能数字，不在这里。

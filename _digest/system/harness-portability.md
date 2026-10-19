@@ -41,9 +41,9 @@ pstack 有几个能力依赖 Cursor 生态，缺了要手工替代：
 
 - `README.md` 顶部加一段镜像说明与安装方式，`mirror:end` 之后保持上游原文。
 - 一些 skill 从 Cursor 专用改写为 harness 中立，例如把 `Task`、`agent-transcripts`、`cursor-team-kit` 的说明改成映射表。
-- 目录名与 skill 名统一成 kebab-case（`poteto-mode`、`make-bot-ui`），因为大写和空格会破坏 Agent Skills 的命名规则与 `/skill:` 调用。
+- 目录名与 skill 名统一成 kebab-case（`poteto-mode`、`make-bot-ui`）。
 
-这些编辑在同步时最容易被上游覆盖。`MIRROR.md` 的步骤要求先更新 `upstream` 分支，再 merge 到 `main`，冲突时保留上游语义并重放本地措辞。
+这些编辑在同步时最容易被上游覆盖。`MIRROR.md` 的步骤要求先把 `main` 快进到 `origin/main`，再 merge 进 `ethan`；冲突时保留上游语义并重放本地措辞。
 
 ## 为什么可移植性没做成抽象层
 
@@ -57,17 +57,17 @@ slug 不被接受时，用同家族最近的 slug，并说明。
 
 好处是：agent 读到的就是当前要做的判断，不需要先理解一层抽象。坏处是：
 
-- 同一段映射在 `how`、`why`、`arena`、`swarm`、`architect`、`interrogate`、`reflect` 里重复。
-- 上游改一处，本地要跟七处。
+- 同一段映射在 `how`、`why`、`reflect`、`swarm`、`interrogate` 里重复。
+- 上游改一处，本地要跟五处。
 - 没有单一事实来源。
 
-这是 pstack 与 Matt 体系的一个明显差异：Matt 用一个 `SKILL-MECHANICS.md` 和调用模型页做单一来源；pstack 选择就地写清楚，牺牲一致性换可执行性。
+这条路反过来走也自洽：把映射集中到一份共享文档，单一来源，代价是 agent 每次要先读一层抽象。pstack 选择就地写清楚，牺牲一致性换可执行性。
 
 ## 值得注意
 
 - **"能跑"与"等价"不是一回事。** 没有云端 agent 时，`swarm` 的隔离假设变了；没有控制技能时，`shipping` 的独立验证会退化成 CI 加人工。
 - **模型 slug 是最不可移植的部分。** 各 harness 的模型目录不同，pstack 只能用"同家族降级 + 说明"兜底。
-- **`disable-model-invocation` 并非所有 harness 都执行。** 见 [调用模型](./invocation-model.md)。
+- **`disable-model-invocation` 的执行方式仓库没有说明。** 见 [调用模型](./invocation-model.md)。
 - **重复的映射段会漂移。** 修一处不等于修全部，这是当前结构的已知成本。
 
 ## 关键洞察
@@ -76,3 +76,5 @@ slug 不被接受时，用同家族最近的 slug，并说明。
 2. **降级要可见。** "用同家族最近的 slug 并说明"比悄悄换模型更可靠。
 3. **能力缺失要写替代路径。** 只写"需要 control-ui"会把没装的人挡在门外。
 4. **镜像仓库本身是移植工作的一部分。** 上游为 Cursor 写，本地为多 harness 改写，两者需要用分支隔离。
+
+> 源码：[`poteto-mode/SKILL.md`](../../skills/poteto-mode/SKILL.md)（Harness）、[`how`](../../skills/how/SKILL.md)、[`why`](../../skills/why/SKILL.md)、[`reflect`](../../skills/reflect/SKILL.md)、[`swarm`](../../skills/swarm/SKILL.md)、[`interrogate`](../../skills/interrogate/SKILL.md)。

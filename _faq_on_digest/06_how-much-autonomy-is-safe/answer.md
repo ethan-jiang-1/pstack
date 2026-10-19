@@ -21,14 +21,14 @@
 | 门 | 什么时候仍然要停 |
 |---|---|
 | 复现 | Bug fix 必须先在该表面复现；够不到控制面时说明原因再请人 |
-| 独立验证 | Shipping 要求没写代码的 verifier 给 `PASS`；作者自证不算 |
-| 基准 | 报告性能数字前走 `benchmark-checklist` 的七问 |
+| 独立验证 | Shipping 要求没写代码的 verifier 给 `PASS` 或 `PASS+NOTES`；作者自证不算 |
+| 基准 | 报告性能数字前走 `benchmark-checklist`：正式报告答七问；用户只要 ballpark 时至少答第 4、7 问，并说明只有一次运行 |
 | 不可逆写入 | force-push 共享分支、部署、删数据、给客户发消息 |
-| 合并 | 只有明确要求 land/ship 或开启 autopilot 时，合并才在授权内 |
+| 合并 | 只有明确要求 land/ship，或开启 `Autopilot-full` 时，合并才在授权内；`Autopilot-stack` 只交付待人工落地的栈 |
 
 ## 审计三件套
 
-1. **决策轨迹**：`show-me-your-work` 的 TSV，一行一个决定，证据是指针。只追加，错误用新行覆盖。
+1. **decision trail**：`show-me-your-work` 的 TSV，一行一个决定，证据是指针。只追加，错误用新行覆盖。
 2. **transcript 审计**：交付前用原始会话记录对一遍，检查每行是否对应真实决定、证据是否能解析。
 3. **跨模型复查**：派一个不同模型家族的 subagent 读轨迹与 transcript，回复末尾给 **Attention** 段，列出该看的行和风险。
 
@@ -56,4 +56,4 @@
 
 - [当前行为的源码](../../skills/poteto-mode/SKILL.md)（**Autonomy** 一节）
 - [自主与门：三层自主、门的失败出口](../../_digest/system/autonomy-and-gates.md)
-- [证据优先](../../_digest/patterns/evidence-first.md)
+- [验证与 verdict](../../_digest/patterns/evidence-first.md)

@@ -23,7 +23,7 @@
 - 非平凡改动、"我们确定吗" → `how`；代码跨函数边界 → `architect`；并行扇出 → `swarm`；设计竞赛 → `arena`；有争议的设计 → `interrogate`。
 - 任何文字表面（包括给用户的回复）→ `unslop`；提交前 → `deslop`；评审前 → `no-comments`；报性能数字前 → `benchmark-checklist`。
 - PR 状态 → Babysit playbook，而不是 Cursor 的同名内置 skill；绿色栈要落地 → Shipping playbook，"绿不等于安全"。
-- Bugbot 评论 → 怀疑姿态，按 [`references/bugbot-triage.md`](../../skills/poteto-mode/references/bugbot-triage.md) 分 fix / dismiss / ask；长任务或用户要离开 → `show-me-your-work` 的决策轨迹。
+- Bugbot 评论 → 怀疑姿态，按 [`references/bugbot-triage.md`](../../skills/poteto-mode/references/bugbot-triage.md) 分 fix / dismiss / ask；长任务或用户要离开 → `show-me-your-work` 的 decision trail。
 
 每条都规定"在什么时候"，不规定"要做多少"。判断被挂在事件上，避免退化成一句笼统的"要谨慎"。
 
@@ -59,7 +59,7 @@
 
 ### 7. **Harness** 承认自己是 Cursor 优先
 
-`Task`、`AskQuestion`、transcript 路径、skill 目录、模型设置文件都给了其他 harness 的映射；`poteto-agent` 未注册时，退化为"先读这个文件的绝对路径"的通用 subagent；没有 subagent 工具时自己按顺序做每个委派步骤；`deslop`、`control-cli`、`control-ui` 缺失时用现有自动化补。
+`Task`、`AskQuestion`、transcript 路径、skill 目录、模型设置文件都给了其他 harness 的映射；`poteto-agent` 未注册时，退化为"先读这个文件的绝对路径"的通用 subagent；没有 subagent 工具时自己按顺序做每个委派步骤；`deslop` 缺失时自己重读 diff 删 AI 痕迹，`control-cli`、`control-ui` 缺失时用现有自动化补（Playwright/CDP、tmux/PTY）。
 
 ## 设计意图
 
@@ -87,7 +87,7 @@
 
 ## 值得注意
 
-- **常驻成本高。** 整份 `SKILL.md`（当前 161 行），加被选中的 playbook，再加被点名的 skill，是每次运行的固定开销；设成 Custom Mode 后每轮都付。
+- **常驻成本高。** 整份 `SKILL.md`（0.15.25 时 161 行），加被选中的 playbook，再加被点名的 skill，是每次运行的固定开销；设成 Custom Mode 后每轮都付。
 - **引用原则有事后贴标签的诱惑。** "读过本 session 的叶文件"是自我约束，无法被外部验证；写得越顺，越难分辨真的按原则决策还是补一句引用。
 - **两套并行的命名体系。** 24 条原则和 23 个 playbook 各自命名，靠人记。`poteto-help` 的表格在补这部分，但表格本身也要维护。
 - **默认 slug 是快照。** `grok-4.7-xhigh-fast`、`claude-opus-5-5-xhigh` 会随模型发布过时；源码没有版本映射。

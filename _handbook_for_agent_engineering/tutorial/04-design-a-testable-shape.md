@@ -12,11 +12,9 @@
 
 第一种测起来慢，第二种把实现暴露成接口，第三种让测试依赖私有状态。三种都会让后面的改动变贵。
 
-![接口、切口与被隐藏的实现](./figures/04-module-shape.svg)
+![接口（public surface）与被隐藏的实现](./figures/04-module-shape.svg)
 
 这一页只做一件事：先画一个**能用一条行为卡走通**的模块形状，再写实现。
-
-![接口、切口与被隐藏的实现](./figures/04-module-shape.svg)
 
 ## 现在动作
 
@@ -53,19 +51,19 @@ interface OrderExporter {
 
 这个接口没有暴露"怎样查订单""怎样拼 CSV""怎样处理缺失行"。调用者只需要知道意图和结果。
 
-### 2. 定一个切口
+### 2. 定一个 public surface
 
-切口（seam）是调用者和测试共同跨越、观察外部行为的位置。在这里，切口就是 `OrderExporter.export`。
+Public surface（公共表面）是调用者和测试共同跨越、观察外部行为的位置。在这里，public surface 就是 `OrderExporter.export`。
 
-判断切口是否合适，看测试需不需要越过它：
+判断 public surface 是否合适，看测试需不需要越过它：
 
-- 测试只调用 `export`，读 `ExportResult`，不读私有字段：切口成立。
-- 测试必须知道组件内部的 `selectedRows` 状态：切口太深，或者状态不该放在那里。
+- 测试只调用 `export`，读 `ExportResult`，不读私有字段：public surface 成立。
+- 测试必须知道组件内部的 `selectedRows` 状态：public surface 太深，或者状态不该放在那里。
 - 测试要访问数据库旁路来确认写了什么：说明结果没有被接口表达出来。
 
 ### 3. 隐藏实现
 
-切口之后的部分都应该是实现细节：
+public surface 之后的部分都应该是实现细节：
 
 - 订单从哪里读（数据库、API、缓存）；
 - CSV 怎样转义、用什么换行；
@@ -94,7 +92,7 @@ class CsvOrderExporter implements OrderExporter {
 
 ### 5. 用行为卡走一遍测试路径
 
-拿 [03](./03-make-a-promise-observable.md) 的行为卡，从切口走一遍：
+拿 [03](./03-make-a-promise-observable.md) 的行为卡，从 public surface 走一遍：
 
 ```text
 Given：12 行订单，其中 id 2、5、9 存在。
@@ -135,7 +133,7 @@ Then：result.rows === 3；解析 result.file 得到 3 行数据；列头固定�
 
 ```text
 接口：OrderExporter.export(selection) -> ExportResult
-切口：export 方法
+public surface：export 方法
 隐藏：订单读取、CSV 生成、缺失检测、文件写出
 不变量：
 - 列顺序固定
@@ -150,7 +148,7 @@ Then：result.rows === 3；解析 result.file 得到 3 行数据；列头固定�
 
 ## 休息点
 
-可以停在这里。你已经有了一条行为、一个切口和一组不变量。下一步才是决定谁来实现、在哪里实现。
+可以停在这里。你已经有了一条行为、一个 public surface 和一组不变量。下一步才是决定谁来实现、在哪里实现。
 
 如果形状还有争议，先不要进入实现。用一个一次性原型验证两种形状的差异，比在代码里改来改去便宜。
 

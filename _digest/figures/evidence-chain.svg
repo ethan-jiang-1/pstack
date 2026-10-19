@@ -19,7 +19,7 @@
   <rect x="20" y="110" width="160" height="160" rx="10" fill="#f1f5f9" stroke="#cbd5e1"/>
   <text x="100" y="138" text-anchor="middle" class="t bt">声明</text>
   <text x="36" y="166" class="t lab">能证明</text>
-  <text x="36" y="184" class="t bs">意图</text>
+  <text x="36" y="184" class="t bs">作者这样说过</text>
   <text x="36" y="214" class="t lab">不能证明</text>
   <text x="36" y="232" class="t bs">任何行为</text>
 

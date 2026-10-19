@@ -11,8 +11,7 @@ skills/<name>/
 ├── SKILL.md
 ├── references/          # 按需加载的模板、评分表、评审 prompt
 ├── playbooks/           # 只有 poteto-mode 有：23 个流程分支
-├── scripts/             # 可执行工具，如 log.sh、orch.ts、watch-pr
-└── templates/           # 可复制的空白 artifact
+└── scripts/             # 可执行工具，如 log.sh、orch.ts、watch-pr
 ```
 
 `agents/` 在仓库根目录，不在 skill 里：`poteto-agent.md` 和 `comment-sicko.md` 是 subagent 定义，由 harness 注册。
@@ -57,7 +56,7 @@ playbook 和大多数 skill 用编号步骤推进状态。好的步骤带可检�
 
 `unslop` 是一张编号规则表；`typescript-best-practices` 是一张规则表；`benchmark-checklist` 是七问清单。这些内容不推进状态，只约束判断。
 
-`unslop` 的编号是**稳定 id**：其他 skill 引用"rule 13""rule 26"，删掉一条要留空号，不能重排。
+`unslop` 的编号是**稳定 id**：源码原话是 rule numbers are stable ids that other skills cite；删掉一条要留空号，不能重排。例如 `poteto-mode` 引用过 "unslop rule 14"。
 
 ### 4. 回复契约
 
@@ -71,7 +70,7 @@ playbook 和大多数 skill 用编号步骤推进状态。好的步骤带可检�
 |---|---|---|
 | `architect` | `runner-prompt.md`、`rationale-template.md`、`design-red-flags.md` | 派设计候选、写理由、查红旗 |
 | `how` | `explainer-prompt.md`、`explorer-prompt.md` | 派探索者/解释者 |
-| `why` | `epistemics.md` | 写置信度与措辞 |
+| `why` | `epistemics.md`、`investigator-prompt.md`、`source-playbook.md`、`sources/*.md`、`synthesizer-prompt.md` | 派 investigator、按源取证据、写置信度与综合 |
 | `interrogate` | `reviewer-prompt.md`、`rubric.md`、`code-quality-review.md`、`lead-judgment.md` | 派评审、综合结论 |
 | `reflect` | 三个 reviewer prompt + synthesizer | 会话复盘 |
 | `no-comments` | `comment-sicko.md` | 派 Comment Sicko |
@@ -112,10 +111,10 @@ pstack 把一部分协议做成脚本，而不是散文：
 
 ## 值得注意
 
-- **harness 映射在多个文件里重复。** `how`、`why`、`reflect`、`swarm`、`arena`、`interrogate`、`architect` 都各写了一段"其他 harness 怎样映射 Task"。重复带来漂移风险。
+- **harness 映射在多个文件里重复。** `how`、`why`、`reflect`、`swarm`、`interrogate` 都各写了一段"其他 harness 怎样映射 Task"。重复带来漂移风险。
 - **物理路径引用。** 正文直接写 `../how/SKILL.md`，目录一动就断。
 - **没有格式校验器。** frontmatter 拼错、description 缺引号、相对链接失效，都不会在提交时被拦住。
-- **`disable-model-invocation` 的语义跨 harness 不一致。** 见 [调用模型](./invocation-model.md)。
+- **`disable-model-invocation` 在各 harness 的执行方式仓库没有说明。** 见 [调用模型](./invocation-model.md)。
 
 ## 关键洞察
 
@@ -123,3 +122,5 @@ pstack 把一部分协议做成脚本，而不是散文：
 2. **步骤与参考是两种内容。** 步骤推进状态，参考约束判断；混在一起会让协议失去可检查性。
 3. **回复也是协议的一部分。** 规定交付文本的形状，是防止"完成了"空口无凭的低成本手段。
 4. **稳定 id 比漂亮编号重要。** `unslop` 的规则号被别处引用，就不能重排。
+
+> 源码：[`skills/`](../../skills/) 下的 `SKILL.md`、frontmatter、`references/` 与 `scripts/`；示例见 [`poteto-mode/SKILL.md`](../../skills/poteto-mode/SKILL.md)。

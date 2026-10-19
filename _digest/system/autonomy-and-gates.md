@@ -2,7 +2,7 @@
 
 ## 一句话
 
-pstack 的默认姿态是**在可逆范围内不问人**，只在不可逆、真正的产品取舍或死路前停下。但"自主"不是"没有门"：每个高风险转移都有自己的可检查条件，长任务还要留下可审计的决策轨迹。
+pstack 的默认姿态是**在可逆范围内不问人**，只在不可逆、真正的产品取舍或死路前停下。但"自主"不是"没有门"：每个高风险转移都有自己的可检查条件，长任务还要留下可审计的 decision trail。
 
 ## 自主的三层
 
@@ -19,7 +19,7 @@ pstack 的默认姿态是**在可逆范围内不问人**，只在不可逆、真
 - 删除数据
 - 给客户发消息
 
-这份清单很短，是刻意的。它只保护那些"做错了无法用下一次提交挽回"的动作。
+这份清单只列不可逆写入，范围很窄。它只保护那些"做错了无法用下一次提交挽回"的动作。
 
 ### 3. 会话覆盖
 
@@ -52,7 +52,7 @@ pstack 不允许把所有不确定都丢给人。mode 要求先分类：
 | Bug fix step 1 | 在该表面上实际复现 | 合成触发、收紧条件、加 instrumentation；只有控制面够不到时才请用户，并说明原因 |
 | Bug fix step 2 | 存活假设有运行时证据 | 继续二分，不猜 |
 | Shipping step 1 | 每个 PR 有非作者的 verifier verdict | 没有 verdict 的 PR 不进入落地序列 |
-| Shipping step 2 | 从最低未合并 PR 向上连续的 verified run | 遇到第一个没有 PASS 的就停 |
+| Shipping step 2 | 从最低未合并 PR 向上连续的 verified run | 遇到第一个没有 `PASS` 或 `PASS+NOTES` 的就停 |
 | Babysit step 1 | 已声明 `drive`/`background`/`threads-only`/`check` | 未声明默认 `drive` |
 | Benchmark | 七问都有真实运行的证据 | 只有一次运行就说只有一次；选项比较不算 ballpark |
 | Feature step 3 | 四项 throughput checkpoint 都有值或 `n/a: <reason>` | 缺项不能进 fan-out |
@@ -60,7 +60,7 @@ pstack 不允许把所有不确定都丢给人。mode 要求先分类：
 
 这些门的共同点：**条件能被工具输出、artifact、用户确认或状态标签证实**。"我觉得理解了"不是条件。
 
-## 决策轨迹
+## Decision trail（决策轨迹）
 
 长任务、自主运行、或用户离开后要复查的工作，用 `show-me-your-work` 留一个 TSV：
 
@@ -87,9 +87,9 @@ ts  phase  decision  why  evidence  result
 
 ## 值得注意
 
-- **Always pause 清单与 playbook 的授权有张力。** `Shipping` 会合并 PR，`Autopilot-full` 会落地队列；合并算不算不可逆写入，源码没有统一回答。安全读法是：只有在用户明确要求 land/ship 或开启 autopilot 时，合并才在授权内。
+- **Always pause 清单与 playbook 的授权有张力。** `Shipping` 会合并 PR，`Autopilot-full` 会落地队列；合并算不算不可逆写入，源码没有统一回答。安全读法是：只有在用户明确要求 land/ship 或开启 `Autopilot-full` 时，合并才在授权内；`Autopilot-stack` 只交付待人工落地的栈。
 - **"不问人"依赖 agent 能识别什么是产品取舍。** 分类表写得很细，但仍是判断题。
-- **决策轨迹是自报的。** 所以才有 transcript 审计和跨模型复查；单靠轨迹本身不能证明轨迹是真的。
+- **decision trail 是自报的。** 所以才有 transcript 审计和跨模型复查；单靠轨迹本身不能证明轨迹是真的。
 
 ## 关键洞察
 
@@ -97,3 +97,5 @@ ts  phase  decision  why  evidence  result
 2. **门的价值在于失败出口。** 只有"必须满足"没有"不满足时去哪"，门会变成死胡同。
 3. **轨迹是自主的配套成本。** 跑得越久，越需要一种让人事后能检查的形态。
 4. **授权改变问不问，不改变算不算完成。** 把这两件事分开，是长任务不漂移的关键。
+
+> 源码：[`poteto-mode/SKILL.md`](../../skills/poteto-mode/SKILL.md)（Autonomy）、[`bug-fix`](../../skills/poteto-mode/playbooks/bug-fix.md)、[`shipping`](../../skills/poteto-mode/playbooks/shipping.md)、[`babysit`](../../skills/poteto-mode/playbooks/babysit.md)、[`feature`](../../skills/poteto-mode/playbooks/feature.md)、[`benchmark-checklist`](../../skills/benchmark-checklist/SKILL.md)、[`show-me-your-work`](../../skills/show-me-your-work/SKILL.md)。

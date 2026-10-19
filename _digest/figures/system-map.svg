@@ -49,7 +49,7 @@
   <!-- 证据 -->
   <rect x="210" y="462" width="520" height="56" rx="10" fill="#fee2e2" stroke="#fecaca"/>
   <text x="232" y="486" class="t bt">证据</text>
-  <text x="232" y="506" class="t bs">真实表面 · 独立 verdict · benchmark · 决策轨迹</text>
+  <text x="232" y="506" class="t bs">真实表面 · 独立 verdict · benchmark · decision trail</text>
   <text x="190" y="495" text-anchor="end" class="t lab">收口</text>
 
   <!-- arrows -->

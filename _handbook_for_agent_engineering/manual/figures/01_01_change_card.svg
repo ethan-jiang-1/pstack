@@ -41,9 +41,9 @@
   <text x="640" y="202" class="t bs">要改变的行为</text>
   <text x="640" y="226" class="t bs">非目标（至少两条）</text>
   <text x="640" y="250" class="t bs">硬约束</text>
-  <text x="640" y="274" class="t bs">owner（具名人）</text>
-  <text x="640" y="298" class="t bs">未知项（带 owner 与时间）</text>
-  <text x="640" y="322" class="t bs">下一次确认</text>
+  <text x="640" y="274" class="t bs">完成判据（可观察）</text>
+  <text x="640" y="298" class="t bs">未知项（带 owner）</text>
+  <text x="640" y="322" class="t bs">owner 与下一次确认</text>
   <text x="640" y="356" class="t s">它不是 spec，也不是实施方案；</text>
   <text x="640" y="376" class="t s">它只保证讨论的是同一个问题。</text>
   <text x="640" y="404" class="t s">卡里没有实施方案。</text>

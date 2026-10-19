@@ -36,14 +36,14 @@ environment: "cloud" 只在 Cursor 有意义；别处在本地 worktree 跑。
 
 ## 代价
 
-- **重复。** 同一段映射出现在 `how`、`why`、`swarm`、`arena`、`architect`、`interrogate`、`reflect` 里；上游改一处，本地要跟多处。
+- **重复。** 同一段映射出现在 `how`、`why`、`swarm`、`interrogate`、`reflect` 里；上游改一处，本地要跟多处。
 - **漂移。** 没有单一事实来源，几份映射会逐渐不一致。
 - **"能跑"不等于"等价"。** 没有云端 agent，隔离假设就变了；没有控制技能，独立验证会退化成 CI 加人工。
 - **部分 harness 不执行某些 frontmatter。** 例如 `disable-model-invocation` 的语义并不统一。
 
 ## 镜像仓库的角色
 
-本仓库的 `main` 是"为多 harness 改写过的 pstack"：README 顶部加安装说明，部分 skill 改成 harness 中立，目录名统一 kebab-case。上游分支负责保持原样，merge 时保留上游语义再重放本地措辞。
+本仓库的 `main` 是"为多 harness 改写过的 pstack"：README 顶部加安装说明，部分 skill 改成 harness 中立，目录名统一 kebab-case。`ethan` 在 `main` 之上叠加消化层；merge 时保留上游语义，再重放本地措辞。
 
 这把"上游为 Cursor 写"和"本地要多 harness"的冲突隔离在分支层，而不是散落在每次编辑里。
 

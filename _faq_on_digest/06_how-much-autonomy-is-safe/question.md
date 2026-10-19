@@ -11,5 +11,5 @@ pstack 支持从 `Autonomous run` 到 `Orchestrate`、`Autopilot-full`、`Autopi
 ## 不在本问题范围内
 
 - 每个自主 playbook 的完整步骤：见 [playbook 索引](../../_digest/playbooks/README.md)。
-- 决策轨迹的字段细节：见 [`show-me-your-work`](../../skills/show-me-your-work/SKILL.md)。
+- decision trail 的字段细节：见 [`show-me-your-work`](../../skills/show-me-your-work/SKILL.md)。
 - 模型与成本：见 [04](../04_model-panel-and-budget/answer.md)。

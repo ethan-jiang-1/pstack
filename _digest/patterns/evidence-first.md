@@ -1,66 +1,48 @@
-# Evidence First 模式
+# 验证与 verdict
 
-## 是什么
+pstack 不把"做完了"当一句话。它把完成拆成几种可检查的东西：`tdd` 的 red-green、`prove-it-works` 的真实产物、`benchmark-checklist` 的七个问题、`shipping` 的 verdict 与 patch-id、`show-me-your-work` 的 decision trail。测试绿了、编译过了、CI 通过，都不自动等于兑现。
 
-pstack 反复把"完成"从一句话变成一个可检查的产物：真实表面上的复现、可重跑的基准、独立验证者的 verdict、与 transcript 对得上的决策轨迹。测试绿了、编译过了、CI 通过，都不自动等于兑现。
+## 源码里的五个装置
 
-![从声明到独立验证的证据阶梯](../figures/evidence-chain.svg)
+### 1. `tdd`
 
-## 证据阶梯
+修 bug 且测试路径便宜时，先写一个会失败的回归测试，再改实现。测试要断言用户可观察的行为，不镜像实现。测试路径不清楚、昂贵、集成很重时，跳过新测试，用最接近的验证。源码：`skills/tdd/SKILL.md`。
 
-| 层级 | 例子 | 能证明什么 | 不能证明什么 |
-|---|---|---|---|
-| 声明 | "修好了" | 几乎没有 | 任何行为 |
-| 单元测试 | 新增回归测试通过 | 这条分支的行为 | 真实用户路径、性能、集成 |
-| 真实表面 | 用 control skill 驱动应用 | 用户能看到的行为 | 其他表面、规模、并发 |
-| 独立验证 | 非作者的 verifier 给 `PASS` | 这次改动在该表面上的兑现 | 未覆盖的风险 |
-| 测量 + 方法 | benchmark 带基线、样本数、限制 | 数字本身 | 数字之外的相关性 |
+### 2. `prove-it-works`
 
-pstack 的门通常要求至少到第三层；`shipping` 要求第四层；任何性能声明要求第五层。
+在真实产物上验证：运行功能、读实际值、看 diff。不用代理指标。"能编译"不是证据；"测试绿了"只在测试覆盖了该行为时才是证据。源码：`skills/principle-prove-it-works/SKILL.md`。
 
-## 源码里的四个装置
+### 3. `benchmark-checklist`
 
-### 1. `prove-it-works`
+报告任何性能数字前回答七个问题：什么限制了它、调优空间、上限、错误、可重复性、相关性，以及工作是否真的发生了。用户只要 ballpark 时，至少回答第 4、7 问，并说明只有一次运行；在两个选项之间做选择时，一次运行永远不够。源码：`skills/benchmark-checklist/SKILL.md`。
 
-验证真实产物，不用代理指标。"能编译"不是证据，"测试绿了"只在测试覆盖了该行为时才是证据。
+### 4. `shipping` 的 verdict
 
-### 2. `benchmark-checklist`
+每个 PR 由一个没写这份代码的 verifier 给出 `PASS`、`PASS+NOTES` 或 `FAIL`。只有 `PASS` 或 `PASS+NOTES` 才算通过；绿 CI 和 bot approval 不是 verdict。落地只取从最低未合并 PR 开始连续通过的那一段。rebase 会改 SHA，旧 verdict 是否仍覆盖当前 head，用 `git patch-id` 判断。源码：`skills/poteto-mode/playbooks/shipping.md`。
 
-报告任何性能数字前回答七个问题：什么限制了它、调优空间、上限、错误、可重复性、相关性，以及**工作是否真的发生了**。一次运行只能算 ballpark，而且要说清楚只有一次；在两个选项之间做选择时，一次运行永远不够。
+### 5. `show-me-your-work`
 
-### 3. `create-verification-skill` / `maintain-verification-skill`
+长任务、自主运行或用户离开后要复查的工作，用 `show-me-your-work` 留 decision trail：默认 `decisions.tsv`，一行一个决定（ts、phase、decision、why、evidence、result），只追加。交付前用本次运行的 transcript 审计，再让一个不同模型家族的 subagent 复查。源码：`skills/show-me-your-work/SKILL.md`。
 
-把"像用户一样驱动这个应用"固化成项目内的控制面：启动、走一条真实路径、捕获证据。`maintain` 定期核对 feature map 与源码，防止控制面腐烂。
+## 什么算完成
 
-这是 pstack 对"证据从哪里来"的结构性回答：不要每次临时写脚本，生成一个项目自己的验证 skill。
+| 你要证明的 | pstack 要求 | 源码 |
+|---|---|---|
+| 这条 bug 修好了 | 先红后绿的回归测试；真实表面复现 | `tdd`、`bug fix` step 1 |
+| 这个功能真的能用 | 在真实表面跑用户路径，读实际结果 | `prove-it-works`、`create-verification-skill` |
+| 这个数字可信 | 七问；基线、限制、重复运行；选择时不能只跑一次 | `benchmark-checklist` |
+| 这个 PR 可以落地 | 非作者 verifier 的 `PASS` / `PASS+NOTES`；patch-id 覆盖当前 head | `shipping` |
+| 这次长任务可审计 | decision trail + transcript 审计 + 跨模型复查 | `show-me-your-work` |
 
-### 4. `show-me-your-work`
+## 边界
 
-长任务的决策轨迹：一行一个决定，证据是指针，结果是一个可检查的状态。交付前用 transcript 审计，再让不同模型家族的 subagent 复查。
-
-## 为什么有效
-
-- **把"完成"变成可复查的状态。** 下一位不需要相信上一位的叙述。
-- **失败位置可定位。** 证据指向具体命令、路径或 SHA，争论可以回到同一份材料。
-- **防止代理指标作弊。** "测试通过"很容易被写成完成；"在真实表面看到这个行为"更难伪造。
-
-## 代价
-
-- **建立控制面很贵。** 一个能驱动真实应用的 verification skill 需要初始投入，之后还要维护。
-- **证据有覆盖边界。** 一次通过只证明跑过的那条路径；pstack 要求写出覆盖边界，但这仍是自述。
-- **独立验证需要额外 agent。** shipping 的每个 PR 都要一个非作者 verifier，成本随栈长度增长。
-- **轨迹可能自报。** 所以才有 transcript 审计和跨模型复查；单靠 TSV 不能证明 TSV。
-
-## 怎么迁移
-
-1. 给"完成"写一句可检查的谓词：在哪个表面、看到什么、由谁验证。
-2. 优先建一个可重复的控制面，而不是每次手写一次性脚本。
-3. 性能数字必须带方法：样本、基线、限制、是否真的在做那件事。
-4. 高风险交付引入独立验证者；不要让作者自己宣布通过。
-5. 长任务留轨迹，并在交付前用原始记录对一遍。
+- **证据有范围。** 一次通过只证明跑过的那条路径；`create-verification-skill` 的 feature map 记录覆盖到哪些 feature，没覆盖的要写出来。
+- **verdict 需要另一个 agent。** `shipping` 的每个 PR 都要一个非作者 verifier，成本随栈长度增长。
+- **decision trail 可能自报。** 所以有 transcript 审计和跨模型复查；单靠 TSV 不能证明 TSV。
+- **pstack 到 merge 为止。** 部署、发布后监控、回滚不在 pstack 里；部署只是 `Always pause` 的一个不可逆动作。源码：`skills/poteto-mode/SKILL.md#Autonomy`。
 
 ## 关键洞察
 
-1. **证据的分母是表面，不是测试数量。** 在错误表面上跑一百个测试，仍然不能证明用户路径。
+1. **证据要落在表面上，不是测试数量上。** 在错误表面上跑一百个测试，仍然不能证明用户路径。
 2. **独立性比强度更重要。** 一个没写代码的 verifier 的 `PASS`，比作者自己跑十遍更有信息量。
-3. **轨迹的价值在于可审计。** 它让人能沿着指针检查，而不是相信总结。
+3. **trail 的价值在于可审计。** 它让人能沿着指针检查，而不是相信总结。

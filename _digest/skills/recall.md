@@ -72,7 +72,7 @@ transcript 是 JSONL，位置按 harness 不同：Cursor 在 `~/.cursor/projects
 
 - **隐私与成本。** 为了重建上下文可能扫大量 transcript；源码用 scope 和 subagent 隔离控制成本，但"默认扫共享记录"意味着会触碰 issue 和 chat 里的他人内容。脱敏只写在输出前，没有读取时的过滤。
 - **六个状态标签覆盖不了混合态。** 一个线程同时"已合并"又有后续未提交修复时，只能拆成多行或选一个主导状态，源码没有给拆分规则。
-- **harness 路径表是某一时刻的快照。** 五个 harness 里 Codex 和 OpenCode 的布局与其余四个明显不同，这既说明它认真做过移植，也说明每加一个 harness 就要维护一条硬编码路径。
+- **harness 路径表是某一时刻的快照。** 五个 harness 里 Codex 和 OpenCode 的布局与其余三个明显不同，这既说明它认真做过移植，也说明每加一个 harness 就要维护一条硬编码路径。
 - **brief 没有置信度字段。** 它借用了 `why` 的 investigator 和"空结果是发现"的姿态，却没有继承五级置信度；简报区分了来源（chat UUID 还是 PR、ticket），读者仍要自己判断哪句是核实过的、哪句只是旧 chat 里的说法。
 
 ## 关键洞察

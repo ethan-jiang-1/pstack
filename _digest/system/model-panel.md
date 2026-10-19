@@ -21,6 +21,8 @@ arena runners: claude-opus-5-5-xhigh, grok-4.7-xhigh-fast
 
 ## 角色与默认值
 
+下表是 pstack `0.15.25` 的默认值；slug 会随模型发布过时。
+
 | 角色 | 默认 | 用途 |
 |---|---|---|
 | `feature, refactoring` | `grok-4.7-xhigh-fast` | 代码委派 |
@@ -86,7 +88,7 @@ arena runners: claude-opus-5-5-xhigh, grok-4.7-xhigh-fast
 
 ## 为什么强调模型差异
 
-`arena`、`interrogate`、`swarm`、`reflect` 的收益来自不同模型看到不同的东西：
+`arena`、`interrogate`、`reflect` 的收益来自不同模型看到不同的东西；`swarm` 的主收益是并行覆盖，模型竞速只是可选的额外维度。
 
 - `arena` 让多个候选竞争，跨模型裁判选择基础版本。
 - `interrogate` 的对抗信号来自模型多样性，不来自给每个模型分配"人设"。
@@ -108,3 +110,5 @@ arena runners: claude-opus-5-5-xhigh, grok-4.7-xhigh-fast
 2. **角色比模型名稳定。** "判断与文字"这个角色不会因为模型换代而改变。
 3. **预算是一根全局旋钮，不是每个角色的独立设置。** 这让"这次要跑多贵"变成一个可回答的问题。
 4. **降级必须同家族。** 换家族会破坏面板的多样性假设，比降档更危险。
+
+> 源码：[`setup-pstack/SKILL.md`](../../skills/setup-pstack/SKILL.md)、[`poteto-mode/SKILL.md`](../../skills/poteto-mode/SKILL.md)（Subagents）。

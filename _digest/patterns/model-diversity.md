@@ -2,7 +2,7 @@
 
 ## 是什么
 
-pstack 把"换一个模型"当成一种结构性输入，而不是备用方案：`arena` 用不同模型生成候选，`interrogate` 用不同模型做对抗评审，`swarm` 用不同模型分组比赛，`reflect` 用不同视角复查同一段会话，`shipping` 要求验证者来自没写这份代码的模型。
+pstack 把"换一个模型"当成一种结构性输入，而不是备用方案：`arena` 用不同模型生成候选，`interrogate` 用不同模型做对抗评审，`swarm` 用不同模型分组比赛，`reflect` 用不同视角复查同一段会话，`shipping` 要求验证者是没有写这份代码的 agent（不同模型是更强的独立性，不是硬条件）。
 
 ![模型面板、候选、评审与验证的关系](../figures/model-panel.svg)
 
@@ -12,7 +12,7 @@ pstack 把"换一个模型"当成一种结构性输入，而不是备用方案�
 
 `arena` 给所有候选同一个 prompt，每个候选跑在自己的输出位置。它不要求候选"扮演不同角色"；差异来自模型本身。
 
-裁判从 `arena cross-judge pool` 里选一个与父模型不同家族的模型，按事先写好的 rubric 逐项打分。父 agent 自己也会读完全部候选，再与裁判结论对照：一致就确认，不一致就读双方理由。
+裁判从 `arena cross-judge pool` 里优先选一个与父模型不同家族的模型，按事先写好的 rubric 逐项打分。父 agent 自己也会读完全部候选，再与裁判结论对照：一致就确认，不一致就读双方理由。
 
 ### 2. 对抗评审
 
@@ -22,9 +22,9 @@ pstack 把"换一个模型"当成一种结构性输入，而不是备用方案�
 
 ### 3. 独立验证
 
-`shipping` 要求每个 PR 的 verdict 来自**没有写这份代码**的 agent。`show-me-your-work` 要求交付前由一个不同模型家族的 subagent 复查决策轨迹。
+`shipping` 要求每个 PR 的 verdict 来自**没有写这份代码**的 agent。`show-me-your-work` 要求交付前由一个不同模型家族的 subagent 复查 decision trail。
 
-这里的独立性有两个维度：不同的 agent，不同的模型。只换 agent 不换模型，仍然可能共享同一个盲点。
+独立性有两个维度：不同的 agent，不同的模型。`shipping` 的硬条件只是前者；`show-me-your-work` 的复查明确要求后者。只换 agent 不换模型，仍然可能共享同一个盲点。
 
 ## 为什么有效
 

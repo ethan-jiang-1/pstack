@@ -46,7 +46,7 @@
 ## 依赖关系
 
 - **上游**：人输入 `/bro`；`poteto-help` 的表格把它写成"Hear the last reply again in plain words"。
-- **下游**：没有。它是一次性重述，不接流程。
+- **下游**：`ketchup` 借用它的声音（"plain words, short sentences"，不用它的任务），所以两者通常一起安装。
 - **共享**：与 mode 的 **Writing the reply** 和 `unslop` 都在管表达质量，但时机相反：那两者在写的时候避免坏表达，`bro` 是写完之后的补救。
 - **对照**：`in-your-own-words` 复述用户的目标，`bro` 复述 agent 的回复；`ketchup` 汇总一段对话的变化，`bro` 只重说一条消息。
 

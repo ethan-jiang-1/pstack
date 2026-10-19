@@ -15,14 +15,14 @@
   → 步骤内调用 skill（how / why / architect / tdd …）或派 subagent
   → 在真实表面验证（control skill、repro、benchmark checklist）
   → 按 unslop 规则写回复；开 PR 前跑 technical-writing
-  → 长任务：show-me-your-work 留下可审计的决策轨迹
+  → 长任务：show-me-your-work 留下可审计的 decision trail
 ```
 
 其他入口不会另造一套流程，而是在合适的位置汇入：
 
 - 不知道用哪个 skill：`poteto-help` 回答并给出可以直接发送的 prompt，但不替用户开工。
 - 读代码、读历史：`how` 解释运行机制，`why` 追决策动机，`teach` 把两者讲成一段可理解的说明。
-- 接手旧工作：`recall` 重建当前状态，`ketchup` 用平实语言补齐这段对话的变化。
+- 重建自己的工作上下文：`recall` 重建当前状态；接手别人的在途工作用 Session pickup。`ketchup` 用平实语言补齐这段对话的变化。
 - 设计没把握：`architect` 先画形状，`arena` 让多个候选互相竞争，`interrogate` 做多模型对抗评审。
 - 环境反复出同一种错：`correct` 把它变成 lint、类型或测试，`reflect` 把这次会话的经验写回 skill。
 
@@ -33,7 +33,7 @@
 | **路由边界** | 谁来选流程，mode、playbook 与单点 skill 的职责怎样分开 | [mode 与 playbook](./system/mode-and-playbooks.md) |
 | **流程与门** | agent 何时可以从理解进入行动，何时必须停下补证据 | [自主与门](./system/autonomy-and-gates.md) |
 | **委派与模型** | 什么时候值得派 subagent，怎样用模型差异换判断质量 | [模型面板](./system/model-panel.md) |
-| **证据与收口** | 怎样算"做完了"，回复、PR 与决策轨迹各自留下什么 | [证据优先](./patterns/evidence-first.md) |
+| **证据与收口** | 怎样算"做完了"，回复、PR 与 decision trail 各自留下什么 | [验证与 verdict](./patterns/evidence-first.md) |
 
 完整图景见 [系统总览](./system/README.md)。不知道该找哪个 skill 时，直接看 [技能索引](./skills/README.md)。
 
@@ -67,7 +67,7 @@
 | 为什么几乎每个 skill 都要手动触发？ | [调用模型](./system/invocation-model.md) | [FAQ：mode 还是单 skill](../_faq_on_digest/01_mode-or-single-skill/answer.md) |
 | 24 条 principle 到底怎么用？ | [principles 索引](./principles/README.md) | [principles 作为词汇](./patterns/principles-as-vocabulary.md) |
 | 多模型是不是必需的？ | [模型面板](./system/model-panel.md) | [模型多样性](./patterns/model-diversity.md) |
-| 怎样防止 agent 跳过复现或过早宣布完成？ | [证据优先](./patterns/evidence-first.md) | [自主与门](./system/autonomy-and-gates.md) |
+| 怎样防止 agent 跳过复现或过早宣布完成？ | [验证与 verdict](./patterns/evidence-first.md) | [自主与门](./system/autonomy-and-gates.md) |
 | 什么时候值得派 subagent？ | [子代理拓扑](./patterns/subagent-topology.md) | [子代理调用模型](./system/invocation-model.md) |
 | 换到 Claude Code / Codex / Pi 还能用吗？ | [harness 可移植性](./system/harness-portability.md) | [FAQ：单模型、无子代理](../_faq_on_digest/02_single-model-no-subagents/answer.md) |
 | 上游更新后，这些解读怎么跟上？ | [Change Log](./_change_log/README.md) | [维护约定](./MAINTAINING.md) |

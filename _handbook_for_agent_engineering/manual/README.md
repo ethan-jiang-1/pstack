@@ -3,6 +3,8 @@
 手册面向已经能命名问题的读者。不要顺读；从你现在的卡点进入，拿到一个可复用的产物或判断，再回到工作。
 
 > 状态：六章全部完成。完整契约与进度见 [PLAN.md](../PLAN.md)。
+>
+> 方法边界：本手册的 change card、spec、behavior map（行为地图）、semantic conflict（语义冲突）、two-axis review（双轴评审）、failure routing record（失败回流记录）、release risk decision（交付风险结论）、operational signal（运行信号）、friction evidence ledger（摩擦证据账本）、friction improvement proposal（摩擦改进提案）与 promise retirement（承诺退役），是教学化扩展，不是 pstack 的现有机制。逐项锚点见 [`../PROVENANCE.md`](../PROVENANCE.md)；pstack 的当前行为以 `skills/**/SKILL.md` 为准。
 
 ## 按症状进入
 
@@ -19,10 +21,10 @@
 | "多人、多 agent 同时改，责任不清" | [3.2 安排协作](./delegate-and-collaborate.md) | 协作约定 |
 | "几条工作线要汇合，不知道谁说了算" | [3.3 汇合与交接](./delegate-and-collaborate.md) | 汇合与交接包 |
 | "测试绿了，但不确定兑现了承诺" | [4.1 建立反馈回路](./verify.md) / [4.2 对照承诺与证据](./verify.md) | 回路卡与对照表 |
-| "要判断这个改动值不值得合入" | [4.3 双轴评审](./verify.md) | 标准轴与规格轴结论 |
+| "要判断这个改动值不值得合入" | [4.3 two-axis review（双轴评审）](./verify.md) | 标准轴与规格轴结论 |
 | "失败了，不知道是定义、设计还是实现的问题" | [4.4 失败回流](./verify.md) | 失败回流记录 |
-| "要交付给真实用户，怕出事" | [5.1 交付风险结论](./ship-run-and-evolve.md) | 暴露范围、观察、回退与 owner |
-| "线上信号来了，先做什么" | [5.2 从信号开始下一轮](./ship-run-and-evolve.md) | 运行信号记录与再进入卡 |
+| "要交付给真实用户，怕出事" | [5.1 release risk decision（交付风险结论）](./ship-run-and-evolve.md) | 暴露范围、观察、回退与 owner |
+| "线上信号来了，先做什么" | [5.2 从 signal 开始下一轮](./ship-run-and-evolve.md) | operational signal record（运行信号记录）与再进入卡 |
 | "一堆 PR 要按顺序落地" | [5.3 按顺序落地](./ship-run-and-evolve.md) | 栈、独立 verdict、停止点 |
 | "同一个问题反复出现" | [6.1 摩擦证据账本](./evolve-the-environment.md) | 有证据的改进提案 |
 | "已经提醒过很多次，还是犯" | [6.2 把教训编码成结构](./evolve-the-environment.md) | 一条会失败的检查 |
@@ -59,7 +61,7 @@
 ### [交付、运行与演进：让变更安全地进入真实环境](./ship-run-and-evolve.md)（已完成）
 
 5.1 在交付前给出可接受的风险结论。
-5.2 从运行信号开启下一轮变更。
+5.2 从 operational signal（运行信号）开启下一轮变更。
 5.3 按顺序落地一组变更。
 
 ### [让环境变好：把摩擦变成下一轮的优势](./evolve-the-environment.md)（已完成）

@@ -55,7 +55,7 @@ frontmatter 里有 `paths: ["**/*.ts", "**/*.tsx"]`，把技能限定在 TypeScr
 
 ## 依赖关系
 
-- **先应用 `type-system-discipline`。** 这是正文的硬要求；`boundary-discipline` 在边界行里被点名，`patterns.md` 末尾也指向两者。
+- **先应用 `type-system-discipline`。** 这是正文的硬要求；`boundary-discipline` 在边界行里被点名，`patterns.md` 开头也指向两者。
 - **例子文件是正文的一部分。** `SKILL.md` 末尾只有一句 "Examples: `references/patterns.md`"，但离开它，几条绝对规则没有例外说明。
 - **被谁引用。** `poteto-help` 的技能表、`docs/guide` 的 build 章节与 README 的 skill 表都指向它；`poteto-mode` 的常规路由列表里没有它，所以它主要靠用户点名或指南提示。
 - **独立安装的声明有出入。** 仓库 README 把它列在"不调用其他 pstack skill、可单独安装"的一组，但正文第一行要求先应用一个 principle skill。这个冲突是文本层面的；实际上 principle 是判断词汇，缺了它表仍然可用，只是少了那层判断。
@@ -65,8 +65,8 @@ frontmatter 里有 `paths: ["**/*.ts", "**/*.tsx"]`，把技能限定在 TypeScr
 - **只覆盖 TypeScript 文件。** `paths` 限定 `.ts` 与 `.tsx`；命名、格式、lint 配置不在范围内，它不是 style guide。
 - **不自动加载。** 需要在任务开始时点名，否则 agent 不会主动套用这张表。
 - **不能只读表。** "No `as` casts" 这类绝对规则在 `patterns.md` 里有真实的逃逸口：确实无法表达时用 branded type 或 `satisfies`。只读 `SKILL.md` 会把它当成无条件禁令。
-- **两条相邻规则依赖仓库现状。** "schemas before guards" 要求仓库已有 schema 库，并写明不要为一个 guard 新增依赖；"structured telemetry" 要求仓库已有结构化 logger。没有这些设施的项目只能退回到手写 guard 与项目现有日志。
-- **热路径豁免需要证据。** object args 在 per-frame render、tokenizer、parser 上不适用，但"这是热路径"应当来自测量，不是来自感觉。
+- **两条相邻规则依赖仓库现状。** "schemas before guards" 要求仓库已有 schema 库，并写明不要为一个 guard 新增依赖；"structured telemetry" 偏好结构化 logger，没有要求仓库已有。没有这些设施的项目只能退回到手写 guard 与项目现有日志。
+- **热路径豁免最好有证据。** object args 在 per-frame render、tokenizer、parser 上不适用；源码没有要求证明，"这是热路径"的判断按 `explain-the-number` 的原则最好来自测量，而不是感觉。
 - **不能替代边界设计。** 它规定解析发生的位置，不规定边界应该画在哪里；后者是 `boundary-discipline` 与 `architect` 的问题。
 
 ## 值得注意

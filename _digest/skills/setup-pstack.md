@@ -10,7 +10,7 @@
 
 ## 它解决什么
 
-模型默认值原本散落在每个 skill 的正文里：`how` 有 explorer 和 explainer 两个角色，`arena` 有 runners 和 cross-judge pool，mode 的四个代码 playbook 由四条角色线覆盖（`feature, refactoring`、`bug-fix`、`perf-issue`、`hillclimb`）。换一次模型要改好多处，而用户实际可用的 slug 又取决于账号与 harness。
+模型默认值原本散落在每个 skill 的正文里：`how` 有 explorer 和 explainer 两个角色，`arena` 有 runners 和 cross-judge pool，mode 的五个代码 playbook 由四条角色线覆盖（`feature, refactoring`、`bug-fix`、`perf-issue`、`hillclimb`）。换一次模型要改好多处，而用户实际可用的 slug 又取决于账号与 harness。
 
 `setup-pstack` 把这件事抽出来：一张角色到模型的表，加一个全局预算，再加两个别名。skill 只声明"这里需要一个判断模型"，不关心判断模型是谁。
 
@@ -34,7 +34,7 @@
 
 effort token 是 slug 的最后一个 token，或在 `-fast` 之前的那个；阶梯是 `max > xhigh > high > medium > low`。目标档位不存在时，取同家族里不高于目标的最高档；再不行就把该角色标成"需要选择"。`inherit-parent` 和 `auto` 不改。
 
-源码给了三个例子：`unlimited` 把 `claude-opus-5-5-xhigh` 变成 `claude-opus-5-5-max`；Grok 最高到 `xhigh`，所以 `grok-4.7-xhigh-fast` 保持不变；`small` 得到 `claude-opus-5-5-medium` 与 `grok-4.7-medium-fast`。重跑时保留用户自己改过的角色，包括按家族、列表或别名写下的值。
+源码给了四个例子：`unlimited` 把 `claude-opus-5-5-xhigh` 变成 `claude-opus-5-5-max`；Grok 最高到 `xhigh`，所以 `grok-4.7-xhigh-fast` 保持不变；`large` 保持两个默认值；`small` 得到 `claude-opus-5-5-medium` 与 `grok-4.7-medium-fast`。重跑时保留用户自己改过的角色，包括按家族、列表或别名写下的值。
 
 ### 5. 展示角色并确认
 

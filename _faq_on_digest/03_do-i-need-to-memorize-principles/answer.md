@@ -4,7 +4,7 @@
 
 ## 直接回答
 
-不用背。把它们当成一组**可点名的判断词汇**：先扫一遍知道"遇到这类问题有一个名字可以叫"，任务触发时再读完整的 leaf skill。一次任务通常只用 2-4 条，全用会互相抵消。
+不用背。把它们当成一组**可点名的判断词汇**：先扫一遍知道"遇到这类问题有一个名字可以叫"，任务触发时再读完整的 leaf skill。一次任务通常只用少数几条（经验建议，不是源码规则），全用会互相抵消。
 
 ## 为什么不是背
 
@@ -17,9 +17,9 @@
 | 你现在的困境 | 先看哪组 | 典型名字 |
 |---|---|---|
 | 不确定要建多少、要不要重做 | Core | `laziness-protocol`、`redesign-from-first-principles`、`subtract-before-you-add` |
-| 状态、验证、兼容放在哪里 | Architecture | `model-the-domain`、`boundary-discipline`、`type-system-discipline` |
+| 状态、验证、兼容放在哪里 | Architecture | `model-the-domain`、`boundary-discipline`、`type-system-discipline`、`separate-before-serializing-shared-state` |
 | 不确定什么算证明 | Verification | `prove-it-works`、`fix-root-causes`、`explain-the-number` |
-| 并行工作互相污染 | Delegation | `guard-the-context-window`、`separate-before-serializing-shared-state` |
+| 并行工作时上下文被占满 | Delegation | `guard-the-context-window` |
 | 同一条指令写了第二次 | Meta | `encode-lessons-in-structure` |
 
 ## 一次具体的使用
@@ -48,8 +48,8 @@ agent 应该：
 
 ## 常见误用
 
-- **全用。** 24 条一起上，等于没有重点；一次 2-4 条足够。
-- **当命令。** principle 不是 slash command，不需要"调用"；它是读、判断、引用。
+- **全用。** 24 条一起上，等于没有重点；一次用少数几条足够（经验建议，不是源码规则）。
+- **当命令。** principle 不需要单独"调用"；它是读、判断、引用。
 - **只点名。** 没有落到具体决定的引用，是装饰。
 - **忽略适用条件。** 每条都有"何时触发"；不触发时硬套会制造无意义的改动。
 

@@ -6,7 +6,7 @@
 
 ## 一句话
 
-当没有任何更窄的 playbook 匹配时，先设计一份一次性的 playbook：可证伪的完成谓词、按风险排序的原子单元、先于功能建好的验证脚手架、一轮一轮的科学循环，以及一份人离开后还能审计的决策轨迹。流程本身就是第一个交付物。
+当没有任何更窄的 playbook 匹配时，先设计一份一次性的 playbook：可证伪的完成谓词、按风险排序的原子单元、先于功能建好的验证脚手架、一轮一轮的科学循环，以及一份人离开后还能审计的 decision trail。流程本身就是第一个交付物。
 
 ## 它解决什么
 
@@ -60,7 +60,7 @@ verdict 只有三种：`VERIFIED`、`NOT VERIFIED`、`INCONCLUSIVE`。inconclusi
 
 在真实产物上按 Phase A 的谓词检查整体，不只检查 harness。把反复出现的纠正编码成 gate、lint 规则、检查或脚本（`encode-lessons-in-structure`）。
 
-回复包含：设计的 playbook、rigor 等级及理由、决策轨迹路径、哪些已按谓词验证、哪些还开着。
+回复包含：设计的 playbook、rigor 等级及理由、decision trail 路径、哪些已按谓词验证、哪些还开着。
 
 ## 设计意图
 
@@ -74,7 +74,7 @@ verdict 只有三种：`VERIFIED`、`NOT VERIFIED`、`INCONCLUSIVE`。inconclusi
 ## 依赖关系
 
 - **上游**：`poteto-mode` 在没有更窄 playbook 匹配、或工作很大/跨切面、或用户走开后再看时路由到这里；它明说 `figure-it-out` 设计一次 bespoke run，`orchestrate` 运行长期 program。`refactoring` 把大型结构改动路由过来。
-- **下游**：`architect`（one-way door 设计，内部再调 `arena`）；`show-me-your-work`（Phase D 的轨迹）；`prove-it-works`（谓词）。
+- **下游**：`architect`（one-way door 设计，内部再调 `arena`）；`show-me-your-work`（Phase D 的轨迹）。
 - **共享**：todolist 机制；`poteto-mode` 的 **Subagents** 规则；principle 词汇 `prove-it-works`、`foundational-thinking`、`laziness-protocol`、`never-block-on-the-human`、`separate-before-serializing-shared-state`、`sequence-verifiable-units`、`encode-lessons-in-structure`。
 - **对照**：`orchestrate` 是项目级 program，有队列、frontier 和协调者；`figure-it-out` 只设计一次运行。`autonomous-run` 是把一个任务驱到谓词，流程相对固定。
 

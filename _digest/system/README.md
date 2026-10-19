@@ -15,7 +15,7 @@ pstack 不是一组零散的 slash command，而是一台分层的执行机器�
 | **流程** | 用步骤、暂停点、失败出口和共享收尾约束一次执行 | [playbook 索引](../playbooks/README.md) |
 | **词汇** | 用 principle、解释类 skill 和写作规则统一判断与表达 | [principles 索引](../principles/README.md) |
 | **委派** | 用 subagent、模型角色与 fan-out 形状换并行和判断质量 | [模型面板](./model-panel.md) |
-| **证据** | 用真实表面、基准检查与决策轨迹决定"完成" | [证据优先](../patterns/evidence-first.md) |
+| **证据** | 用真实表面、基准检查与 decision trail 决定"完成" | [验证与 verdict](../patterns/evidence-first.md) |
 
 自主（autonomy）不单独占一层。它横切流程、委派和证据：什么时候可以不停下来问人，什么时候必须停，都写在这些层的具体条款里。见 [自主与门](./autonomy-and-gates.md)。
 
@@ -25,7 +25,7 @@ pstack 不是一组零散的 slash command，而是一台分层的执行机器�
 
 ### 0. 一次性配置
 
-`setup-pstack` 探测当前 harness 可用的模型，选一个推理预算，把"角色 → 模型"写进设置文件。之后所有 skill 在派 subagent 时读取这份设置，而不是各自硬编码默认值。
+`setup-pstack` 探测当前 harness 可用的模型，选一个推理预算，把"角色 → 模型"写进设置文件。之后派 subagent 的 skill 优先读这份设置；文件或角色行缺失时，才回退到 skill 内写的默认值。
 
 设置文件的位置随 harness 变化：Cursor 是 `~/.cursor/rules/pstack-models.mdc`，其余 harness 是 `~/.agents/pstack-models.md`。
 
@@ -45,7 +45,7 @@ playbook 不复制执行规则，只规定顺序和交接点。例如 bug fix �
 
 code-writing 的委派默认使用 `poteto-agent`，每个新任务开一个 fresh subagent，带上 consolidated scope：原始 brief、后续指令、上一个 agent 的报告和分支。`swarm`、`arena`、`interrogate`、`reflect` 各自定义 fan-out 形状与模型角色。
 
-父 agent 保留控制面和最终判断，子 agent 的产出要经过父 agent 自己复核，不能原样转述。
+父 agent 保留 brief、todo 和最终判断，子 agent 的产出要经过父 agent 自己复核，不能原样转述。
 
 ### 4. 在真实表面验证
 
@@ -55,7 +55,7 @@ code-writing 的委派默认使用 `poteto-agent`，每个新任务开一个 fre
 
 需要开 PR 的 playbook 以 `opening-a-pr` 收尾：worktree、提交节奏、PR 标题与正文、forge 选择、栈的形状。回复本身按 `unslop` 与 mode 的 **Writing the reply** 规则写，每条断言带证据或标签。
 
-长任务、自主运行或用户离开后要复查的工作，还要留下 `show-me-your-work` 的 TSV 决策轨迹，并在交付前做一次跨模型审计。
+长任务、自主运行或用户离开后要复查的工作，还要留下 `show-me-your-work` 的 TSV decision trail，并在交付前做一次跨模型审计。
 
 ## 其他起点怎样汇入
 
@@ -65,13 +65,14 @@ code-writing 的委派默认使用 `poteto-agent`，每个新任务开一个 fre
 | 只想知道代码怎样运行 | `how` | 带文件定位的机制说明 |
 | 想知道为什么这样设计 | `why` | 带引用的决策与权衡阅读 |
 | 要把一套工作讲给一个人听懂 | `teach` | 组合 `how` 与 `why` 的一段说明 |
-| 接手别人的半成品 | `recall` | 当前状态简报 + 下一步 |
+| 接手别人未完成的工作 | `poteto-mode` → Session pickup | 接管在途工作 + 当前状态 |
+| 重建自己最近的工作上下文 | `recall` | 当前状态简报 + 下一步 |
 | 离开一阵后要补课 | `ketchup` | 平实语言的变更摘要 |
 | 任务本身没说清 | `sharpen` | 专家路径、真实目标、规格松紧 |
 | 环境反复出同一种错 | `correct` / `reflect` | 结构性检查 / 写回 skill 的改进 |
 | 想把个人习惯变成 skill | `automate-me` | 一个定制的 `-mode` skill |
 
-这些入口不要求先跑 `poteto-mode`。反过来，`poteto-mode` 的步骤会在需要时调用它们。
+除 Session pickup 外，这些入口不要求先跑 `poteto-mode`。其中 `how`、`why`、`architect`、`arena`、`swarm`、`interrogate`、`tdd` 等会被 mode 的步骤在需要时点名；`teach`、`recall`、`sharpen`、`correct`、`automate-me`、`poteto-help` 主要是人的独立入口。
 
 ## 人和 agent 的责任边界
 
@@ -89,8 +90,15 @@ pstack 把这叫 **never block on the human**：可逆的事直接做，做完�
 1. **它几乎不自动触发。** 54 个 skill 里有 53 个设置了 `disable-model-invocation: true`。模型不会自己挑 skill；要么人输入命令，要么 mode 在 playbook 里点名。见 [调用模型](./invocation-model.md)。
 2. **它有主线，但不是单链。** 23 个 playbook 覆盖调查、构建、验证、交付和长时间自主运行；`poteto-mode` 会按任务选一条，而不是所有工作都走同一条。
 3. **playbook 不是提示词模板。** 它是带暂停点、失败出口和证据要求的执行协议；步骤要逐字复制，跳过要写原因。这正是它可审计的原因。
-4. **多模型不是硬依赖。** 单模型也能跑完所有流程，但 `arena`、`interrogate`、`swarm` 和 `reflect` 的核心收益来自模型差异，单模型时这些收益消失。
-5. **文档不是附属输出。** PR 正文、回复、决策轨迹都是交接接口。写不清楚，下一位（人或 agent）就得重建上下文。
+4. **多模型不是硬依赖。** 单模型也能跑完所有流程，但 `arena`、`interrogate`、`reflect` 的核心收益来自模型差异，单模型时这些收益消失；`swarm` 的主收益是并行覆盖，模型竞速只是可选项。
+5. **文档不是附属输出。** PR 正文、回复、decision trail 都是交接接口。写不清楚，下一位（人或 agent）就得重建上下文。
+
+## 关键洞察
+
+1. **分层是为了定位失败。** 装不上、选错 playbook、门没遵守、证据不够，是四个不同层的问题，不能用同一种修法。
+2. **路由与执行不换手。** mode 选完流程继续执行，减少"选完就忘"的损耗。
+3. **词汇是接口。** principle 的名字让评审和回复能指向同一条规则，而不是重新争论。
+4. **证据决定什么时候停。** 没有可检查的产出，自主就只是"相信我"。
 
 ## 下一步怎么读
 
@@ -99,3 +107,5 @@ pstack 把这叫 **never block on the human**：可逆的事直接做，做完�
 - 想理解一个 skill 的文件结构：看 [SKILL.md 结构解剖](./skill-anatomy.md)。
 - 想理解为什么几乎全部 user-invoked：看 [调用模型](./invocation-model.md)。
 - 想理解模型与预算怎样分配：看 [模型面板](./model-panel.md)。
+
+> 源码：[`skills/poteto-mode/SKILL.md`](../../skills/poteto-mode/SKILL.md)、[`plugin.json`](../../plugin.json)、[`README.md`](../../README.md)。

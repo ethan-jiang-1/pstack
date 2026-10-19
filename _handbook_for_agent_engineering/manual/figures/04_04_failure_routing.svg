@@ -43,7 +43,7 @@
 
   <rect x="660" y="176" width="260" height="70" rx="10" fill="#fef3c7" stroke="#fde68a"/>
   <text x="678" y="202" class="t bt">设计</text>
-  <text x="678" y="224" class="t bs">形状、接口、切口导致无法实现</text>
+  <text x="678" y="224" class="t bs">形状、接口（public surface）导致无法实现</text>
   <text x="678" y="240" class="t s">回到模块形状卡 / 依赖图</text>
 
   <rect x="660" y="260" width="260" height="70" rx="10" fill="#e2e8f0" stroke="#cbd5e1"/>

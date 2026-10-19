@@ -9,7 +9,7 @@ pstack 把 24 条工程判断做成 24 个 `principle-*` skill。它们的用途
 ## 源码里的形状
 
 - `poteto-mode` 的 **Principles** 一节按 Core / Architecture / Verification / Delegation / Meta 分组，每条给一句"何时适用"。
-- 每条 principle 是一个独立 `SKILL.md`，通常 10-40 行，结构是"规则 + Why"。
+- 每条 principle 是一个独立 `SKILL.md`，通常 10-40 行，结构通常是"规则 + 适用条件"；部分文件另有 `**Why:**` 段。
 - mode 要求：应用某条 principle 时读完整 leaf skill；回复中必须点名这条 principle，并说明它改变了哪个具体决定。
 - `docs/guide/08-principles.md` 把这叫"steering"：你不调用 principle，你用它的名字改变工作方向。
 

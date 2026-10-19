@@ -32,7 +32,7 @@
   <text x="72" y="276" class="t s">链到当前 spec</text>
   <rect x="58" y="292" width="244" height="42" rx="6" fill="#fef3c7" stroke="#fde68a"/>
   <text x="72" y="310" class="t bs">三个月前的决定</text>
-  <text x="238" y="310" class="t v" fill="#b45309">部分失效</text>
+  <text x="238" y="310" class="t v" fill="#b45309">已退役</text>
   <text x="72" y="326" class="t s">"不做 Excel" 已不成立</text>
   <rect x="58" y="342" width="244" height="30" rx="6" fill="#f8fafc" stroke="#cbd5e1"/>
   <text x="72" y="362" class="t bs">旧 PR 讨论</text>

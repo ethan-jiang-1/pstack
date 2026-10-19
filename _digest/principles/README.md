@@ -62,11 +62,11 @@
 
 | Principle | 何时触发 | 一句话 |
 |---|---|---|
-| [`encode-lessons-in-structure`](../../skills/principle-encode-lessons-in-structure/SKILL.md) | 第二次写同一条指令 | 编码成 lint、元数据、运行时检查或脚本，而不是再加一段文字 |
+| [`encode-lessons-in-structure`](../../skills/principle-encode-lessons-in-structure/SKILL.md) | 第二次写同一条指令 | 优先编码成 lint、元数据、运行时检查或脚本；判断类教训无法编码时，才写一段带失败例子的文字 |
 
 ## 值得注意
 
-- **24 条不是检查表。** 一次任务通常只用 2-4 条；全用会互相抵消。
+- **24 条不是检查表。** 一次任务通常只用少数几条（经验建议，不是源码规则）；全用会互相抵消。
 - **规则会冲突。** `laziness-protocol` 与 `redesign-from-first-principles` 在"小改还是重做"上经常对立；冲突要显式判断，不要假装都满足。
 - **名字是入口，不是结论。** 点名的价值在于让双方回到同一条规则，而不是赢得争论。
 - **不是强制检查。** 没有工具验证 principle 是否被遵守，只有回复里的自述和评审时的人工判断。

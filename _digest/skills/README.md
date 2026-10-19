@@ -4,6 +4,8 @@
 
 标记说明：**U** = user-invoked，只有人显式触发；**M** = model-invoked，人和模型都可触发。pstack 里 53/54 是 **U**，唯一没有设置 `disable-model-invocation` 的是 `setup-pstack`。
 
+> 基线：本目录的计数与默认模型 slug 以 pstack `0.15.25`（2026-10-19）为准；这些值会随版本变化，页面里的具体 slug 是快照。
+
 ## 我现在该从哪里开始
 
 | 当前情境 | 入口 | 下一站 |
@@ -23,7 +25,7 @@
 | "X 是怎么工作的"、改代码前先建心智模型 | [`how`](./how.md) **U** | 带文件定位的架构说明 |
 | "为什么这样做"、追溯决策与权衡 | [`why`](./why.md) **U** | 带引用的动机阅读 |
 | 要把一个子系统讲给一个人听懂 | [`teach`](./teach.md) **U** | 组合 `how` 与 `why` 的一段说明 |
-| 接手旧工作，重建当前状态 | [`recall`](./recall.md) **U** | 当前状态简报与下一步 |
+| 重建自己最近的工作上下文 | [`recall`](./recall.md) **U** | 当前状态简报与下一步 |
 | 一个改动可能在别处弄坏什么 | [`blast-radius`](./blast-radius.md) **U** | 跨模块影响与要证明的那一条事实 |
 
 ## 设计与对抗
@@ -52,7 +54,7 @@
 | 要报告一个性能数字 | [`benchmark-checklist`](./benchmark-checklist.md) **U** | 七问逐项有真实运行证据 |
 | 项目没有可脚本化驱动真实应用的方式 | [`create-verification-skill`](./create-verification-skill.md) **U** | 项目本地的 `verify-*` skill |
 | 验证 skill 与 feature map 开始腐烂 | [`maintain-verification-skill`](./maintain-verification-skill.md) **U** | 一次审计与至多一个修正 PR |
-| 长任务、自主运行或离开后要复查 | [`show-me-your-work`](./show-me-your-work.md) **U** | 可审计的 TSV 决策轨迹 |
+| 长任务、自主运行或离开后要复查 | [`show-me-your-work`](./show-me-your-work.md) **U** | 可审计的 TSV decision trail |
 | 没有更窄的 playbook 可用 | [`figure-it-out`](./figure-it-out.md) **U** | 一份一次性 rigor playbook |
 
 ## 让环境变好

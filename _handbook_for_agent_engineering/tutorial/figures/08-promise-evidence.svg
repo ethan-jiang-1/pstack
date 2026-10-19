@@ -14,7 +14,7 @@
   </defs>
   <rect width="960" height="540" fill="#ffffff"/>
   <text x="480" y="38" text-anchor="middle" class="t h">承诺-证据对照</text>
-  <text x="480" y="62" text-anchor="middle" class="t s">结论不是"全绿"，而是区分兑现、未覆盖和无法结论</text>
+  <text x="480" y="62" text-anchor="middle" class="t s">结论不是"全绿"，而是区分兑现、未兑现、未覆盖和无法结论；本图示范其中三类</text>
 
   <text x="80" y="100" class="t bt">原承诺</text>
   <text x="560" y="100" class="t bt">证据与覆盖边界</text>

@@ -4,7 +4,7 @@
 
 ## 直接回答
 
-能用。协议类 skill（`tdd`、`unslop`、`technical-writing`、`benchmark-checklist`、`how` 的简单路径）和单委托 playbook（Bug fix、Feature、Refactoring）不依赖多模型。真正失去的是**模型多样性带来的独立信号**，以及 `arena`、`interrogate`、`swarm`、`reflect`、`shipping` 的独立 verifier。降级时要把 fan-out 改成串行，并用外部检查补回独立性。
+能用。协议类 skill（`tdd`、`unslop`、`technical-writing`、`benchmark-checklist`、`how` 的简单路径）和单委托 playbook（Bug fix、Feature、Refactoring）不依赖多模型。真正失去的是**模型多样性带来的独立信号**，以及 `arena`、`interrogate`、`reflect` 的模型差异和 `shipping` 的独立 verifier。降级时要把 fan-out 改成串行，并用外部检查补回独立性。
 
 ## 仍然成立的能力
 
@@ -24,7 +24,7 @@
 - **对抗评审**：`interrogate` 的对抗信号明确来自模型差异，不是人设；单模型时只剩自我评审。
 - **独立验证**：`shipping` 要求没写代码的 verifier；没有第二个 agent 时，这条门实际上被绕过。
 - **并行覆盖**：`swarm` 的分区/竞速需要多个 worker；串行会显著变慢。
-- **会话复盘**：`reflect` 的三个视角和 synthesizer 都依赖不同模型。
+- **会话复盘**：`reflect` 的三个视角覆盖不同判断面；默认只有两族模型（judgment、divergent、synthesizer 是 opus，tooling 是 grok），单模型时视角仍在，跨模型差异消失。
 
 ## 怎样降级而不自欺
 
@@ -42,4 +42,4 @@
 
 - [当前行为的源码](../../skills/poteto-mode/SKILL.md)（**Harness** 与 **Subagents** 两节）
 - [模型多样性：收益与退化](../../_digest/patterns/model-diversity.md)
-- [证据阶梯](../../_digest/patterns/evidence-first.md)
+- [验证与 verdict](../../_digest/patterns/evidence-first.md)

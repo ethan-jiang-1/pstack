@@ -66,7 +66,7 @@ Direct 是有作者明说的文本证据；Supported 是多条间接证据汇聚
 
 ## 依赖关系
 
-- **上游**：`poteto-mode` 的 `investigation`、`bug-fix`、`feature`、`refactoring`、`shipping` 等 playbook 在需要动机时调用；`teach` 把它和 `how` 组合成一段解释。
+- **上游**：`poteto-mode` 的 `investigation` 与 `bug-fix` playbook 在需要动机时调用；`teach` 把它和 `how` 组合成一段解释。
 - **下游**：`recall` 复用它的 source investigator 与 per-source playbook，把问题从"为什么这样建"改成"当前状态、试过什么、用户还在报什么"；`blast-radius` 用它的 Step 2 拉 PR 和 commit；`architect` 在重定义所有权或分层时用它把现有形状的理由变成约束。
 - **共享**：MCP 服务器、`gh`、pstack 设置文件里的 `why investigators` 与 `why synthesizer` 行、`poteto-mode` 的 Subagents 规则（推理档位、快慢、模型）。
 - **对照**：`how` 回答机制，`why` 回答动机。两者可并行，但不能互相替代。
@@ -81,7 +81,7 @@ Direct 是有作者明说的文本证据；Supported 是多条间接证据汇聚
 
 ## 值得注意
 
-- **这里故意用 `readonly: false`。** 源码明确说 readonly/Ask 模式会剥掉 MCP，从而关掉 MCP-backed investigator 和 synthesizer 的引用抽查。这与 `how` 的只读相反，理由也不同：`how` 用只读保护结论中立，`why` 用可写模式换证据通道。代价是 investigator 的"不应该写任何东西"只由 prompt 约束，没有工具层强制。
+- **这里故意用 `readonly: false`。** 源码明确说 readonly/Ask 模式会剥掉 MCP，从而关掉 MCP-backed investigator 和 synthesizer 的引用抽查。`how` 走的是相反的 `readonly: true`；源码只给了这个设置，没有解释原因。代价是 investigator 的"不应该写任何东西"只由 prompt 约束，没有工具层强制。
 - **同一问题在不同环境里得到不同深度的答案。** 接不接 Linear、Slack、Datadog 决定覆盖图长什么样；skill 记录差异，但不消除差异。
 - **成本高且默认全量。** 最多 7 个 investigator 加 1 个 synthesizer，synthesizer 的抽查还需要 MCP 可用。这是"完整性优先于延迟"的明确选择。
 - **设置文件缺失时回退到两个具体 slug**（`grok-4.7-xhigh-fast`、`claude-opus-5-5-xhigh`）；模型目录不同的 harness 里可能连续降级，源码要求降级时说出来。

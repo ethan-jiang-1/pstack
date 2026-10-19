@@ -3,6 +3,8 @@
 教程是第一次阅读的入口。它不要求你先理解完整生命周期，而是从"还说不清楚"的真实状态开始，每一页只处理一个困难，并留下一个可见成果。
 
 > 状态：`00–11` 与教程后导航已写。完整契约见 [PLAN.md](../PLAN.md)。
+>
+> 方法边界：word card（词卡）、deploy / expose / release（部署 / 暴露 / 交付）、release risk decision（交付风险结论）、operational signal（运行信号）与 promise retirement（承诺退役）是扩展，不是 pstack 的现有机制；pstack 明确不写 spec，也停在 verified landing。逐项见 [`../PROVENANCE.md`](../PROVENANCE.md)。
 
 ## 一条连续的体验
 
@@ -41,13 +43,13 @@
 | [`01` 从一句模糊的话开始](./01-define.md) | 追问、复述、由人纠正 | 共同问题、边界、下一个待确认决定 | 已写 |
 | [`02` 给共同语言一个位置](./02-give-words-a-home.md) | 固定两三个会改变行为的词 | 一小段术语与正反例 | 已写 |
 | [`03` 让一个承诺变成可观察行为](./03-make-a-promise-observable.md) | 行为、失败出口、人工接手点 | 一张行为卡 | 已写 |
-| [`04` 设计一个可测试的形状](./04-design-a-testable-shape.md) | 接口、切口、测试表面 | 一个模块形状草图 | 已写 |
+| [`04` 设计一个可测试的形状](./04-design-a-testable-shape.md) | 接口（public surface）、测试表面 | 一个模块形状草图 | 已写 |
 | [`05` 把工作切成可委派的单元](./05-cut-work-into-delegable-units.md) | 工作包、阻塞边、完成检查 | 一个有边界的 work package | 已写 |
 | [`06` 先建立反馈，再改实现](./06-build-a-feedback-loop.md) | 独立判据、可观察结果 | 一条能变红的回路 | 已写 |
 | [`07` 委派出去，保持控制](./07-delegate-and-keep-control.md) | brief、可写范围、验证命令 | 一份可独立执行的 brief | 已写 |
 | [`08` 证明兑现的是原承诺](./08-prove-the-promise.md) | 承诺-证据对照、覆盖边界 | 一条诚实的兑现结论 | 已写 |
 | [`09` 评审变更是否值得合入](./09-review-for-merge.md) | 标准轴与规格轴 | 两条并排的评审结论 | 已写 |
-| [`10` 交付、观察、开始下一轮](./10-ship-observe-and-loop.md) | 暴露范围、观察、回退 | 一个交付决定与一个信号 | 已写 |
+| [`10` 交付、观察、开始下一轮](./10-ship-observe-and-loop.md) | 暴露范围、观察、回退 | 一份 release risk decision 与一个 operational signal | 已写 |
 | [`11` 让环境在下一轮更好](./11-improve-the-environment.md) | 结构性约束、承诺退役 | 一条会失败的检查或一次退役记录 | 已写 |
 
 教程终点还有一个非编号的导航页：[教程之后：按下一道坎找手册](./after-tutorial.md)。它不增加新的学习台阶，只把六种常见的下一道坎接到手册。

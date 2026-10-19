@@ -29,7 +29,7 @@
 角色按**工作性质**分，多个 skill 共享一个角色：
 
 - **代码**：feature、refactoring、bug-fix、perf-issue、hillclimb、swarm workers。
-- **判断与文字**：judgment and prose、hardest tasks、why synthesizer、how explainer。
+- **判断与文字**：judgment and prose、hardest tasks、why synthesizer、how explainer、reflect judgment, divergent, synthesizer。
 - **探索**：how explorer、why investigators、reflect tooling。
 - **面板**：arena runners、architect runners、interrogate reviewers、arena cross-judge pool。
 
@@ -42,13 +42,13 @@
 - `arena runners` 两项 → 两个候选；列表长度就是候选数。
 - `architect runners` 两项 → 两个设计视角。
 - `interrogate reviewers` 两项 → 两个 reviewer。
-- `arena cross-judge pool` 是池子，Arena 会从中选一个与父模型不同家族的值。
+- `arena cross-judge pool` 是池子，Arena 会尽量选一个与父模型不同家族的值；池里没有别的家族时用池内其他值。
 
 如果把面板角色全填成同一个模型，流程仍然会跑，但"独立候选"和"对抗评审"变成了同一模型的多次采样。
 
 ## `auto` 与 `inherit-parent`
 
-两者都表示"这个角色跟随父会话模型"，区别只在语义：`auto` 是用户选择自动，`inherit-parent` 是显式声明继承。写进设置文件后，spawn 时省略 `model`。它们永远有效，不需要出现在探测到的 slug 列表里。
+两者在运行时等价：都表示这个角色跟随父会话模型，spawn 时省略 `model`。它们不需要出现在探测到的 slug 列表里。
 
 ## 常见错误
 

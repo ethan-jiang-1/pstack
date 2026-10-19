@@ -14,7 +14,7 @@
   </defs>
   <rect width="960" height="560" fill="#ffffff"/>
   <text x="480" y="38" text-anchor="middle" class="t h">栈落地</text>
-  <text x="480" y="62" text-anchor="middle" class="t s">只落地从最低未合并 PR 开始的连续已验证段；第一个没有 verdict 的 PR 就是停止点</text>
+  <text x="480" y="62" text-anchor="middle" class="t s">只落地从最低未合并 PR 开始的连续已验证段；第一个没有 PASS 或 PASS+NOTES 的 PR 就是停止点</text>
 
   <rect x="60" y="96" width="500" height="44" rx="8" fill="#ede9fe" stroke="#ddd6fe"/>
   <text x="80" y="118" class="t bt">P6 顶层</text>
@@ -28,7 +28,7 @@
   <rect x="60" y="208" width="500" height="52" rx="8" fill="#fee2e2" stroke="#dc2626" stroke-width="3"/>
   <text x="80" y="236" class="t bt">P4 停止点</text>
   <text x="430" y="236" class="t v" fill="#b91c1c">无 verdict</text>
-  <text x="80" y="252" class="t s">第一个没有 PASS 的 PR；它上面的都等着</text>
+  <text x="80" y="252" class="t s">第一个没有 PASS 或 PASS+NOTES 的 PR；它上面的都等着</text>
 
   <rect x="60" y="272" width="500" height="44" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
   <text x="80" y="300" class="t bt">P3</text>

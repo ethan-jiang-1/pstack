@@ -51,7 +51,7 @@
   <rect x="740" y="196" width="200" height="150" rx="10" fill="#fee2e2" stroke="#fecaca"/>
   <text x="840" y="222" text-anchor="middle" class="t bt">多评审</text>
   <text x="756" y="248" class="t bs">interrogate / reflect</text>
-  <text x="756" y="268" class="t bs">每模型一个 reviewer</text>
+  <text x="756" y="268" class="t bs">每个 reviewer 一个独立视角</text>
   <text x="756" y="296" class="t small">综合成统一结论</text>
   <text x="756" y="316" class="t small">不自动应用改动</text>
 

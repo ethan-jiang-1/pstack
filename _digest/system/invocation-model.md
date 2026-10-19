@@ -41,7 +41,7 @@ pstack 不用"调用名"做符号引用，而是用**正文点名 + 物理路径
 - **同仓布局是契约。** `skills/<name>/` 的相对位置不能随便改；这也是 [分发与安装](./distribution.md) 里说部分安装容易断链的原因。
 - **名字是稳定的，路径是脆弱的。** 读者可以记住 `how`，但安装器必须保证 `../how/SKILL.md` 真的存在。
 
-作为对比，Matt Pocock 的体系用 model-invoked engine 加 thin wrapper：共享协议允许被其他 skill 触发，人类入口只是一层薄壳。pstack 把整个目录都设成 user-invoked，用一个 mode 承担路由，用 playbook 承担顺序。两种选择都自洽，但优化目标不同：前者优化复用与组合，后者优化可预测与成本。
+这条路反过来走也自洽：让共享协议可以被其他 skill 触发，人类入口只做薄壳。pstack 把整个目录设成 user-invoked，用一个 mode 承担路由，用 playbook 承担顺序。两种做法的优化目标不同：前者优化复用与组合，后者优化可预测与成本。
 
 ## `setup-pstack` 为什么是例外
 
@@ -49,7 +49,7 @@ pstack 不用"调用名"做符号引用，而是用**正文点名 + 物理路径
 
 ## 跨 harness 的差异
 
-`disable-model-invocation` 是 Claude Code 认的 frontmatter 字段。Cursor、Codex、Pi 等 harness 是否强制执行、以什么方式强制执行，并不统一。因此：
+仓库没有说明 `disable-model-invocation` 在各 harness 里的执行方式；能确认的只有 53 个 skill 写了它。下面是对常见 harness 行为的一般性观察，不是仓库的承诺：
 
 - 在 Claude Code 里，模型无法通过 Skill 工具调用这些 skill，"只能人来触发"是硬约束。
 - 在 Cursor 里，用户通过 `/` 菜单附着 skill；"不能隐式调用"更多是产品行为，不是同一条代码路径。
@@ -63,3 +63,5 @@ pstack 不用"调用名"做符号引用，而是用**正文点名 + 物理路径
 2. **user-invoked 不等于零上下文。** skill 被触发后正文照样加载；省掉的是 description 常驻模型索引的那部分。
 3. **路由需要替代品。** 关掉隐式发现，就必须给一个 `poteto-mode` 这样的单一入口，否则人的记忆负担会失控。
 4. **物理路径引用是可移植性的债。** 它在单仓安装时最省事，在拆装、换 harness、改目录时最脆弱。
+
+> 源码：[`skills/*/SKILL.md`](../../skills/) 的 frontmatter、[`poteto-mode/SKILL.md`](../../skills/poteto-mode/SKILL.md)。

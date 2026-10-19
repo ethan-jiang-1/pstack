@@ -1,47 +1,46 @@
-# AI 辅助工程手册（Handbook for Agent Engineering）
+# pstack 手册
 
-这是一份面向软件产品生命周期（Software Development Life Cycle, SDLC）参与者的独立手册，讨论人和 AI 智能体（agent）如何共同定义、设计、委派、验证、交付及演进软件产品。
+这是一份讲 pstack 自身概念的手册：`poteto-mode` 怎样把请求匹配到 playbook，brief 怎样写，verdict 怎样产生，`shipping` 在哪里停下，`correct` 与 `reflect` 怎样改环境。它不发明 pstack 之外的方法名，也不把外部方法映射成 pstack 的机制。
 
-> **状态：完成（2026-10-19）。** 教程 `00–11`、教程后导航、手册 6 章 20 个单元与全部图解已完成；全书链接、锚点与 SVG 渲染复核通过。完整结构见 [PLAN.md](./PLAN.md)，术语表见 [CONTEXT.md](./CONTEXT.md)。
+> **状态：严格重写中（2026-10-19）。** 教程与手册正在按 [`STYLE.md`](./STYLE.md) 重建：只保留 pstack 的 skill、playbook、字段、角色与状态；没有 pstack 依据的章节删除。当前结构与进度见 [PLAN.md](./PLAN.md)，术语只收 pstack 原词，见 [CONTEXT.md](./CONTEXT.md)。
 
-## 选择读法
-
-这套内容有两种读法，服务不同的时刻。
+## 两种读法
 
 | 你现在的状态 | 从这里开始 | 你会得到什么 |
 |---|---|---|
-| 第一次接触，知道 agent 能写代码，但不知道怎样把一件事交给它而不失控 | [教程（tutorial）](./tutorial/README.md) | 一条连续的体验：把请求说清，兑现一条行为，用证据判断，再从真实信号开始下一轮 |
-| 已经用过 agent，现在能说清自己卡在定义、设计、委派、验证、交付或演进中的哪里 | [手册（manual）](./manual/README.md) | 按问题查完整方法、模板、判断规则和质量门 |
+| 第一次用 pstack，想知道一次任务怎样从 prompt 走到落地 | [教程](./tutorial/README.md) | 一条连续路径：prompt 五项 → mode/playbook → todo → architect/tdd → brief → verdict → shipping → correct/reflect |
+| 已经用过，想查某个机制 | [手册](./manual/README.md) | 按机制组织的源码解释与操作边界 |
 
-## 教程 / Tutorial
+## 教程
 
-教程是第一次阅读的入口。它从 [00 从这里开始](./tutorial/README.md) 走到 `11`，每页只处理一个困难，并留下一个可见成果：`00–04` 先把问题、语言和承诺弄对；`05–08` 把工作委派出去并用证据收回；`09–10` 处理评审、交付与运行；`11` 让环境在下一轮更好。
+教程从 [00 用 prompt 说清一件事](./tutorial/00-start-here.md) 走到 `11`，每页只处理一个 pstack 机制，并给出来源：
 
-教程不是手册的摘要。它先让读者获得一段完整、可重复的工程体验；遇到具体问题时，再打开对应的手册页。
+- `00–04`：prompt 五项、mode 与单 skill、playbook 步骤进 todo、named data shape、`architect` 的 public surface。
+- `05–08`：`feature` step 3 / `multi-phase-plan`、`tdd`、brief 与 subagent、`prove-it-works` 与 verdict。
+- `09–11`：`interrogate`、`shipping`、`correct` / `reflect`。
 
-## 手册 / Manual
+## 手册
 
-手册面向已经能命名问题的读者。它按"需求还不清楚""找不到可信的 seam""委派出去就失控""测试绿了但不确定兑现""多人/多 agent 怎样汇合"等情境进入，而不是要求顺读一套第二课程。
+手册按 pstack 的机制组织，不按"第二课程"组织：
 
-## 服务对象 / Audience
+1. Prompt、mode 与 todo
+2. `architect`、`feature` 与 `multi-phase-plan`
+3. Subagent 与 brief
+4. 验证与 verdict
+5. 评审与落地
+6. 环境：`correct`、`reflect`、`encode-lessons-in-structure`
 
-只要工作直接服务于公司或组织内部软件产品的定义、设计、构建、验证、交付、运行或演进，就属于本手册的读者范围，包括产品、设计、研发、QA、技术管理与运行相关角色。读者不必是传统意义上的程序员；未来的角色会更趋多面手，但仍共同服务于软件产品生命周期。
+## 范围
 
-## 范围 / Scope
+**涵盖**：pstack 的 mode、playbook、skill、principle、subagent、brief、verdict、patch-id、contiguous verified run、feature map、decision trail、session pickup、pause safely、shipping、correct、reflect。
 
-**涵盖**：需求与目标澄清、领域语言、规格、工作拆分、委派、代码与测试、评审、验证、交付、运行、交接，以及传统代码和 agent 等软件产物。
+**不涵盖**：pstack 没有的 spec 生命周期、发布 / 灰度 / 回滚 / 发布后监控、承诺退役记录、独立的多人协作协议。pstack 停在 verified landing；部署只是 **Always pause** 里的一个不可逆动作。
 
-**不涵盖**：脱离软件产品生命周期的业务信息加工；特定行业或产品策略本身；泛泛的 AI 工具教学和提示词清单；没有协作、审核或交接需求的单人试验。
+## 约定
 
-## 使用约定 / Working Conventions
+- pstack 的 skill、playbook、字段、角色、状态名保留原写法，不翻译成新名字。
+- 中文只作解释；不出现"我们把 X 叫作 Y"的构造。
+- 每个具体断言给源码位置：`skills/<name>/SKILL.md`、`skills/poteto-mode/playbooks/<name>.md`、`agents/<name>.md`、`docs/guide/<n>.md`。
+- 写不出 pstack 出处的段落，删除或改成一句"pstack 不覆盖这个"。
 
-本手册讲的是可独立成立的工程方法，不是任何一套 skill 集合的使用说明。现有的 agent 工具（包括 pstack）可以作为方法的可运行实现或示例，但读者无需安装它们才能理解和实践手册内容。
-
-工程工作可以由一个或多个人、一个或多个 agent 共同完成；无论组合如何，都需要共享语言、明确的 artifact owner、可验证质量门、审查与交接。产品目标、事实确认、批准和最终责任始终由具名的人拥有。
-
-- 正文与解释优先使用中文。
-- 关键术语在全书第一次出现时写作"中文（English）"，例如"产物（artifact）"；同一页内重复出现不再加注。
-- 文件路径、命令、代码和产品已有名称保留其原有写法。
-- 正文不复制任何工具的步骤；引用工具时只说明它在这一步承担什么角色，以及人仍要决定什么。
-
-`CONTEXT.md` 是本手册的术语表，不是章节大纲或草稿。当前的写作与章节规划保存在 [PLAN.md](./PLAN.md)。
+术语表：[`CONTEXT.md`](./CONTEXT.md) · 写作约束：[`STYLE.md`](./STYLE.md) · 结构计划：[`PLAN.md`](./PLAN.md) · 源码映射：[`PROVENANCE.md`](./PROVENANCE.md)。

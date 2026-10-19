@@ -1,224 +1,107 @@
-# AI 辅助工程手册：术语表
+# pstack 术语表
 
-这是本手册的术语表（glossary），不是章节大纲。每个术语给出一句可操作的定义，必要时写明它与相邻概念的区别，以及应当避免的说法。
+只收 pstack 自身的术语。每个词给一句定义和源码位置；没有 pstack 对应物的话题不在这里发明名字。
 
-## 基础
+## 入口与流程
 
-**软件产品生命周期（Software Development Life Cycle, SDLC）**：
-将软件产品从定义、设计、构建、验证、交付、运行到持续演进的完整周期。参与该周期的产品、设计、研发、QA、技术管理与运行角色都是本手册的读者。
+**mode（`poteto-mode`）**：
+主入口。读请求，匹配一个 playbook，把该 playbook 的步骤逐字复制进 todo，再按步骤调用其他 skill 或派 subagent。源码：`skills/poteto-mode/SKILL.md`。
 
-**变更（Change）**：
-本手册的工作单位：一次要交付的行为改动及其全部上游决定与下游证据，而不是一次提交或一个文件改动。
+**playbook**：
+`poteto-mode` 下的步骤协议，共 23 个。匹配后整份复制，不概括。源码：`skills/poteto-mode/playbooks/`。
 
-**产物（Artifact）**：
-一项工作留下的、可以被下一位参与者读取和依赖的材料，例如 spec、行为地图、工作包、验证证据、评审记录、交接包。产物不是聊天记录的装饰性总结。
+**skill**：
+一个目录，含 `SKILL.md`，可带 `references/`、`playbooks/`、`scripts/`。共 54 个。源码：`skills/`。
 
-**权威产物（Authoritative artifact）**：
-某项事实、版本或决定唯一应被引用和更新的位置。聊天、agent memory、临时摘要和一次局部测试通过可以提供线索，但不能单独成为权威产物。
+**principle**：
+24 个 `principle-*` skill，每个是一条可点名的判断规则。应用时读完整 leaf skill，并在回复里说明它改变了哪个决定。源码：`skills/poteto-mode/SKILL.md#Principles`。
 
-**产物 owner（Artifact owner）**：
-对一个共享产物的正确性、接受/拒绝修改和发布下一版负责的具名人。它不必亲自完成所有编辑，但让团队知道哪一版可以被后续工作依赖。
+**prompt 的五项**：
+goal、done check、proof、what you already know、real constraints。pstack 不写 spec，意图压在这五项里。源码：`docs/guide/02-poteto-mode.md#What goes in a prompt`。
 
-**工作包（Work package）**：
-从计划中拆出、可独立领取的一段端到端工作：穿过需要的状态、接口、界面和验证，完成后本身可演示或可验证，并声明阻塞边与完成检查。
+**todo 与 `skip`**：
+todo 的最前面是匹配到的 playbook 步骤，逐字复制；不做的步骤留在列表里，写 `skip: <reason>`。源码：`skills/poteto-mode/SKILL.md#Playbooks`。
 
-**垂直切片（Vertical slice）**：
-从可观察行为出发、穿过实现所需各层的一条完整窄路径；它交付一个可演示的结果，而不是一层技术改动。
+**brief**：
+派给 subagent 的最小输入，字段是 GOAL / SCOPE / CONTEXT / ACCEPTANCE / VERIFY / TIMEBOX / FORBIDDEN / REPORT。源码：`skills/poteto-mode/playbooks/orchestrate.md#The brief`。
 
-**请求卡（Request card）**：
-把一句原始请求补成四行的工作定义：谁在什么时刻用、什么行为要改变、什么明确不能变、怎样算完成。它保留未知项，不是 spec；作用是在访谈前先把缺口显形。
+**frontier**：
+PR 栈的合并前沿：最低的未合并 PR 是唯一要处理的，直到它合并。只在这个意义上用 frontier。源码：`skills/poteto-mode/playbooks/babysit.md`、`orchestrate.md#Stack safety`。
 
-**共同问题（Shared problem）**：
-人和 agent 对"要改变什么、为谁、何时、怎样算完成"形成的一致表述。它不是原始请求的同义改写，而是补齐了边界、非目标、验收与未知项之后的工作定义；后续 spec、行为与验证都应引用它。
+**ready work**：
+`orchestrate` 每轮排空后重新计算的可开始工作。不要把它叫 frontier。源码：`skills/poteto-mode/playbooks/orchestrate.md#Steps`。
 
-**访谈（Interview）**：
-agent 在动手前逐轮提问、澄清决定的过程。每轮覆盖当前所有未被阻塞的问题，每个问题带推荐答案；事实由 agent 查，决定由人作；结束时 agent 用自己的话复述，由人纠正。
+## 委派与模型
 
-**前沿（Frontier）**：
-在已确认的依赖关系下，当前可以直接回答或开始的那批问题或工作。访谈中只问前沿问题；一批决定答案之后，下一批才会解锁。
+**subagent**：
+由主 agent 派出的执行单元。playbook 步骤里的委派用 `poteto-agent`；`how`、`why`、`interrogate`、`reflect`、`swarm` 自带 `subagent_type`，不被覆盖。源码：`skills/poteto-mode/SKILL.md#Subagents`。
 
-**词卡（Word card）**：
-为一个会改变实现的词写下的四行定义：含义、正例、反例、边界。它只收曾经造成分歧的词，附在共同问题之后，供行为卡、测试和评审核对。
+**fresh subagent**：
+默认给新任务开新 subagent，带 consolidated scope（原始 brief、后续指令、上一个 agent 的报告和分支）。只有新工作依赖旧 agent 的本地 checkout、未提交改动或仍在跑的进程时才 resume。源码：`skills/poteto-mode/SKILL.md#Subagents`。
 
-**行为卡（Behavior card）**：
-把一条承诺写成可观察行为的轻量产物：Given 条件、When 动作、Then 可观察结果，加上失败出口、人工接手点、非目标和观察位置。它让实现、测试与评审引用同一条行为，而不是各自解释承诺。
+**role line**：
+设置文件里“角色 → 模型”的一行，例如 `judgment and prose`、`swarm workers`。role 缺失时退回 skill 内默认值。源码：`skills/setup-pstack/SKILL.md`。
 
-**观察位置（Observation point）**：
-一条行为可以被看到的具体位置，例如下载文件的行数、页面按钮状态、接口响应、日志或数据库状态。找不到观察位置的行为仍然只是意图。
+**model panel**：
+`arena runners`、`architect runners`、`interrogate reviewers` 等角色行；列表长度决定 fan-out。源码：`skills/setup-pstack/SKILL.md`。
 
-**行为地图（Behavior map）**：
-把一组已确认承诺按用户结果、禁止行为、失败出口、权限与责任、非目标组织起来的产物。每条行为带观察位置与优先级；每条重要承诺要么落到至少一条行为，要么被明确标成非目标。
+## 验证、评审与落地
 
-**模块形状卡（Module shape card）**：
-在设计阶段固定一个模块的接口、切口、隐藏的实现、不变量、测试表面与非目标的轻量产物。它服务于可测试性与局部性，不描述文件结构。
+**verdict**：
+没写这份代码的 verifier 给出的 `PASS`、`PASS+NOTES` 或 `FAIL`。作者自证、绿 CI、bot approval 都不是 verdict。源码：`skills/poteto-mode/playbooks/shipping.md` step 1。
 
-**阻塞边（Blocking edge）**：
-工作包之间的有向依赖：一个包必须等另一个包完成后才能开始。所有阻塞边构成依赖图；有环说明包该合并或接口未定。
+**patch-id**：
+`git patch-id` 算出的补丁内容标识。rebase 会改 SHA，但补丁可能不变；旧 verdict 是否仍覆盖当前 head，看 patch-id。源码：`skills/poteto-mode/playbooks/shipping.md` step 3。
 
-**完成检查（Completion check）**：
-证明一个工作包完成的命令、场景或可观察结果。它必须能在包内独立运行或观察，而不是依赖整条链的测试。
+**contiguous verified run**：
+从最低未合并 PR 往上，连续有 `PASS` 或 `PASS+NOTES` 的一段栈。第一个没有 `PASS` 或 `PASS+NOTES` 的 PR 就是停止点。源码：`shipping.md` step 2。
 
-**变更工作卡（Change card）**：
-一个变更在定义阶段的权威入口产物：原始请求、目标使用者与时刻、要改变的行为、非目标、硬约束、owner、未知项与下一次确认。它保留未决项，不把未决项写成承诺，因此不同于规格。
+**feature map**：
+项目本地的 `verify-<app>/features/`：一个 README 索引加每个用户可见 feature 一个文件。由 `create-verification-skill` 生成，`maintain-verification-skill` 维护。源码：`skills/create-verification-skill/SKILL.md`。
 
-**事实底稿（Evidence ledger）**：
-把可能支撑当前判断的材料按主张、类型、来源、日期、适用范围、状态和 owner 登记成表。类型只有事实、假设、意见、未知四种；它记录材料支持什么，也记录它不能支持什么。
+**decision trail / decision log**：
+`show-me-your-work` 的决策记录：默认 `decisions.tsv`，一行一个决定（ts、phase、decision、why、evidence、result），只追加。概念层叫 decision trail，文件叫 decision log。源码：`skills/show-me-your-work/SKILL.md`。
 
-**决策证据卡（Decision evidence card）**：
-围绕一个会改变方向的未知项，写下"答案 A 时做什么、答案 B 时做什么"、最小证据动作、停止条件、决定 owner 与回写位置的轻量产物。两种答案导致同一动作时，这张卡不该存在。
+**control surface / control skill**：
+驱动真实应用的控制面，例如 `control-ui`、`control-cli`，或项目本地的 `verify-*` skill。不要用它指父 agent 的委派控制。源码：`skills/poteto-mode/SKILL.md#Harness`、`skills/create-verification-skill/SKILL.md`。
 
-**规格（Spec）**：
-把已经稳定的意图固定成下游可消费的契约：目标与非目标、可观察行为、边界与约束、验收证据与覆盖边界、未决项、owner 与变更记录。它不写容易过期的文件路径或实现细节。
+**Always pause**：
+不可逆写入：force-push 到共享分支、部署、删除数据、给客户发消息。源码：`skills/poteto-mode/SKILL.md#Autonomy`。
 
-**覆盖边界（Coverage boundary）**：
-一条证据实际证明到哪里为止的说明，例如"覆盖 3 行勾选与表头一致，不覆盖缺失行、无权限与超大文件"。没有覆盖边界的"测试通过"会被误读成"全部兑现"。
+## 环境
 
-## 智能体与委派
+**`correct`**：
+把 operator 反复纠正的同一类错误变成仓库里最强的可行约束：架构 → 类型 / lint → 测试 → 文档；每条新检查要证明它在真实历史错误上会失败。源码：`skills/correct/SKILL.md`。
 
-**智能体（Agent）**：
-能够读取上下文、调用工具、执行多步工作并产生产物的 AI 执行者。它可以是一个会话里的主 agent，也可以是被派出的子代理。
+**`reflect`**：
+三个 reviewer（judgment、tooling、divergent）并行读 transcript，synthesizer 归一成 Accepted / Rejected / Backlog；Accepted 等明确批准后才改 skill，Backlog 直接进 tracker。源码：`skills/reflect/SKILL.md`。
 
-**子代理（Subagent）**：
-由主 agent 派出的独立执行单元，拥有自己的上下文和工具权限。子代理的输入输出应当封闭：一个 brief 进去，一份可核查的报告出来。
+**`encode-lessons-in-structure`**：
+第二次写同一条指令时，把它编码成 lint、元数据、运行时检查或脚本；判断类教训无法编码时，才写一段带失败例子的文字。源码：`skills/principle-encode-lessons-in-structure/SKILL.md`。
 
-**委派（Delegation）**：
-把一段工作交给子代理，同时保留控制面、验收条件和最终判断。委派不是"把任务丢出去"，而是设计一份能让陌生执行者独立完成的 brief。
+**`create-verification-skill` / `maintain-verification-skill`**：
+生成和维护项目本地的 `verify-<app>` skill 与 feature map，让“像用户一样驱动应用”成为仓库的一部分。源码：`skills/create-verification-skill/SKILL.md`、`skills/maintain-verification-skill/SKILL.md`。
 
-**任务上下文包（Task context packet）**：
-为一个可领取工作包准备的最小输入：目标、权威产物指针、可写范围、禁止动作、验收检查、权限与人工 gate、报告形状、时限。它引用权威产物，不复制它们。
+## 落地与接管
 
-**协作约定（Collaboration agreement）**：
-围绕一项具体变更的协作 artifact：变更范围、权威产物、artifact owner、decision owner、executors、integration owner、可写范围、权限、human gates、升级路线与完成要求。它让多人、人机或多 agent 工作在同一套可追溯责任下，不是组织架构图。
+**`shipping`**：
+独立验证每个 PR，只落地从最低未合并 PR 开始连续通过的那一段，自底向上一次一个。pstack 到落地为止。源码：`skills/poteto-mode/playbooks/shipping.md`。
 
-**语义冲突（Semantic conflict）**：
-两条工作线即使没有文本冲突，也不能共同兑现同一套用户结果、状态词、术语、权限或责任的情况。它必须由对应的 artifact 或 decision owner 更新共同输入后再汇合，不能由集成者凭代码偏好解决。
+**`babysit`**：
+把 PR 或栈推到 merge-ready：声明 `drive` / `background` / `threads-only` / `check`，只处理最低未合并的 frontier，不负责合并。源码：`skills/poteto-mode/playbooks/babysit.md`。
 
-**控制面（Control surface）**：
-主 agent 或人用来保持控制的东西：brief、todo、验收条件、验证命令、合并权。控制面越薄，委派越容易失控。
+**`session pickup`**：
+接管别人未完成的工作：读原轨迹，重建操作状态，路由到对应 playbook。`recall` 不接这个场景。源码：`skills/poteto-mode/playbooks/session-pickup.md`。
 
-**上下文窗口（Context window）**：
-一次会话可用的工作记忆。它不是免费的：大输出、长文件、重复读取都会挤占判断空间。委派的一部分目的就是把批量阅读移出主线程。
+**`pause safely`**：
+在原子步骤边界干净暂停：取消 nested subagent，不启动新工作，不推送（除非已经推过），未提交改动做成 `wip:` 提交，在上下文之外写恢复说明。源码：`skills/poteto-mode/playbooks/pause-safely.md`。
 
-## 协议与流程
+**`opening a PR`**：
+需要开 PR 的 playbook 的共享收尾：worktree、提交节奏、PR 标题与六节正文、forge、栈规则。源码：`skills/poteto-mode/playbooks/opening-a-pr.md`。
 
-**工作协议（Work protocol）**：
-把一种稳定工作写成有顺序、有完成条件、有失败出口的步骤集。协议的价值在于让同样的工作每次走同样的路径，而不是产出同样的结果。
+**`worktree cleanup`**：
+回收磁盘：worktree 与陈旧的 iOS 模拟器；删除前逐项确认。源码：`skills/poteto-mode/playbooks/worktree-cleanup.md`。
 
-**流程分支（Playbook）**：
-针对一类任务的工作协议，例如缺陷修复、功能实现、交付落地。流程分支规定步骤和门，不复制共享 skill 的规则。
+## pstack 不覆盖
 
-**模式（Mode）**：
-一个把请求路由到流程分支、并在执行过程中保持状态与收口要求的入口。模式同时是路由器和执行者。
-
-**质量门（Quality gate）**：
-一次状态转移前必须通过的检查：判据来源、所需证据、通过条件和不通过时的停点。
-
-**阶段边界（Phase boundary）**：
-一次会话内两段工作之间的切换点，也是决定上下文继续、清空、交接、交给子代理还是压缩的位置。判断依据是下一段工作是否仍需要这一段作为一手来源。
-
-## 判断与词汇
-
-**判断词汇（Principle / Vocabulary）**：
-一组可被点名的短规则，用来在任务中途重定向判断。名字的价值在于让双方回到同一条规则，而不是赢得争论。
-
-**深模块（Deep module）**：
-用小接口隐藏较多相关行为与实现复杂度的模块。深度取决于接口带来的杠杆，不取决于实现代码行数。
-
-**接口（Interface）**：
-调用者正确使用模块必须知道的全部事实，包括可表达的业务意图、可观察结果、不变量、顺序约束、错误方式和必要配置。
-
-**切口（Seam）**：
-模块接口所在的公共位置，也是调用者和测试共同跨越、观察外部行为的地方。测试必须越过接口去看私有状态时，通常说明切口或模块形状需要重做。
-
-## 证据与验证
-
-**证据（Evidence）**：
-能支持一个结论的材料：命令输出、测试结果、真实表面上的观察、测量数据、评审记录。证据是指针，不是一段叙述。
-
-**证据阶梯（Evidence ladder）**：
-从"声明"到"单元测试"到"真实表面"到"独立验证"到"测量加方法"的层级。越靠右，越难伪造，成本也越高。
-
-**独立判据（Independent oracle）**：
-判断可观察结果是否正确的、独立于待验证实现的来源，例如已确认的 spec、审核过的例子、捕获的真实症状或可信基准。
-
-**验证反馈回路（Verification feedback loop）**：
-围绕一条已确认承诺或真实症状建立的可重复验证路径：受控触发经过确认的切口，产生可观察结果，再由独立判据给出 red 或 green。
-
-**回路卡（Feedback loop card）**：
-记录一条验证回路的轻量产物：行为、切口、独立判据、触发与输入、预期结果、运行时间、稳定性与覆盖边界。它说明这条回路为什么可信，而不是替代测试文件。
-
-**承诺-证据对照表（Promise-to-evidence map）**：
-把 spec 与行为地图中的每条重要承诺，与其场景、切口、独立判据、证据引用、覆盖边界、结论和 owner 连接起来的表。它区分兑现、未兑现、未覆盖与无法结论，不是覆盖率报告。
-
-**合入评审包（Merge review packet）**：
-支持一次合入决定的固定输入集合：目标分支、fixed point、三点 diff、提交列表、来源 spec、行为地图、承诺-证据表、项目约定、验证结果、残余风险和决定 owner。它让评审针对同一段变更和同一份来源材料。
-
-**双轴评审（Two-axis review）**：
-对同一固定 diff 分别进行标准轴（是否符合项目约定与可维护性）和规格轴（是否缺失、额外或错误地实现来源承诺）的独立审查。两条报告并排，不合并成一个分数；具名人基于两轴结论与风险作合入决定。
-
-**失败回流记录（Failure routing record）**：
-把一个失败测试、评审发现、用户报告或运行信号从原始症状送回正确工作面的产物。它区分已观察事实与诊断假设，记录影响与止损、最小重放、权威预期、被排除项、首要回流分类（定义、验证、实现或设计）、目标产物、owner 和关闭证据。
-
-**验证 skill（Verification skill）**：
-项目本地的、可重复驱动真实应用的控制面：启动、走一条用户路径、捕获证据。它把"证明它工作"从一次性脚本变成仓库的一部分。
-
-**独立验证者（Independent verifier）**：
-没有参与实现的验证者。独立性有两个维度：不同的执行者，最好还有不同的模型。作者自证不算独立验证。
-
-**决策轨迹（Decision trail）**：
-长任务中一行一个决定的记录：时间、阶段、决定、原因、证据指针、结果。它只追加，错误用新行覆盖。
-
-## 交付与运行
-
-**交付风险结论（Release risk decision）**：
-针对固定版本、部署目标和暴露范围作出的可复核决定。它记录风险、暴露限制、观察信号、停止/回退动作、owner 和重新打开条件。
-
-**运行信号（Operational signal）**：
-来自真实环境的指标、trace、审计事件、用户反馈或外部依赖变化。它先被记录为事实，再与原因假设分开。
-
-**栈（Stack）**：
-一串以 base 分支相连的 PR：根 PR 指向主干，每个子 PR 以父分支为 base。栈把大改动切成可独立评审、按顺序落地的单元。
-
-**部署、暴露与交付（Deploy, expose, release）**：
-部署是把固定版本放进一个环境；暴露是允许具体用户、agent、数据或外部系统真正触发它；交付是具名人基于证据、风险、观察与恢复能力，批准某版本在某范围内部署或暴露。三者可以分步进行。
-
-**连续已验证段（Contiguous verified run）**：
-从最低未合并 PR 开始，自底向上连续通过独立 verdict 的一段栈。第一个没有 verdict 的 PR 就是停止点；它上面的 PR 即使通过，也不能先合。
-
-**补丁指纹（Patch fingerprint）**：
-一段变更的内容标识，通常用 `git patch-id` 计算。rebase 会改变提交 SHA，但补丁内容可能不变；旧 verdict 是否仍覆盖当前 head，要看补丁指纹，而不是只看 SHA。
-
-**摩擦（Friction）**：
-评审、失败回流、运行信号、交接或交付中反复出现的成本。摩擦不是情绪，它需要独立证据。
-
-**摩擦证据账本（Friction evidence ledger）**：
-把来自评审、失败回流、运行信号、交接或交付的独立记录按共同工作条件关联起来的产物。它记录事实、成本、条件、临时绕过、反例、尚未证实的机制假设与下一步，而不是按情绪排序的技术债清单。
-
-**摩擦改进提案（Friction improvement proposal）**：
-根据摩擦账本提出的可交付改进：共同机制、实际成本、主要杠杆（架构、定义、流程产物或观测）、范围、非目标、最小第一步、owner、迁移约束、保护性验证与停止条件。
-
-**累积语料（Accumulated corpus）**：
-一个项目在多轮迭代里留下的 spec、ticket、决定、交接件与运行记录的总体。风险不来自数量，而来自没有状态：读的人无法分辨哪一份仍然算数。
-
-**规则表（Rule table）**：
-把每条工程规则与强制它的机制（架构、类型、lint、测试）配对的一张表。它本身不强制任何东西，但空着强制者那一列会让"只有文字、没有检查"的规则显形。
-
-## 演进
-
-**环境即产物（Environment as product）**：
-一次交付的产物不只是 diff，还包括让下一次工作更容易发生的环境：检查、模板、验证 skill、模型配置、共享词汇。
-
-**结构化约束（Structural constraint）**：
-用类型、lint、测试、元数据或运行时检查表达的规则，而不是一段"请注意"。它比文字更可靠，因为它会失败。
-
-**方向漂移（Direction drift）**：
-多轮迭代后，已经发布的 spec、决定和交接件不再代表当前方向，但下一位参与者仍把它们当权威输入。风险不来自数量，而来自没有状态。
-
-**承诺退役（Promise retirement）**：
-对一份不再代表当前方向的 spec 或 ticket 作出的、被记录的作废决定。它说明被什么取代、由谁宣布、从何时起不再作为输入，并把读者从当前入口摘除。
-
-**交接包（Handoff package）**：
-让下一位参与者不必依赖上一段聊天就能继续的索引型产物：当前状态、已接受输入、验证证据、未解风险、下一位 owner 和入口。它引用权威产物，不复制它们。
-
-**汇合与交接包（Convergence and handoff package）**：
-围绕一个固定收敛点发布的索引型产物：共同来源、已接受输入、兑现行为、联合验证证据、冲突处理、残余风险、下一位 owner 与入口。它让并行结果成为可继续的当前状态，区别于仅供换会话使用的临时 handoff。
+pstack 不写 spec，不做发布 / 灰度 / 回滚 / 发布后监控，也没有承诺退役记录。它停在 verified landing；部署只是 **Always pause** 里的一个不可逆动作。这些话题如果出现在外部方法里，不要把它们写成 pstack 的机制。

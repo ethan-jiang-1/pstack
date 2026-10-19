@@ -55,7 +55,7 @@ pstack 的安装单位是**一个 skill 目录**，不是一整个插件。但 `
 ## 更新
 
 - **插件**：由 harness 管理版本，`plugin.json` 的 `version` 是更新信号。
-- **skills CLI**：重新运行 `npx skills update`（或重新 add），按目录覆盖。
+- **skills CLI**：重新运行 `npx skills add <owner>/pstack`，按目录重新安装（仓库只给出 `add` 这一条命令）。
 - **本仓库镜像**：`main` 跟随上游，`ethan` 在 main 上叠加消化层。同步步骤见 [`_digest/_change_log/README.md`](../_change_log/README.md) 与 [`MIRROR.md`](../../MIRROR.md)。
 
 ## 值得注意
@@ -69,3 +69,5 @@ pstack 的安装单位是**一个 skill 目录**，不是一整个插件。但 `
 1. **安装粒度是 skill，不是包。** 这让 pstack 可以被拆用，也把依赖管理交给了使用者。
 2. **物理路径引用让"自包含目录"只在小范围内成立。** 单个 skill 目录自包含，但一组 skill 要一起搬。
 3. **设置文件是运行时的第二个安装面。** 装好 skill 但没有模型配置，系统仍能跑，只是跑在默认值上。
+
+> 源码：[`plugin.json`](../../plugin.json)、[`README.md`](../../README.md)、[`poteto-mode/SKILL.md`](../../skills/poteto-mode/SKILL.md)（Harness）。

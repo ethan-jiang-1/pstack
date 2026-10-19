@@ -1,6 +1,6 @@
 # Playbook 索引
 
-23 个 playbook 是 `poteto-mode` 的流程库。每个文件是一份可执行的步骤协议：开头一句"你拥有什么"，中间是带门的步骤，结尾规定回复的形状。
+23 个 playbook 是 `poteto-mode` 的流程库。每个文件是一份步骤协议；多数以"你拥有什么"开头、以 Reply 结尾，少数（如 worktree cleanup、opening a PR）只给操作规则或共享收尾。
 
 > 不要从这里直接"挑一个跑"。playbook 由 `poteto-mode` 匹配；这一页是给已经知道要做什么、但想确认边界的人看的。
 
@@ -44,7 +44,7 @@ PR 要推到可合并                       → Babysit
 
 ### [Perf issue](../../skills/poteto-mode/playbooks/perf-issue.md)
 
-一次性的性能修复。先抓基线 trace 并用 `benchmark-checklist` 检查每个数字；按"不做 → 不重复做 → 少做 → 晚做 → 趁人不注意时做"的顺序找最便宜的优化。不先跑就宣称性能上限。
+一次性的性能修复。先抓基线 trace 并用 `benchmark-checklist` 检查每个数字；按"不做 → 不重复做 → 少做 → 晚做 → 趁人不注意时做 → 并发做 → 更便宜地做"的顺序找最便宜的优化。不先跑就宣称性能上限。
 
 ### [Hillclimb](../../skills/poteto-mode/playbooks/hillclimb.md)
 
@@ -92,7 +92,7 @@ PR 要推到可合并                       → Babysit
 
 ### [Opening a PR](../../skills/poteto-mode/playbooks/opening-a-pr.md)
 
-所有 playbook 的共享收尾。worktree、提交节奏、Conventional Commits 标题、PR 正文五段（Why / What changed / Scope / Tradeoffs / Blast Radius / Verification）、forge 解析、栈的规则，以及"开 PR 不等于开始 babysit"。
+需要开 PR 的 playbook 的共享收尾。worktree、提交节奏、Conventional Commits 标题、PR 正文六节（Why / What changed / Scope（总是保留）/ Tradeoffs / Blast Radius / Verification；其余没有内容的节可省略）、forge 解析、栈的规则，以及"开 PR 不等于开始 babysit"。
 
 ## 自主运行
 
@@ -102,7 +102,7 @@ PR 要推到可合并                       → Babysit
 
 ### [Orchestrate](../../skills/poteto-mode/playbooks/orchestrate.md)
 
-一个持续数天、几十上百个 subagent 的 program。coordinator 只写 brief、排空队列、守 frontier、做判断，不写代码；sub-coordinator 按 track 分；worker 与 verifier 分离，验证者用不同模型家族。brief 是唯一产品。
+一个持续数天、几十上百个 subagent 的 program。coordinator 只写 brief、排空队列、守 frontier、做判断，不写代码；sub-coordinator 按 track 分；验证按单元成本决定：便宜的由 worker 跑、coordinator 抽查收据，昂贵、判断密集或高爆炸半径的才派独立 verifier，并用不同模型家族。brief 是唯一产品。
 
 ### [Autopilot-full](../../skills/poteto-mode/playbooks/autopilot-full.md)
 
@@ -120,11 +120,11 @@ PR 要推到可合并                       → Babysit
 
 ### [Pause safely](../../skills/poteto-mode/playbooks/pause-safely.md)
 
-干净地暂停。在原子步骤边界停下，取消 nested subagent，不启动新工作，不推送；把未提交改动做成一个 `wip:` 提交；在上下文之外写恢复说明。只用于明确暂停，不用于"继续"。
+干净地暂停。在原子步骤边界停下，取消 nested subagent，不启动新工作，不推送（除非之前已经推过）；把未提交改动做成一个 `wip:` 提交；在上下文之外写恢复说明。只用于明确暂停，不用于"继续"。
 
 ### [Worktree cleanup](../../skills/poteto-mode/playbooks/worktree-cleanup.md)
 
-回收磁盘。先审计 worktree（大小、年龄、合并状态、未提交工作、PR 状态、最近会话），把删除建议当参考而不是许可；被固定的会话、正在使用的 worktree、未提交工作都要停下来确认。这是唯一没有代码评审兜底的删除流程。
+回收磁盘：worktree 与陈旧的 iOS 模拟器。先审计 worktree（大小、年龄、合并状态、未提交工作、PR 状态、最近会话），把删除建议当参考而不是许可；被固定的会话、正在使用的 worktree、未提交工作都要停下来确认。这是唯一没有代码评审兜底的删除流程。
 
 ## 元
 
@@ -134,11 +134,11 @@ PR 要推到可合并                       → Babysit
 
 ### [Multi-phase or multi-PR plan](../../skills/poteto-mode/playbooks/multi-phase-plan.md)
 
-工作跨阶段或跨堆叠 PR。先写阶段边界、每阶段的产物与验证、PR 的切法与顺序，再逐阶段执行。
+工作跨阶段或跨堆叠 PR。先写阶段边界、每阶段的产物与验证、PR 的切法与顺序；计划本身是交付物，执行要等 operator 明确 go，并走计划里指定的执行 playbook。
 
 ## 共同结构
 
-每个 playbook 都是同一个骨架：
+多数 playbook 是同一个骨架：
 
 ```text
 ### <Title>
@@ -147,16 +147,16 @@ PR 要推到可合并                       → Babysit
 
 1. 步骤（带可检查条件与失败出口）
 ...
-N. Run **Opening a PR**.   ← 只读流程以 Reply 结束，不执行这一步
+N. Run **Opening a PR**.   ← 只读或不再交付改动的流程以 Reply 结束，不执行这一步
 
 **Reply:** 这次交付必须包含的文本形状。
 ```
 
-`You own` 定义责任，步骤定义顺序，`Reply` 定义交付面。三者缺一，playbook 就会退化成一份提示词建议。
+遵守这个骨架的 playbook，`You own` 定义责任，步骤定义顺序，`Reply` 定义交付面。三者缺一，就会退化成一份提示词建议。
 
 ## 值得注意
 
 - **有重叠。** `Babysit` 与 `Shipping`、`Autonomous run` 与 `Orchestrate`、`Autopilot-full` 与 `Autopilot-stack` 都需要读描述才能分对。
 - **`figure-it-out` 不是 playbook。** 它是一个 skill，用来在没有合适 playbook 时设计一份一次性流程。
 - **playbook 依赖 mode 的上下文。** 单独读一份 playbook 能理解步骤，但"逐字复制进 todo"、"按角色选模型"、"回复按 unslop"这些要求写在 `poteto-mode` 里。
-- **不是所有 playbook 都开 PR。** Investigation、Runtime forensics、Trace forensics、Pause safely 明确不开。
+- **不是所有 playbook 都开 PR。** 是否开由步骤决定；Investigation、Runtime forensics、Trace forensics、Pause safely 明确不开。

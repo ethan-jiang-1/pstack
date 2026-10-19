@@ -12,7 +12,7 @@
 2. **匹配 playbook。** 从 23 个里选一个。匹配依据是请求里的信号，不是关键词表。
 3. **复制步骤。** 打开 `playbooks/<title>.md`，把步骤逐字放进 todo list 的最前面，然后才写任务特有的 todo。
 4. **执行。** 每个步骤可能调用解释类 skill、设计类 skill、验证类 skill，或派 subagent。
-5. **收口。** 几乎所有 playbook 都以 `opening-a-pr` 结束；回复按 mode 的 **Writing the reply** 与 `unslop` 写。
+5. **收口。** 需要开 PR 的 playbook 以 `opening-a-pr` 结束；回复按 mode 的 **Writing the reply** 与 `unslop` 写。
 
 ### 为什么步骤要逐字复制
 
@@ -73,7 +73,7 @@
 playbook 的约束不是结尾一句"请谨慎"，而是步骤内的可检查条件：
 
 - **Bug fix step 1**：自己在该表面上复现；只有控制面确实够不到时才请用户，且要说明具体原因。
-- **Shipping step 1**：每个 PR 由没写这份代码的 verifier 独立验证，`PASS` 才算数；绿 CI 和 bot approval 都不是 verdict。
+- **Shipping step 1**：每个 PR 由没写这份代码的 verifier 独立验证，`PASS` 或 `PASS+NOTES` 才算数；绿 CI 和 bot approval 都不是 verdict。
 - **Babysit step 1**：先声明 `drive`、`background`、`threads-only` 或 `check` 模式，再轮询。
 - **Benchmark**：报告任何性能数字前走 `benchmark-checklist` 的七问。
 - **Feature step 3**：写 throughput checkpoint（阻塞步骤、可并行工作流、共享可变状态、最小安全拆解），不适用的维度也要留 `n/a`。
@@ -101,3 +101,5 @@ playbook 的约束不是结尾一句"请谨慎"，而是步骤内的可检查条
 2. **步骤是状态。** 把步骤搬进 todo，比让模型记住一段长提示更可靠。
 3. **兜底要分层。** 窄 playbook、一次性设计、持续 program、队列自主，各自解决不同规模的问题。
 4. **门要贴着转移写。** 抽象成"要谨慎"没有用；写成"在哪个表面、看到什么、才允许下一步"才有用。
+
+> 源码：[`poteto-mode/SKILL.md`](../../skills/poteto-mode/SKILL.md)、[`playbooks/`](../../skills/poteto-mode/playbooks/)。

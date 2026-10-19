@@ -11,8 +11,8 @@
 | 你想要的 | 最小集合 | 说明 |
 |---|---|---|
 | 只清理英文、写 PR/文档 | `unslop`、`technical-writing`、`bro`、`ketchup` | `technical-writing` 依赖 `unslop`；`ketchup` 依赖 `bro` |
-| 只理解代码与历史 | `how`、`why`、`teach`、`recall`、`blast-radius` | `teach` 依赖 `how` + `why`；`blast-radius` 还依赖 `arena` 和 `unslop` |
-| 只做设计与对抗评审 | `architect`、`arena`、`interrogate` | `architect` 依赖 `arena` + `how` |
+| 只理解代码与历史 | `how`、`why`、`teach`、`recall`；要用 `blast-radius` 再加 `arena`、`unslop` | `teach` 依赖 `how` + `why`；`blast-radius` 依赖 `arena`、`how`、`why`、`unslop` |
+| 只做设计与对抗评审 | `architect`、`arena`、`interrogate`、`how` | `architect` 依赖 `arena` + `how` |
 | 只做验证与交付 | `create-verification-skill`、`maintain-verification-skill`、`benchmark-checklist`、`show-me-your-work` | 两个验证 skill 成对使用 |
 | 完整 mode 流程 | `poteto-mode` + 全部 `principle-*` + 大多数其他 skill | playbook 会在步骤里点名它们 |
 
@@ -50,7 +50,7 @@ README 的依赖表是入口，但它是人工维护的，可能滞后。源码�
 
 1. 先装一个写作包或理解包，跑一周，确认它真的被用上。
 2. 需要多步流程时，再装完整 mode；不要一开始就全装，否则 23 个 playbook 的选择成本会先于收益出现。
-3. 装 mode 时把全部 `principle-*` 一起装，否则 mode 的 Principles 索引会指向空文件。
+3. 装 mode 时把全部 `principle-*` 一起装，否则 mode 的 Principles 索引会指向不存在的 leaf skill。
 
 ## 继续阅读
 

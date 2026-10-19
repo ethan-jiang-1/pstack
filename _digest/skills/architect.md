@@ -70,7 +70,7 @@ Ground、Sketch、Agree、Implement、Scrap，每个阶段一条 todo。顺序�
 ## 依赖关系
 
 - **上游**：`how` 负责 Ground，`why` 在重定义所有权或分层时补理由，`arena` 负责候选生成、跨模型裁判与综合，设置文件的 `architect runners` 行，`poteto-mode` 的 Subagents 规则。
-- **下游**：实现阶段；`interrogate` 可对综合草图施压；`poteto-mode` 的 `feature`、`bug-fix`、`refactoring`、`investigation`、`perf-issue`、`prototype` playbook 在非平凡形状处调用它。
+- **下游**：实现阶段；`interrogate` 可对综合草图施压；`poteto-mode` 的 `feature`、`bug-fix`、`refactoring`、`perf-issue`、`prototype` playbook 在非平凡形状处调用它。Investigation 只在"调查之后接着改代码"时把工作交回用户，再改走 Bug fix 或 Feature，不直接调用 `architect`。
 - **共享**：`references/design-red-flags.md`、`references/runner-prompt.md`、`references/rationale-template.md`；`exhaust-the-design-space`、`foundational-thinking`、`outcome-oriented-execution`、`redesign-from-first-principles`、`fix-root-causes`、`subtract-before-you-add`、`boundary-discipline` 等 principle skill。
 - **对照**：`how` 解释现有形状，`architect` 画目标形状。
 
