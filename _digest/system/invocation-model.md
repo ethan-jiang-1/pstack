@@ -22,7 +22,7 @@ pstack 的 `description` 仍写得像触发条件（"Use for /architect, 'archit
 1. **成本可预测。** 一次 pstack 运行会花真实 token，还会派 subagent。让模型自行决定何时启动一整套流程，等于把成本决定权交出去。
 2. **顺序可以被步骤写死。** Bug fix 必须先复现，Shipping 必须有独立 verdict。隐式调用无法保证顺序；显式点名可以。
 3. **入口可以很少。** 人只需要记住 `/poteto-mode` 和少数单点工具，其余由 mode 在步骤里带出来。
-4. **误触发少。** `tdd` 的 description 明确说只在用户要求 TDD 或 bug 有便宜的本地测试目标时用。模型若能自行调用，这条边界很难守住。
+4. **误触发少。** `tdd` 的 description 明确说只在用户要求 TDD、失败测试或回归测试，或 bug 有便宜的本地测试目标时用。模型若能自行调用，这条边界很难守住。
 
 代价是人的记忆负担：不跑 mode 时，得知道 `how`、`why`、`arena` 这些名字。`poteto-help` 和 `docs/guide/` 在补这部分。
 

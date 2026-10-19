@@ -22,11 +22,12 @@ mode 真正提供的不是"更聪明"，而是三件事：
 |---|---|---|
 | 修一个有复现的 bug | mode → Bug fix | 必须先复现、二分、修、在同表面验证；顺序不能省 |
 | 做 feature、重构、性能修复 | mode → 对应 playbook | 有设计、委派、验证、提交多个阶段 |
-| 把一个栈推到可合并或落地 | mode → Babysit / Shipping | 有独立 verdict、frontier、落地顺序 |
+| 把一个栈推到可合并 | mode → Babysit | frontier、线程、CI；不负责合并 |
+| 栈已绿，要落地 | mode → Shipping | 独立 verdict、落地顺序 |
 | "X 怎么工作"、查设计动机 | 单用 `how` / `why` / `teach` | 只读，交付一个带引用的答案 |
 | 对一个改动做对抗评审 | 单用 `interrogate` | 它本身就是完整流程，不需要外层编排 |
 | 清理英文、写 PR 正文 | 单用 `unslop` / `technical-writing` | 一次编辑动作，没有跨阶段状态 |
-| bug 有便宜的测试路径，只想先红后绿 | 单用 `tdd` | 目标单一，且 mode 的 Bug fix 会在需要时调用它 |
+| bug 有便宜的测试路径，只想先红后绿 | 单用 `tdd` | 目标单一；Bug fix 会在需要时引用它，但 `tdd` 只能由人显式触发 |
 | 任务过粗或过细，想先按专家打法做 | 单用 `sharpen` | 它直接做，不回传改写后的 prompt |
 
 ## mode 的成本与前提
@@ -46,5 +47,5 @@ mode 真正提供的不是"更聪明"，而是三件事：
 ## 继续阅读
 
 - [当前行为的源码](../../skills/poteto-mode/SKILL.md)
-- [23 个 playbook 的选择树](../../_digest/playbooks/README.md)
+- [23 个 playbook 的索引](../../_digest/playbooks/README.md)
 - [`poteto-mode` 的 playbook 路由](../../_digest/patterns/mode-as-router.md)

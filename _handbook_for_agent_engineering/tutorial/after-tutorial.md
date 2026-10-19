@@ -11,7 +11,7 @@
 | 你现在的状态 | 去哪里 |
 |---|---|
 | prompt 写不出来，或 done check 说不清 | [1.1 prompt 的五项](../manual/define.md) |
-| 不知道该用 mode 还是单 skill | [1.2 mode 与 playbook](../manual/define.md) |
+| 不知道该用 mode 还是单 skill | [1.2 mode、playbook 与 todo](../manual/define.md) |
 | 派了 subagent，回来失控 | [3.1 Subagents 默认值](../manual/delegate-and-collaborate.md) |
 | 测试绿了，但不确定真实路径能用 | [4.2 prove-it-works](../manual/verify.md) |
 | 评审要么挑刺要么放行 | [5.1 interrogate](../manual/ship-run-and-evolve.md) |

@@ -4,13 +4,14 @@
 
 ## 这一章解决什么
 
-委派失控通常不是模型能力问题，而是输入问题：brief 缺字段，subagent 类型选错，或者父 agent 不看 diff 就转述"做完了"。pstack 把这些问题拆成三块：Subagents 的默认值、brief 的字段、fresh 与 resume 的边界。
+委派失控通常不是模型能力问题，而是输入问题：brief 缺字段，subagent 类型选错，或者父 agent 不看 diff 就转述"做完了"。pstack 把这些问题拆成四块：Subagents 的默认值、brief 的字段、fresh 与 resume 的边界，以及 `orchestrate` 的多天 program。
 
 | 单元 | 卡点 | 带走 |
 |---|---|---|
 | 3.1 | 不知道 subagent 默认该怎样跑 | `poteto-mode#Subagents` 的默认值 |
 | 3.2 | brief 写完，worker 还是做偏 | brief 的九个字段 |
 | 3.3 | 该新开还是续用？角色模型怎么选？ | fresh / resume 判断与 role line |
+| 3.4 | 多个 agent 跑多天 program | `orchestrate` 的 roles、one writer、单一 stacker |
 
 ---
 
@@ -53,13 +54,13 @@ brief 有九个字段，缺一个就不能 spawn；缺字段是拒绝条件，�
 ### 带走什么
 
 ```text
-GOAL: 要改变什么，为谁。
-SCOPE: 哪些文件、模块、层；不做什么。
+GOAL: 一句话，结果，一个没有聊天记录的人也能执行。
+SCOPE: 这个 unit 可以写的路径；不可以写的路径；独占的 worktree 或分支。
 CONTEXT: 文件和 PR 的指针；依赖的上游报告逐字粘贴，因为 worker 看不到兄弟。
-ACCEPTANCE: 什么算完成，能通过或失败。
-VERIFY: 跑什么命令、看什么表面、贴什么输出。
+ACCEPTANCE: 可检查的判据，一行一条。
+VERIFY: 确切的命令或 control skill 路径，加上已知的坑。
 TIMEBOX: 运行时间上限；到点返回部分发现并停下，不要跑过头。
-FORBIDDEN: 不许动什么；不许加什么依赖。
+FORBIDDEN: 不 retarget 或 merge PR、不 rebase、不 force-push、不修 scope 外的代码，加 unit 专属的禁令。
 REPORT: status、branch、head SHA、PR、verdict、实际跑了什么、偏离、建议的后续。
 STANDING: <preferences.md 原文，逐字贴入>
 ```

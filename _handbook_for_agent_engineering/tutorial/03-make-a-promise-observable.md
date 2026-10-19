@@ -23,7 +23,7 @@ ExportFormat = "csv" | "xlsx"
 
 ```text
 ExportResult =
-  | { ok: true; rows: number; file: Blob }
+  | { ok: true; rows: number; missing: string[]; file: Blob }
   | { ok: false; reason: "no-rows" | "permission" | "too-large" }
 ```
 
@@ -47,7 +47,7 @@ Verify, live: 在真实导出页勾选 3 行，下载并打开文件，数行数
 
 ### 5. 用 unit 测试和真实表面各给一条证据
 
-data shape 定完后，验证分两层：有便宜测试路径就写一条 unit 测试；`tdd` 只在它的触发条件成立时用（教程 06）。用户可见行为还要在真实表面跑一条路径。两者不是二选一：测试只证明分支行为，真实表面证明用户路径。验证方式在下一页和教程 06 展开。
+data shape 定完后，验证分两层：有便宜测试路径就写一条 unit 测试；`tdd` 只在它的触发条件成立时用（教程 06）。用户可见行为还要在真实表面跑一条路径。两者不是二选一：测试只证明分支行为，真实表面证明用户路径。验证方式在教程 06 展开。
 
 ## 可见成果
 
@@ -59,4 +59,4 @@ data shape 定完后，验证分两层：有便宜测试路径就写一条 unit 
 
 ## 下一段
 
-[04 设计一个可测试的形状](./04-design-a-testable-shape.md)：代码跨函数边界时，先用 `architect` 画 public surface。
+[04 用 `architect` 画 public surface](./04-design-a-testable-shape.md)：代码跨函数边界时，先用 `architect` 画 public surface。

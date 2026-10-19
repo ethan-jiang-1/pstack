@@ -88,7 +88,7 @@ PR 要推到可合并                       → Babysit
 
 ### [Shipping](../../skills/poteto-mode/playbooks/shipping.md)
 
-栈已绿之后落地。每个 PR 由没写代码的 verifier 独立跑真实表面并给 verdict；只落地从最低未合并 PR 开始连续通过的那一段；用 patch-id 检查 verdict 是否仍覆盖当前 head；自底向上一次合一个，落地过程中不再动栈。
+栈已绿之后落地。每个 PR 由没写代码的 verifier 独立跑真实表面并给 verdict；默认只落地从最低未合并 PR 开始连续通过的那一段；独立 PR 不包含也不依赖下面那段代码时，先拿新 verdict 再单独落地；用 patch-id 检查 verdict 是否仍覆盖当前 head；自底向上一次合一个，落地过程中不再动栈。
 
 ### [Opening a PR](../../skills/poteto-mode/playbooks/opening-a-pr.md)
 

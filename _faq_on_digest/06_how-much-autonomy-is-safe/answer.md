@@ -13,7 +13,7 @@
 | `Autonomous run` | 一个任务跑到一个可检查的谓词 | 不要把谓词改松来宣布成功 |
 | `Autopilot-stack` | 一批改动形成待人工落地的栈 | 不要自动合并；落地的决定权在人 |
 | `Autopilot-full` | 一个 PR 队列；owner 在验证后合并 | 不要越过 operator 明确保留的 gate |
-| `Orchestrate` | 一个多天 program；coordinator 写 brief、主持 program，不写代码 | 不要让 coordinator 直接改代码 |
+| `Orchestrate` | 一个多天 program；coordinator 写 brief、主持 program，落地持续进行，不写代码 | 不要让 coordinator 直接改代码 |
 
 "going to bed" / "run until done" 覆盖当前任务；换一个新任务要重新判断授权，不能继承。
 
@@ -47,7 +47,7 @@
 - 轨迹里只有"完成"，没有决定和证据指针。
 - 验证者是写代码的同一个 agent。
 - 谓词从"所有 PR 合并"变成"主要 PR 合并"。
-- 合并前没有明确的人工授权，或授权来自上一个任务。
+- 合并前既没有明确的 merge/land/ship 要求，也没有覆盖它的 grant（`Autopilot-full` / `Orchestrate`）。
 - CI 绿、bot approval 被当成独立验证。
 - 失败被写成 `INCONCLUSIVE` 后继续推进。
 

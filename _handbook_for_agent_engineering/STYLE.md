@@ -9,7 +9,7 @@
 - skill、`architect`、`arena`、`swarm`、`interrogate`、`how`、`why`、`teach`、`recall`、`ketchup`、`sharpen`、`in-your-own-words`、`tdd`、`prove-it-works`、`benchmark-checklist`、`show-me-your-work`、`figure-it-out`、`correct`、`reflect`、`encode-lessons-in-structure`、`create-verification-skill`、`maintain-verification-skill`、`setup-pstack`、`unslop`、`technical-writing`、`no-comments`、`poteto-help`、`automate-me`、`blast-radius`、`make-bot-ui`
 - principle、24 个 `principle-*`
 - subagent、`poteto-agent`、`comment-sicko`
-- brief、GOAL / SCOPE / CONTEXT / ACCEPTANCE / VERIFY / TIMEBOX / FORBIDDEN / REPORT
+- brief、GOAL / SCOPE / CONTEXT / ACCEPTANCE / VERIFY / TIMEBOX / FORBIDDEN / REPORT / STANDING
 - prompt 的五项：goal、done check、proof、what you already know、real constraints
 - frontier（只指 PR 栈的 merge frontier）、ready work
 - verdict、`PASS` / `PASS+NOTES` / `FAIL`

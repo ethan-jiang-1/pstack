@@ -30,7 +30,7 @@ verifier 不能是写这份代码的人。它在真实表面上跑用户路径�
 
 ### 4. rebase 后检查 patch-id
 
-rebase 会改提交 SHA，但补丁内容可能不变。用 `git patch-id` 比较 verdict 时的 SHA 和当前 head：补丁相同，旧 verdict 仍覆盖；补丁不同，先按 step 3 判断——只有测试、文档或 lint config 的差异，且 lane 在两边构建等价时，旧结果可以保留。改动本身仍要新检查和新评审。源码：`shipping.md` step 3。
+rebase 会改提交 SHA，但补丁内容可能不变。用 `git patch-id` 比较 verdict 时的 SHA 和当前 head：补丁相同，旧 verdict 仍覆盖；补丁不同，先按 `shipping` step 3 的例外判断——只有测试、文档或 lint config 的差异，且 lane 在两边构建等价时，旧结果可以保留。改动本身仍要新检查和新评审。源码：`shipping.md` step 3。
 
 ### 5. 把证据写进回复
 

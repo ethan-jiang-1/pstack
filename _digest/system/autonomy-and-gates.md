@@ -8,7 +8,7 @@ pstack 的自主写在 `poteto-mode` 的两处：**Autonomy** 规定可逆工作
 
 | 类别 | 行为 | 出处 |
 |---|---|---|
-| **full grant** | "Don't stop" / "going to bed" / "run until done" / "be fully autonomous" 把授权延长到整个任务。`Autopilot-full` 与 `Autopilot-stack` 是它的结构化形式。grant 覆盖的 call 自己做，报告结果，不请求确认。 | `SKILL.md#Autonomy`、`#Non-negotiables` |
+| **full grant** | "Don't stop" / "going to bed" / "run until done" / "be fully autonomous" 把授权延长到整个任务。`Autopilot-full` 是它的结构化形式；`Autopilot-stack` 只授权构建，落地仍归 operator。grant 覆盖的 call 自己做，报告结果，不请求确认。 | `SKILL.md#Autonomy`、`#Non-negotiables` |
 | **product / preference calls** | 真正的产品、偏好或方向选择，实验无法定论。没有 grant 时问人，给选项，人用自己的话回答；grant 覆盖时自己决定并报告。 | `#Non-negotiables` |
 | **operator-only calls** | 只有 operator 能做的选择。没有 grant 时仍要等 operator；在 grant 下用一个默认值推进，完整报告，并说明 operator 可以让你改成什么。 | `#Non-negotiables` |
 | **named gates** | operator 明确点名的 gate，即使有 grant 也要等。例：`multi-phase-plan` 的 review gate；`Autopilot-full` 里 operator 声明属于自己的 item。 | `playbooks/multi-phase-plan.md`、`playbooks/autopilot-full.md` |
@@ -29,7 +29,7 @@ grant 不覆盖的 call 按 product/preference call、operator-only call、named
 | Bug fix step 1 | 在 matching surface 上用 control skill 实际复现 | 合成触发、收紧条件、加 instrumentation；只有 control surface 够不到目标时才请用户，并给出具体原因 |
 | Bug fix step 2 | 存活的机制有运行时证据 | 继续二分，不猜 |
 | Shipping step 1 | 每个 PR 有一个没写这份代码的 verifier 的 `PASS` 或 `PASS+NOTES` | 没有 verdict 或只有 `FAIL` 的 PR 不进入落地序列 |
-| Shipping step 2 | 从最低未合并 PR 向上连续的 verified run | 遇到第一个没有 `PASS` 或 `PASS+NOTES` 的就停 |
+| Shipping step 2 | 从最低未合并 PR 向上连续的 verified run | 遇到第一个没有 `PASS` 或 `PASS+NOTES` 的就停；独立 PR 需新 verdict 才能单独落地 |
 | Babysit step 1 | 已声明 `drive` / `background` / `threads-only` / `check` | 未声明默认 `drive`；小 PR 或 docs-only 默认 `check` |
 | Feature step 3 | 四项 throughput checkpoint 都有值或 `n/a: <reason>` | 缺项不能进 fan-out |
 | Benchmark | `benchmark-checklist` 的七问都有真实运行的证据 | 只有一次运行就说只有一次；选项比较不算 ballpark |
@@ -59,7 +59,7 @@ ts  phase  decision  why  evidence  result
 - **授权有范围。** "going to bed" 覆盖这个任务，不覆盖下一个任务；`Autopilot-full` 的 grant 只覆盖队列里的 item。
 - **gate 不因授权消失。** 用户说"全自动"不等于放弃 shipping 的独立验证；它只改变了"要不要问"，没有改变"什么算完成"。
 - **死路要报。** 谓词达不到时说清楚，不要把谓词改松再宣布成功。
-- **Always pause 与 landing 有张力。** `shipping` 会合并 PR，`Autopilot-full` 会落地队列；源码没有统一回答合并算不算不可逆写入。安全读法是：只有用户明确要求 land/ship 或开启 `Autopilot-full` 时，合并才在授权内；`Autopilot-stack` 停在待 operator 落地的栈。
+- **Always pause 与 landing 有张力。** `shipping` 会合并 PR，`Autopilot-full` 会落地队列；源码没有统一回答合并算不算不可逆写入。安全读法是：只有用户明确要求 merge/land/ship/merge when ready，或开启 `Autopilot-full` / `Orchestrate` 时，合并才在授权内；`Autopilot-stack` 停在待 operator 落地的栈。
 - **decision trail 是自报的。** 所以才有 transcript 审计和跨模型复查；单靠轨迹本身不能证明轨迹是真的。
 
 ## 关键洞察

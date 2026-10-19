@@ -39,7 +39,8 @@ pstack 的安装单位是**一个 skill 目录**，不是一整个插件。但 `
 | Cursor | `.cursor/skills/` | `~/.cursor/skills/` |
 | Claude Code | `.claude/skills/` | `~/.claude/skills/` |
 | Pi | `.pi/skills/` | `~/.pi/agent/skills/` |
-| Codex / OpenCode / 其他 | `.agents/skills/` | `~/.agents/skills/` |
+| Codex | `.agents/skills/` | `~/.codex/skills/` |
+| OpenCode / 其他 | `.agents/skills/` | `~/.agents/skills/` |
 
 模型设置文件是另一条路径：Cursor 读写 `~/.cursor/rules/pstack-models.mdc`，其余 harness 读写 `~/.agents/pstack-models.md`。它不属于 skill 安装，但缺了它，所有角色都会退回默认模型。
 

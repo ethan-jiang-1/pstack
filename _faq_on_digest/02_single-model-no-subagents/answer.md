@@ -24,7 +24,7 @@
 - **对抗评审**：`interrogate` 的对抗信号明确来自模型差异，不是人设；单模型时只剩自我评审。
 - **独立验证**：`shipping` 要求没写代码的 verifier；没有第二个 agent 时，这条门实际上被绕过。
 - **并行覆盖**：`swarm` 的分区/竞速需要多个 worker；串行会显著变慢。
-- **会话复盘**：`reflect` 的三个视角覆盖不同判断面；默认只有两族模型（judgment、divergent、synthesizer 是 opus，tooling 是 grok），单模型时视角仍在，跨模型差异消失。
+- **会话复盘**：`reflect` 的三个 reviewer（judgment、divergent 用 opus，tooling 用 grok）覆盖不同判断面；synthesizer 另派，也是 opus。单模型时视角仍在，跨模型差异消失。
 
 ## 怎样降级而不自欺
 

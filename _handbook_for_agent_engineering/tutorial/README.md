@@ -12,7 +12,7 @@
   → 02 把 playbook 步骤放进 todo
   → 03 先命名 data shape
   → 04 用 architect 画 public surface
-  → 05 把工作切小
+  → 05 把工作切成可委派的单元
   → 06 用 tdd 先看见红
   → 07 用 brief 派 subagent
   → 08 用 verdict 证明
@@ -41,7 +41,7 @@
 | [`02` 把 playbook 步骤放进 todo](./02-give-words-a-home.md) | playbook 匹配与 `skip` | 一个带步骤的 todo | 已重写 |
 | [`03` 先命名 data shape](./03-make-a-promise-observable.md) | 类型与可观察结果 | 输入 / 输出 / 失败出口 | 已重写 |
 | [`04` 用 architect 画 public surface](./04-design-a-testable-shape.md) | Phase B 草图 | 一个 `not implemented` 草图 | 已重写 |
-| [`05` 把工作切小](./05-cut-work-into-delegable-units.md) | throughput checkpoint / plan | 四条 checkpoint 或一个 plan | 已重写 |
+| [`05` 把工作切成可委派的单元](./05-cut-work-into-delegable-units.md) | throughput checkpoint / plan | 四条 checkpoint 或一个 plan | 已重写 |
 | [`06` 用 tdd 先看见红](./06-build-a-feedback-loop.md) | red-green 与 skip | 一条先失败后通过的检查 | 已重写 |
 | [`07` 用 brief 派 subagent](./07-delegate-and-keep-control.md) | brief 九字段 | 一份可独立执行的 brief | 已重写 |
 | [`08` 用 verdict 证明](./08-prove-the-promise.md) | verdict / patch-id | 非作者 `PASS` 或 `PASS+NOTES` | 已重写 |

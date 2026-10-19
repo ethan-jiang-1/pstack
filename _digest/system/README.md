@@ -24,7 +24,7 @@ playbook 步骤里的委派默认用 `poteto-agent`；`how`、`why`、`interroga
 
 ### 4. 验证与收口
 
-"测试绿了"不是完成。`prove-it-works` 要求在真实产物上验证；`benchmark-checklist` 在报告任何性能数字前逐项检查；`create-verification-skill` 把"像用户一样驱动应用"固化成项目内的 `verify-*` control skill。需要开 PR 的 playbook 以 `Opening a PR` 收尾。`shipping` 只落地从最低未合并 PR 开始连续的 verified run，每个 PR 要有一个没写这份代码的 verifier 给出 `PASS` 或 `PASS+NOTES`。
+"测试绿了"不是完成。`prove-it-works` 要求在真实产物上验证；`benchmark-checklist` 在报告任何性能数字前逐项检查；`create-verification-skill` 把"像用户一样驱动应用"固化成项目内的 `verify-*` control skill。需要开 PR 的 playbook 以 `Opening a PR` 收尾。`shipping` 默认只落地从最低未合并 PR 开始连续的 verified run，每个 PR 要有一个没写这份代码的 verifier 给出 `PASS` 或 `PASS+NOTES`；独立 PR 不包含也不依赖下面那段代码时，先拿新 verdict 再单独落地。
 
 ## 其他入口
 

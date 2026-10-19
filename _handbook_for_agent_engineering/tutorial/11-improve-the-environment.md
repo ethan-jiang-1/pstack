@@ -50,7 +50,7 @@ pstack 用两个 skill 处理它们：`correct` 改仓库，让一类错误不�
 
 ## 休息点
 
-教程到这里结束。你走完了一个 pstack 循环：prompt → mode/playbook → data shape → architect → 小步实现 → tdd → brief → verdict → interrogate → shipping → correct/reflect。
+教程到这里结束。你走完了一个 pstack 循环：prompt → mode/playbook → todo → data shape → architect → 切片 → tdd → brief → verdict → interrogate → shipping → correct/reflect。
 
 不需要每次都走满十二页。下次遇到具体卡点时，回到对应的一页，或者直接查手册。
 

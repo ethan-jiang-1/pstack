@@ -18,7 +18,7 @@ pstack 不把"做完了"当一句话。它把完成拆成几种可检查的东�
 
 ### 4. `shipping` 的 verdict
 
-每个 PR 由一个没写这份代码的 verifier 给出 `PASS`、`PASS+NOTES` 或 `FAIL`。只有 `PASS` 或 `PASS+NOTES` 才算通过；绿 CI 和 bot approval 不是 verdict。落地只取从最低未合并 PR 开始连续通过的那一段。rebase 会改 SHA，旧 verdict 是否仍覆盖当前 head，用 `git patch-id` 判断。源码：`skills/poteto-mode/playbooks/shipping.md`。
+每个 PR 由一个没写这份代码的 verifier 给出 `PASS`、`PASS+NOTES` 或 `FAIL`。只有 `PASS` 或 `PASS+NOTES` 才算通过；绿 CI 和 bot approval 不是 verdict。落地默认只取从最低未合并 PR 开始连续通过的那一段；独立 PR 既不包含也不依赖下面那段代码时，可以先拿新 verdict 再单独落地。rebase 会改 SHA，旧 verdict 是否仍覆盖当前 head，用 `git patch-id` 判断。源码：`skills/poteto-mode/playbooks/shipping.md`。
 
 ### 5. `show-me-your-work`
 
@@ -39,7 +39,7 @@ pstack 不把"做完了"当一句话。它把完成拆成几种可检查的东�
 - **证据有范围。** 一次通过只证明跑过的那条路径；`create-verification-skill` 的 feature map 记录覆盖到哪些 feature，没覆盖的要写出来。
 - **verdict 需要另一个 agent。** `shipping` 的每个 PR 都要一个非作者 verifier，成本随栈长度增长。
 - **decision trail 可能自报。** 所以有 transcript 审计和跨模型复查；单靠 TSV 不能证明 TSV。
-- **pstack 到 merge 为止。** 部署、发布后监控、回滚不在 pstack 里；部署只是 `Always pause` 的一个不可逆动作。源码：`skills/poteto-mode/SKILL.md#Autonomy`。
+- **pstack 的落地流程到 merge 为止。** 部署、发布后监控、回滚不在 pstack 里；部署只是 `Always pause` 的一个不可逆动作。`orchestrate` 另有一个 retro watcher 跟踪 merged PR 的 revert、post-merge CI 破和 orphaned follow-ups，但它不是发布流程。源码：`skills/poteto-mode/SKILL.md#Autonomy`、`skills/poteto-mode/playbooks/orchestrate.md`。
 
 ## 关键洞察
 

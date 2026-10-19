@@ -110,4 +110,4 @@ operator 第三次说"你又把 missing 行静默丢了"。每次修完当前 di
 
 ## 本章与 pstack 的边界
 
-pstack 没有 spec 生命周期；`correct` 会删掉不再需要的规则，`docs/guide/04` 说落地后删除计划文件。除此之外，不建额外流程。
+pstack 没有 spec 生命周期；`correct` 会删掉不再需要的规则，`docs/guide/04-design.md` 说落地后删除计划文件。除此之外，不建额外流程。

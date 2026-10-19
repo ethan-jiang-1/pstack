@@ -42,7 +42,7 @@
 | P2 | P1 | `export-page/` | 无勾选时按钮禁用并提示；删 1 行后结果标注该 id | unit：组件测试；live：`control-ui` 走这两种状态 |
 | P3 | none | `exporter/regression.test.ts` | 全量导出行为不变 | unit + live：trunk 与 head 各跑一次全量导出 |
 
-P2 改了交互（无勾选时按钮禁用并提示），所以带 **Review gate**：operator 在 merge 前看截图和视频，停在 merge-ready。P1 与 P3 不改交互，写 `Review gate. None.`。
+P2 改了交互（无勾选时按钮禁用并提示），所以带 **Review gate**：operator 在 merge 前看截图和视频，停在 merge-ready。P1 与 P3 不改交互，写 `**Review gate.** None. <PR id> is not review-gated.`，下面不写 box。
 
 **You see** 必须是能看见的结果，不是"改完了"。框只在证据存在时才勾：一个文件、一行日志、一张截图、一次测试运行或一个 SHA。源码：骨架的 How to read 段。
 

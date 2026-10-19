@@ -23,7 +23,7 @@ goal、done check、proof、what you already know、real constraints。pstack �
 todo 的最前面是匹配到的 playbook 步骤，逐字复制；不做的步骤留在列表里，写 `skip: <reason>`。源码：`skills/poteto-mode/SKILL.md#Playbooks`。
 
 **brief**：
-派给 subagent 的最小输入，字段是 GOAL / SCOPE / CONTEXT / ACCEPTANCE / VERIFY / TIMEBOX / FORBIDDEN / REPORT。源码：`skills/poteto-mode/playbooks/orchestrate.md#The brief`。
+派给 subagent 的最小输入，字段是 GOAL / SCOPE / CONTEXT / ACCEPTANCE / VERIFY / TIMEBOX / FORBIDDEN / REPORT / STANDING；STANDING 把 `preferences.md` 逐字贴进去。源码：`skills/poteto-mode/playbooks/orchestrate.md#The brief`。
 
 **frontier**：
 PR 栈的合并前沿：最低的未合并 PR 是唯一要处理的，直到它合并。只在这个意义上用 frontier。源码：`skills/poteto-mode/playbooks/babysit.md`、`orchestrate.md#Stack safety`。

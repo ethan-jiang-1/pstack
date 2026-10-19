@@ -4,7 +4,7 @@
 
 ## 问题要解决什么
 
-pstack 支持从 `Autonomous run` 到 `Orchestrate`、`Autopilot-full`、`Autopilot-stack` 的一系列自主形态。它们能在人离开时继续工作，也能合并或落地 PR。对第一次用的人来说，问题不是"能不能开"，而是"授权到什么程度、留下什么证据、出问题怎样发现"。
+pstack 支持从 `Autonomous run` 到 `Orchestrate`、`Autopilot-full`、`Autopilot-stack` 的一系列自主形态。它们能在人离开时继续工作；其中 `Autopilot-full` 与 `Orchestrate` 会合并或落地 PR，`Autopilot-stack` 只交付待人工落地的栈，`Autonomous run` 停在一个可检查的谓词。对第一次用的人来说，问题不是"能不能开"，而是"授权到什么程度、留下什么证据、出问题怎样发现"。
 
 这个问题讨论授权边界与审计方式。不讨论某个 playbook 的逐步操作，也不讨论具体 forge 命令。
 

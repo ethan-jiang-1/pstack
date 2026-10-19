@@ -18,7 +18,7 @@ brief 是 GOAL / SCOPE / CONTEXT / ACCEPTANCE / VERIFY / TIMEBOX / FORBIDDEN / R
 GOAL: 让勾选导出只导出选中的行。
 SCOPE: exporter 的 export(selection) 与页面接线；不改导出格式。
 CONTEXT: 类型在 src/exporter/types.ts；现有测试 dev-notes 里有 fixture。
-ACCEPTANCE: 勾选 3 行导出 3 行，表头与全量一致；无勾选时全量导出。
+ACCEPTANCE: 勾选 3 行导出 3 行，表头与全量一致；无勾选时按钮禁用并提示。
 VERIFY: pnpm test exporter；再跑一次真实导出，贴行数。
 TIMEBOX: 一个 session。
 FORBIDDEN: 不改 CSV 列顺序；不加新依赖；不动权限。

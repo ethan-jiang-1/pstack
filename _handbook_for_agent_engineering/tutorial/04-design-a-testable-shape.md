@@ -46,4 +46,4 @@ Phase B 用 interface depth 比较候选：优先选把更多复杂度藏在更�
 
 ## 下一段
 
-[05 把工作切小](./05-cut-work-into-delegable-units.md)：用 `feature` step 3 的 throughput checkpoint，把实现拆成可并行、可验证的单元。
+[05 把工作切成可委派的单元](./05-cut-work-into-delegable-units.md)：用 `feature` step 3 的 throughput checkpoint，把实现拆成可并行、可验证的单元。

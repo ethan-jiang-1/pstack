@@ -54,7 +54,7 @@ diff 里混着叙述阶段的注释、注释掉的旧代码、解释 workaround 
 1. 派 Comment Sicko，传 scope；它只报四项：碰过的文件、删除数、逐条一行的 `MUST KILL`、跳过项。
 2. 调用方审报告与 diff：拒绝应用代码编辑、scope 逃逸、被例外保护的删除、错误的 `MUST KILL` 理由。
 3. trivial 的 flag 直接做：删死路径、去掉参数、改用真实 API。
-4. 需要形状时只跑一次 `architect`，停在 sketch；第 4 步实现。
+4. 需要形状时只跑一次 `architect`，停在 sketch；然后做范围内最小的根因修复，删掉每个被点名的 workaround。
 5. 约束型注释（`do not remove`、`talk to X before changing`）：提出范围内最便宜的类型、运行时、测试或 CI lint 方案，等交互批准；无人值守时需预批准。
 6. 根因在范围外时，落最小的范围内修复，其余报告为 open。
 

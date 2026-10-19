@@ -198,10 +198,10 @@ Smallest safe decomposition. 如果一个 worker 最好，写明为什么。
 
 跨多个 PR 时再加一份 `multi-phase-plan` 的 plan 文件。它的骨架是固定的：
 
-- 固定标题：`## How to read this`、`## Program checklist`、`## <Task as a verb phrase> (<PR id>)`、`## Close the program`、`## Appendix A–D`；`check-plan.mjs` 缺标题会失败；
+- 固定标题：`## How to read this`、`## Program checklist`、`## <Task as a verb phrase> (<PR id>)`、`## Close the program`，以及四个 appendix（A Prototype evidence、B Alternatives rejected、C Risks、D Links and reading list）；`check-plan.mjs` 缺标题会失败；
 - Program checklist：arm the program、spawn owners、每个 PR 的 PR mechanics、verdict 与 merge、live lane 的 boot recipe；
 - 每个 PR 一节：`Task as a verb phrase (<PR id>)`、Depends on、Files、Build、You see、Verify, unit / Verify, live / Verify, perf、Review gate、Merge；
-- Close the program：最终 drain、reconcile、predicate、verdict、trail audit、preferences；
+- Close the program：每个 box 都勾上并附证据；回复按执行 playbook 的 report 形状；
 - Appendix A 到 D：prototype 证据、被拒的备选、风险、链接与阅读清单。
 
 一个 box 是一段工作；每个 box 点名检查它的证据；证据存在才勾。（`skills/poteto-mode/playbooks/multi-phase-plan.md`）
@@ -226,7 +226,7 @@ Smallest safe decomposition. 如果一个 worker 最好，写明为什么。
 
 **第九步，让每个 PR 自带证据。** 每个 PR 的 Verify 分 unit、live、perf 三块，验证规则写在每一块开头：测试本身不算验证，只有 unit、live、perf 三块都勾上，PR 才算 verified。live 块是强制的，用 `control-ui` / `control-cli` 这类 control skill 在 PR head 上驱动真实表面；perf 块是双向的，trunk 与 head 都要产出同一个 metric。（`skills/poteto-mode/playbooks/multi-phase-plan.md` Verification）
 
-**第十步，写 review gate 和 merge。** 改交互的 PR 由 operator 在 chat 里看截图和视频后 review；不改交互的 PR 写 `**Review gate.** None.`。merge 规则按执行 playbook；新 head 需要新 verdict，除开按 `shipping` 的 patch-id 规则仍有效的结果。（`skills/poteto-mode/playbooks/multi-phase-plan.md`）
+**第十步，写 review gate 和 merge。** 改交互的 PR 由 operator 在 chat 里看截图和视频后 review，停在 merge-ready；不改交互的 PR 写 `**Review gate.** None. <PR id> is not review-gated.`，下面不写 box。merge 规则按执行 playbook；新 head 需要新 verdict，除开按 `shipping` 的 patch-id 规则仍有效的结果。（`skills/poteto-mode/playbooks/multi-phase-plan.md`）
 
 **第十一步，跑检查脚本再交回。** 用 `skills/poteto-mode/scripts/check-plan.mjs` 检查 plan，修掉它打印的每一行；把 plan 路径和脚本输出贴回来，然后停。执行等 operator 的 explicit go，按 plan 里点名的执行 playbook 跑。（`skills/poteto-mode/playbooks/multi-phase-plan.md` step 6–7）
 

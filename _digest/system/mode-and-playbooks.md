@@ -20,7 +20,7 @@
 
 ## 23 个 playbook
 
-完整索引见 [playbook 索引](../playbooks/README.md) 与 `SKILL.md#Playbooks`。下表覆盖按请求信号选择的主要入口。另有三个按名字就能选的：`Authoring a skill`（写或改 `SKILL.md`）、`Pause safely`（显式暂停）、`Worktree cleanup`（回收磁盘）。`Opening a PR` 是共享收尾，不由请求直接选。
+完整索引见 [playbook 索引](../playbooks/README.md) 与 `SKILL.md#Playbooks`。下表覆盖按请求信号选择的主要入口。另有三个按名字就能选的：`Authoring or modifying a skill`（写或改 `SKILL.md`）、`Pause safely`（显式暂停）、`Worktree and simulator cleanup`（回收磁盘）。`Opening a PR` 是共享收尾，不由请求直接选。
 
 | 你看到的信号 | 先进 | 不要进 |
 |---|---|---|
@@ -44,6 +44,8 @@
 | 接管别人未完成的工作 | Session pickup | Recall；recall 只重建上下文 |
 | 下游工作跨阶段或跨 PR | Multi-phase plan | Feature；先定每个 phase 的边界 |
 
+`Orchestrate` 的 landing 从第一个 verified unit 开始，与剩余 wave 并行，不是最后一步；在本地 git 便宜的仓库，coordinator 可以自己落地 verified unit。源码：`skills/poteto-mode/playbooks/orchestrate.md` step 6。
+
 ## 没有窄 playbook 时
 
 有更窄的 playbook 能覆盖就用它。没有，且任务是一次跨切面的大改、或用户会离开后复查的工作，交给 `figure-it-out`：它为这一件事设计一份一次性 playbook。持续多天、多个 PR、几十上百个 subagent 的 standing program 交给 `Orchestrate`。区别是：`figure-it-out` 设计一次 run，`Orchestrate` 跑一个 program；`Autonomous run` 是把一个任务跑到谓词。这几条边界在正文里比名字清楚，选错时先读描述。
@@ -55,7 +57,7 @@ playbook 的约束不是结尾一句"请谨慎"，而是步骤内的可检查条
 - **Bug fix step 1**：在 matching surface 上用 control skill 自己复现；只有 control surface 确实够不到目标时才请用户，且要说明具体原因。
 - **Bug fix step 2**：存活的机制有运行时证据；继续二分，不猜。
 - **Shipping step 1**：每个 PR 由没写这份代码的 verifier 独立验证，`PASS` 或 `PASS+NOTES` 才算数；绿 CI 和 bot approval 都不是 verdict。
-- **Shipping step 2**：只落地从最低未合并 PR 向上的 contiguous verified run；遇到第一个没有 `PASS` 或 `PASS+NOTES` 的就停。
+- **Shipping step 2**：默认只落地从最低未合并 PR 向上的 contiguous verified run；遇到第一个没有 `PASS` 或 `PASS+NOTES` 的就停。独立 PR 不包含也不依赖下面那段代码时，先拿新 verdict 再单独落地。
 - **Babysit step 1**：先声明 `drive`、`background`、`threads-only` 或 `check`，再轮询；未声明默认 `drive`，但小 PR 或 docs-only 默认 `check`。
 - **Feature step 3**：写 throughput checkpoint（阻塞步骤、可并行工作流、共享可变状态、最小安全拆解），不适用也要留 `n/a`。
 - **Benchmark**：报告任何性能数字前走 `benchmark-checklist` 的七问。
