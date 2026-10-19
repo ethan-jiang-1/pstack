@@ -23,7 +23,7 @@ goal、done check、proof、what you already know、real constraints。pstack �
 todo 的最前面是匹配到的 playbook 步骤，逐字复制；不做的步骤留在列表里，写 `skip: <reason>`。源码：`skills/poteto-mode/SKILL.md#Playbooks`。
 
 **brief**：
-派给 subagent 的最小输入，字段是 GOAL / SCOPE / CONTEXT / ACCEPTANCE / VERIFY / TIMEBOX / FORBIDDEN / REPORT / STANDING；STANDING 把 `preferences.md` 逐字贴进去。源码：`skills/poteto-mode/playbooks/orchestrate.md#The brief`。
+派给 subagent 的最小输入，字段是 GOAL / SCOPE / CONTEXT / ACCEPTANCE / VERIFY / TIMEBOX / FORBIDDEN / REPORT / STANDING；STANDING 把 `preferences.md` 带进去；cloud spawn 与 resume 逐字粘贴，local spawn 可按 store path 引用。源码：`skills/poteto-mode/playbooks/orchestrate.md#The brief`。
 
 **frontier**：
 PR 栈的合并前沿：最低的未合并 PR 是唯一要处理的，直到它合并。只在这个意义上用 frontier。源码：`skills/poteto-mode/playbooks/babysit.md`、`orchestrate.md#Stack safety`。
@@ -91,7 +91,7 @@ PR 栈的合并前沿：最低的未合并 PR 是唯一要处理的，直到它�
 把 PR 或栈推到 merge-ready：声明 `drive` / `background` / `threads-only` / `check`，只处理最低未合并的 frontier，不负责合并。源码：`skills/poteto-mode/playbooks/babysit.md`。
 
 **`session pickup`**：
-接管别人未完成的工作：读原轨迹，重建操作状态，路由到对应 playbook。`recall` 不接这个场景。源码：`skills/poteto-mode/playbooks/session-pickup.md`。
+接管别人未完成的工作：读原轨迹，重建操作状态，路由到对应 playbook。`recall` 不接这个场景。源码：`skills/recall/SKILL.md`、`skills/poteto-mode/playbooks/session-pickup.md`。
 
 **`pause safely`**：
 在原子步骤边界干净暂停：取消 nested subagent，不启动新工作，不推送（除非已经推过），未提交改动做成 `wip:` 提交，在上下文之外写恢复说明。源码：`skills/poteto-mode/playbooks/pause-safely.md`。
@@ -100,7 +100,7 @@ PR 栈的合并前沿：最低的未合并 PR 是唯一要处理的，直到它�
 需要开 PR 的 playbook 的共享收尾：worktree、提交节奏、PR 标题与六节正文、forge、栈规则。源码：`skills/poteto-mode/playbooks/opening-a-pr.md`。
 
 **`worktree cleanup`**：
-回收磁盘：worktree 与陈旧的 iOS 模拟器；删除前逐项确认。源码：`skills/poteto-mode/playbooks/worktree-cleanup.md`。
+回收磁盘：worktree 与陈旧的 iOS 模拟器；clean、merged、not-in-use 可直接删，`wip` 和使用中先停。源码：`skills/poteto-mode/playbooks/worktree-cleanup.md`。
 
 ## pstack 不覆盖
 

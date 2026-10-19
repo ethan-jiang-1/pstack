@@ -35,13 +35,17 @@ ExportResult =
 
 ### 4. 把可观察结果写进 plan 的 You see 与 Verify
 
-如果这次工作会走 `multi-phase-plan`，每个 PR 都有 `You see` 和三个 verify 块：unit、live、perf；live 块下是十条 lane。`You see` 写用户可观察的结果；Verify 写具体命令或表面。PR 只有在 unit、live、perf 都勾上时才算 verified；确实不适用时写 `n/a - <reason>`，不能省略。测试不是充分验证。
+如果这次工作会走 `multi-phase-plan`，每个 PR 都有 `You see` 和三个 verify 块：unit、live、perf；live 块下是十条 lane。`You see` 写用户可观察的结果；Verify 写具体命令或表面。PR 只有在 unit、live、perf 都勾上时才算 verified。perf 即使预期无回归，也要写 Metric / Probe / Baseline / Rule 四条，不能写 `n/a`。测试不是充分验证。
 
 ```text
 You see: 勾选 3 行导出，下载文件恰好 3 行，表头与全量导出一致。
 Verify, unit: 运行 export-e2e；断言 rows === 3。
 Verify, live: 在真实导出页勾选 3 行，下载并打开文件，数行数。
-Verify, perf: n/a - 本 PR 不碰性能敏感路径。
+Verify, perf.
+Metric: 60k 行导出的 p50，trunk vs head。
+Probe: 同一脚本，两边各跑 5 次，交替。
+Baseline: trunk 的 p50。
+Rule: head 超过 trunk 10% 判失败。
 ```
 
 源码：`skills/poteto-mode/playbooks/multi-phase-plan.md`、`skills/poteto-mode/playbooks/feature.md`。
@@ -52,7 +56,7 @@ data shape 定完后，验证分两层：有便宜测试路径就写一条 unit 
 
 ## 可见成果
 
-一张输入 / 输出 / 失败出口的 data shape，加 `You see` 与 unit / live / perf 三处验证（不适用时写 `n/a`）。
+一张输入 / 输出 / 失败出口的 data shape，加 `You see` 与 unit / live / perf 三处验证。
 
 ## 休息点
 

@@ -7,9 +7,9 @@
 | 页面 | 讲的 pstack 机制 | 源码 |
 |---|---|---|
 | `tutorial/00-start-here.md` | prompt 五项：goal、done check、proof、what you already know、real constraints | `docs/guide/02-poteto-mode.md#What goes in a prompt` |
-| `tutorial/01-define.md` | mode 与单 skill 的选择；AskQuestion 分类；可观察的事实不问人 | `skills/poteto-mode/SKILL.md#Non-negotiables` |
+| `tutorial/01-define.md` | mode 与单 skill 的选择；AskQuestion 分类；可观察的事实不问人 | `skills/poteto-mode/SKILL.md#Non-negotiables`、`#Playbooks`、`#Harness` |
 | `tutorial/02-give-words-a-home.md` | mode 匹配 playbook；步骤逐字进 todo；`skip: <reason>` | `skills/poteto-mode/SKILL.md#Playbooks` |
-| `tutorial/03-make-a-promise-observable.md` | 先命名 data shape；可观察结果写进 plan 的 You see 与 Verify（unit / live / perf） | `principle-model-the-domain`、`skills/poteto-mode/playbooks/feature.md`、`multi-phase-plan.md` |
+| `tutorial/03-make-a-promise-observable.md` | 先命名 data shape；可观察结果写进 plan 的 You see 与 Verify（unit / live / perf） | `skills/poteto-mode/SKILL.md#Non-negotiables`、`principle-model-the-domain`、`skills/poteto-mode/playbooks/feature.md`、`multi-phase-plan.md` |
 | `tutorial/04-design-a-testable-shape.md` | `architect` Phase B：public surface、`not implemented` 草图、design red flags | `skills/architect/SKILL.md`、`references/design-red-flags.md` |
 | `tutorial/05-cut-work-into-delegable-units.md` | `feature` step 3 throughput checkpoint；`multi-phase-plan` 的 one PR = one change | `playbooks/feature.md`、`playbooks/multi-phase-plan.md` |
 | `tutorial/06-build-a-feedback-loop.md` | `tdd` 的 red-green；测试路径不便宜时跳过 | `skills/tdd/SKILL.md` |

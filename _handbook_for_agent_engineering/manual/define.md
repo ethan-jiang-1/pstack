@@ -130,9 +130,10 @@ prompt 发出去了，接下来最常见的问题不是"agent 不干活"，而�
 | 新的或改变的行为 | Feature |
 | 只改结构、行为不变 | Refactoring |
 | 已测量到的慢 | Perf issue |
-| 大工作或没有匹配 | figure-it-out |
 
-其余 playbook 覆盖 metric 爬坡、运行时症状、trace、原型、视觉一致性、skill 编写与评估、长时间自主运行、把 PR 或栈推到 merge-ready、落地已验证的栈、PR 队列、项目级编排、session pickup、暂停、多 phase 或多 PR 计划、worktree 清理，以及每个 playbook 结尾的 opening a PR。完整集合在 `skills/poteto-mode/playbooks/`。（`docs/guide/02-poteto-mode.md`）
+大工作或没有匹配的 playbook 时，不走 playbook，改用 `figure-it-out` skill。
+
+其余 playbook 覆盖 metric 爬坡、运行时症状、trace、原型、视觉一致性、skill 编写与评估、长时间自主运行、把 PR 或栈推到 merge-ready、落地已验证的栈、PR 队列、项目级编排、session pickup、暂停、多 phase 或多 PR 计划、worktree 清理，以及需要开 PR 的 playbook 结尾的 opening a PR。完整集合在 `skills/poteto-mode/playbooks/`。（`docs/guide/02-poteto-mode.md`）
 
 **第三步，不要手工列 skill 顺序。** 在 prompt 里写"先用 how，再用 architect，然后 arena"通常会把 playbook 本来会保留的步骤重排或丢掉。只有当你要覆盖某个具体选择时，才点名一个 skill。（`docs/guide/02-poteto-mode.md`）
 
