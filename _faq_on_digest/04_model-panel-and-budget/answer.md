@@ -1,6 +1,6 @@
 # 先跑 `/setup-pstack`，预算选 large，角色别全填同一个模型
 
-> [FAQ 首页](../README.md) · [问题原文](./question.md) · [模型面板](../../_digest/system/model-panel.md)
+> [FAQ 首页](../README.md) · [问题原文](./question.md) · [role line](../../_digest/system/model-panel.md)
 
 ## 直接回答
 
@@ -61,5 +61,5 @@
 ## 继续阅读
 
 - [当前行为的源码](../../skills/setup-pstack/SKILL.md)
-- [模型面板：角色、预算与降级](../../_digest/system/model-panel.md)
-- [模式：Model Diversity](../../_digest/patterns/model-diversity.md)
+- [role line：角色、预算与降级](../../_digest/system/model-panel.md)
+- [模型角色](../../_digest/patterns/model-diversity.md)

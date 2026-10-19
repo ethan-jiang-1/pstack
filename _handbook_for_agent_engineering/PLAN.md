@@ -1,6 +1,6 @@
 # pstack 手册：结构与进度
 
-> **状态：严格重写中（2026-10-19）。** 目标不是写一本独立方法书，而是把 pstack 自己的概念讲清楚。没有 pstack 出处的章节删除；没有 pstack 对应物的名字不再发明。写作约束见 [`STYLE.md`](./STYLE.md)，术语见 [`CONTEXT.md`](./CONTEXT.md)。
+> **状态：严格重写完成（2026-10-19），spot REVIEW 的 4 条 findings 已修正。** 目标不是写一本独立方法书，而是把 pstack 自己的概念讲清楚。没有 pstack 出处的章节删除；没有 pstack 对应物的名字不再发明。写作约束见 [`STYLE.md`](./STYLE.md)，术语见 [`CONTEXT.md`](./CONTEXT.md)。
 
 ## 教程：12 步
 
@@ -9,7 +9,7 @@
 | 00 | prompt 的五项：goal、done check、proof、what you already know、real constraints | `docs/guide/02-poteto-mode.md` |
 | 01 | 用 `/poteto-mode` 还是单 skill；AskQuestion 什么时候该问 | `skills/poteto-mode/SKILL.md#Non-negotiables` |
 | 02 | mode 匹配 playbook，把步骤逐字复制进 todo，跳过写 `skip` | `skills/poteto-mode/SKILL.md#Playbooks` |
-| 03 | 先命名 data shape；可观察结果写在 plan 的 verify block | `principle-model-the-domain`、`feature.md` |
+| 03 | 先命名 data shape；可观察结果写在 plan 的 You see 与 Verify | `principle-model-the-domain`、`feature.md` |
 | 04 | `architect` Phase B：public surface、`not implemented` 草图、design red flags | `skills/architect/SKILL.md` |
 | 05 | `feature` step 3 的 throughput checkpoint；`multi-phase-plan` 的 one PR = one change | `feature.md`、`multi-phase-plan.md` |
 | 06 | `tdd` 的红绿回路，以及测试路径不便宜时跳过 | `skills/tdd/SKILL.md` |
@@ -26,7 +26,7 @@
 | 章 | 单元 | 主要源码 |
 |---|---|---|
 | 1 Prompt、mode 与 todo | 1.1 prompt 五项；1.2 mode/playbook；1.3 todo、skip 与回复；1.4 AskQuestion 分类 | `docs/guide/02`、`poteto-mode` |
-| 2 Architect、feature 与 multi-phase-plan | 2.1 data shape；2.2 architect Phase B；2.3 feature step 3；2.4 multi-phase plan | `architect`、`feature.md`、`multi-phase-plan.md` |
+| 2 Architect、feature 与 multi-phase-plan | 2.1 data shape；2.2 architect Phase B；2.3 feature step 3 + multi-phase plan | `architect`、`feature.md`、`multi-phase-plan.md` |
 | 3 Subagent 与 brief | 3.1 Subagents 默认值；3.2 brief 八字段；3.3 fresh / resume；3.4 orchestrate roles | `poteto-mode#Subagents`、`orchestrate.md` |
 | 4 验证与 verdict | 4.1 tdd；4.2 prove-it-works；4.3 benchmark-checklist；4.4 verdict / patch-id / contiguous run | `tdd`、`prove-it-works`、`benchmark-checklist`、`shipping.md` |
 | 5 评审与落地 | 5.1 interrogate；5.2 no-comments；5.3 shipping；5.4 babysit / session pickup / pause safely | `interrogate`、`no-comments`、`shipping.md`、`babysit.md`、`session-pickup.md`、`pause-safely.md` |
@@ -34,15 +34,15 @@
 
 ## 明确不覆盖
 
-pstack 不写 spec，不做发布 / 灰度 / 回滚 / 发布后监控，也没有承诺退役记录。它停在 verified landing；部署只是 **Always pause** 里的一个不可逆动作。这些话题不建章节。
+pstack 不写 spec，不做发布 / 灰度 / 回滚 / 发布后监控。它停在 verified landing；部署只是 **Always pause** 里的一个不可逆动作。这些话题不建章节。
 
 ## 进度
 
 - [x] `STYLE.md`、`CONTEXT.md`、`README.md`
-- [x] tutorial 00–11 与 after-tutorial（重写中，逐页验收）
-- [x] manual 1–6（重写中，逐页验收）
-- [ ] 32 张图：保留有 pstack 标签的，删除或重画依赖自造概念的
-- [ ] `PROVENANCE.md`：逐单元源码映射，去掉 EXTENSION 分类
-- [ ] 全量术语扫描：禁止词 0 命中
-- [ ] 链接、锚点、SVG、计数检查
-- [ ] 独立 review 并即时修正
+- [x] tutorial 00–11 与 after-tutorial（已重写，逐页验收）
+- [x] manual 1–6（已重写，逐页验收）
+- [x] 32 张图：全部依赖自造标签，已删除；手册改为纯文本
+- [x] `PROVENANCE.md`：逐单元源码映射，去掉 EXTENSION 分类
+- [x] handbook 全量术语扫描：禁止词 0 命中（`STYLE.md` 的约束清单除外）
+- [x] 链接、锚点、SVG、计数检查（636 条链接，0 真实断链；2 张 SVG）
+- [x] 独立 spot review 并即时修正（4 条 findings，已修）

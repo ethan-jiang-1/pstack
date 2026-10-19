@@ -11,7 +11,7 @@
 | 我该用 `/poteto-mode`，还是直接调单个 skill？ | [01：mode 还是单 skill](./01_mode-or-single-skill/answer.md) | [mode 与 playbook](../_digest/system/mode-and-playbooks.md) |
 | 只有一个模型、没有子代理，还能用吗？ | [02：单模型、无子代理](./02_single-model-no-subagents/answer.md) | [harness 可移植性](../_digest/system/harness-portability.md) |
 | 24 条 principle 要背下来吗？ | [03：principle 怎么用](./03_do-i-need-to-memorize-principles/answer.md) | [principles 索引](../_digest/principles/README.md) |
-| 模型面板怎么配，budget 选哪个？ | [04：模型与预算](./04_model-panel-and-budget/answer.md) | [模型面板](../_digest/system/model-panel.md) |
+| role line 怎么配，budget 选哪个？ | [04：模型与预算](./04_model-panel-and-budget/answer.md) | [role line](../_digest/system/model-panel.md) |
 | 能只装几个 skill 吗？要装哪些？ | [05：安装范围](./05_which-skills-to-install/answer.md) | [分发与安装](../_digest/system/distribution.md) |
 | 全自动、自主运行安全吗？怎么审？ | [06：自主边界](./06_how-much-autonomy-is-safe/answer.md) | [自主与门](../_digest/system/autonomy-and-gates.md) |
 
@@ -37,7 +37,7 @@
 ### 判断与配置
 
 - **03** [principle 的用法](./03_do-i-need-to-memorize-principles/question.md)
-- **04** [模型面板与预算](./04_model-panel-and-budget/question.md)
+- **04** [role line 与预算](./04_model-panel-and-budget/question.md)
 
 ### 安装与治理
 

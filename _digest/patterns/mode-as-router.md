@@ -1,44 +1,39 @@
-# Mode as Router 模式
+# `poteto-mode` 的 playbook 路由
 
-## 是什么
-
-pstack 不把 23 个工作流程做成 23 个可以随便进的命令，而是让一个入口 `poteto-mode` 先读请求、选一个 playbook，再把那份 playbook 的步骤逐字搬进 todo。入口负责选路，playbook 负责协议，两者合起来才是一次执行。
+`poteto-mode` 只有一个入口：读请求，匹配一份 playbook，再把那份 playbook 的步骤逐字复制进 todo 的最前面，然后按步骤调用 skill 或派 subagent。选择与执行在同一个上下文里完成。
 
 ![请求如何经过 mode 进入 playbook](../figures/mode-routing.svg)
 
-## 源码里的形状
+## 匹配与复制
 
-1. `poteto-mode` 的 **Playbooks** 一节列出 23 个标题与各自适用情形。
-2. 匹配后打开对应的 playbook 文件，把步骤复制进 todo，"跳过的步骤留 `skip: <reason>`"。路径默认按标题推导；条目自带文件的，用它给的文件（`authoring-a-skill`、`multi-phase-plan`、`worktree-cleanup`）。
-3. 步骤里的 skill 调用、验证要求、回复形状都由那份 playbook 定义。
-4. 没有合适 playbook 时，走 `figure-it-out`；是持续 program 时走 `Orchestrate`。
+- SKILL.md 的 Playbooks 一节列 23 个标题与各自适用情形。匹配后打开 `playbooks/<title>.md`，标题转 kebab-case（保留连字符，去掉其他标点）。条目自带文件的用它的文件：`playbooks/authoring-a-skill.md`、`playbooks/multi-phase-plan.md`、`playbooks/worktree-cleanup.md`。
+- 步骤逐字复制，不概括。不做的步骤留在 todo 里，写一行 `skip: <reason>`。
+- 没有自带的 playbook 覆盖，或工作大到横跨多个 call site 时，走 `figure-it-out`。工作是持续数天、几十上百个 subagent 的项目时，走 `orchestrate`。一个任务跑到某个 predicate 停，走 `autonomous-run`。
+- SKILL.md 的 Non-negotiables 是第二处选择点：设计没把握进 `architect`，并行 fan-out 进 `swarm`，设计或代码 bakeoff 进 `arena`，有争议的设计进 `interrogate`，任何文字进 `unslop`。
 
-关键细节是**逐字复制**。它不是排版偏好，而是防止模型在转述时丢掉条件。例如 bug fix 的 "Reproduce it yourself on the matching surface" 一旦被概括，责任主体和"自己"就没了。
+源码：[`skills/poteto-mode/SKILL.md#playbooks`](../../skills/poteto-mode/SKILL.md#playbooks)、[`playbooks/`](../../skills/poteto-mode/playbooks/)。
 
-## 为什么有效
+匹配后的 todo 分两段：最前面是逐字复制的 playbook 步骤，之后才是任务特定的 todo。步骤里点名的 skill 自己定义动作；playbook 定义顺序、验证要求与结尾 reply 的形状。
 
-- **选择与执行在同一上下文里。** 选完流程立刻执行，不需要把意图交接给另一个 agent。
-- **状态外化。** todo list 是最便宜的状态机，用户扫一眼就知道在第几步、哪一步被跳过。
-- **协议可版本化。** 改流程就是改一个 markdown 文件，不需要改提示词工程或代码。
-- **兜底有层次。** 窄 playbook、一次性设计（`figure-it-out`）、持续 program（`Orchestrate`）各管一个规模。
+逐字复制是为了可执行性，不是为了排版。bug fix 的 "Reproduce it yourself on the matching surface" 一旦概括成"先复现"，责任主体和"自己"都没了。
+
+每份 playbook 的步骤与结尾的 reply 由那份文件定义；回复本身另受 Writing the reply 约束，见 [unslop 与 technical-writing](./prose-discipline.md)。
+
+## 为什么这样组织
+
+- 状态外化。todo 是最便宜的状态机，用户扫一眼就知道在第几步、哪一步被跳过。
+- 协议可版本化。改流程就是改一个 markdown 文件，不改提示词工程，也不改代码。
+- 匹配信号写在描述里。没有一个单独的 skill 负责匹配；每个标题和适用情形就是索引。
 
 ## 代价
 
-- **发现成本。** 23 个标题不是 23 个显而易见的区别；`babysit` 与 `shipping`、`autonomous-run` 与 `orchestrate` 的边界要读描述才知道。
-- **选错会放大。** 长流程里选错 playbook，代价远大于一次普通回答选错。
-- **依赖安装完整度。** mode 需要大多数 skill 在场，少一个就可能走到断链的步骤。
-- **没有机械校验。** "逐字复制"靠执行者遵守，没有脚本比对 todo 与 playbook。
-
-## 怎么迁移
-
-1. 先画出工作从请求到可交付结果的几种形状，不要先起 23 个命令名。
-2. 给每种形状写一份**有步骤、有门、有失败出口**的协议文件；步骤要短到能整段复制。
-3. 选一个主入口负责匹配，并把匹配信号写清楚（任务类型、已有 artifact、用户说出的验收方式）。
-4. 设计三层兜底：最窄的协议、一次性定制、持续 program。
-5. 允许跳过，但要求留下原因。
+- 23 个标题不是 23 个显而易见的区别。`babysit` 与 `shipping`、`autonomous-run` 与 `orchestrate` 的边界要读描述才知道。
+- 选错会放大。长流程里选错 playbook，代价远大于一次普通回答选错。
+- 依赖安装完整度。mode 需要大多数 skill 在场，少一个就可能走到断链的步骤。
+- 没有机械校验。"逐字复制"靠执行者遵守，没有脚本比对 todo 与 playbook。
 
 ## 关键洞察
 
-1. **路由器同时是执行器，减少了交接损耗。**
-2. **步骤是状态，不是文档。** 把它搬进 todo，才真正约束执行。
-3. **路由质量取决于描述质量。** 没有单独的 router skill 时，每个 playbook 的标题和描述就是索引。
+1. 选择和执行不换手，少一次交接损耗。
+2. 步骤是状态，不是文档。搬进 todo 才真正约束执行。
+3. 标题和适用情形就是索引，所以描述的准确性直接决定匹配质量。

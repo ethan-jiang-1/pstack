@@ -1,62 +1,57 @@
-# Harness Portability 模式
+# `poteto-mode` 的 Harness
 
-## 是什么
+`poteto-mode` 为 Cursor 写成。它的 Harness 一节逐项给出换 harness 时读 Cursor 专用指令的映射：子代理工具、`poteto-agent`、模型设置、会话记录、skill 目录、提问工具、生态插件。判断自己在哪个 harness，看这些路径哪个存在。
 
-pstack 为 Cursor 写成，但把跨 harness 的差异当作协议的一部分：每个受影响的 skill 就地写"在别的 harness 里，这个工具叫什么、这个路径在哪里、缺这个能力时用什么替代"。可移植性来自**显式映射与可见降级**，不是抽象层。
+## 映射
 
-## 源码里的形状
+### 子代理
 
-三种写法反复出现：
+`Task` 在 Claude Code 是 `Agent`（`subagent_type: general-purpose`），OpenCode 是 `task`（`general`），Codex 是 `spawn_agent`。工具没有的参数直接丢掉。`environment: "cloud"` 只表示 Cursor 云端 agent；别处把该 agent 放到它自己的 worktree 里跑。没有子代理工具时（例如未装扩展的 Pi），把每个委派步骤按顺序自己做。
 
-### 1. 能力映射
+`poteto-agent` 没注册成 subagent 的地方，派一个通用 subagent，prompt 第一句要求它先完整读 `poteto-mode/SKILL.md`，包括 Principles。
 
-```text
-Task 在你的 harness 里是 Agent / task / spawn_agent。
-environment: "cloud" 只在 Cursor 有意义；别处在本地 worktree 跑。
-```
+### 模型设置
 
-### 2. 路径映射
+Cursor 自动加载 `~/.cursor/rules/pstack-models.mdc`。别处由 `/setup-pstack` 写 `~/.agents/pstack-models.md`，task 开始时如果存在就先读。slug 在本地不解析时，用最接近的等价物。Cursor 把推理档位和速度写进 slug（`-xhigh`、`-fast`）；别处用子代理工具的 effort 选项，工具设不了的就跳过。
 
-模型设置、会话记录、项目 skill 目录、用户 skill 目录，各 harness 一套路径。`poteto-mode` 的 **Harness** 一节是总表，各 skill 只写自己用到的那几行。
+### 会话记录
 
-### 3. 降级与自报
+只读当前 workspace 的 session，绝不读别的项目。Claude Code 在 `~/.claude/projects/<slug>/*.jsonl`，`<slug>` 是 workspace 路径里每个非字母数字字符换成 `-`。Pi 在 `~/.pi/agent/sessions/--<slug>--/*.jsonl`。Codex 在 `~/.codex/sessions/YYYY/MM/DD/rollout-*.jsonl`，只保留首行 `payload.cwd` 等于 workspace 路径的文件。OpenCode 在 `~/.local/share/opencode/storage/`。
 
-- 模型 slug 被拒绝：用同家族最近的 slug，并说明。
-- 没有子代理工具：按顺序自己做每个委派步骤。
-- 没有 `create-skill` / `deslop` / `control-ui` / `/loop`：各给一个手工替代。
-- 不知道自己是什么 harness：检查哪些路径存在。
+### skill 目录
 
-关键不是"优雅降级"，而是**把降级说出来**，让读者知道这次运行的证据强度变了。
+项目：`.cursor/skills/`、`.claude/skills/`、`.pi/skills/`、`.agents/skills/`。用户：`~/.cursor/skills/`、`~/.claude/skills/`、`~/.pi/agent/skills/`、`~/.codex/skills/`、`~/.agents/skills/`。
 
-## 为什么有效
+### 提问
 
-- **agent 读到的是当前要做的判断。** 不需要先理解一层 adapter 抽象。
-- **缺能力时仍有路径。** 不会因为少一个插件就整条流程不可用。
-- **迁移成本可见。** 读一遍 Harness 一节，就知道这个 harness 缺什么。
+`AskQuestion` 在 Claude Code 是 `AskUserQuestion`，OpenCode 是 `question`。都没有时在聊天里给编号选项。
+
+### 生态插件
+
+`create-skill` 是 Cursor 内置。别处用 Anthropic 的 `skill-creator`，或按 agentskills.io 的 Agent Skills 格式写。`deslop`、`control-cli`、`control-ui` 来自 `cursor-team-kit`。没有 `deslop`，就在 commit 前自己重读 diff，按 `unslop` 删。没有 control skill，就用现有自动化驱动应用：Web 与 Electron 用 Playwright 或 CDP 浏览器，CLI 与 TUI 用 tmux 或 PTY。`/loop` 在 Cursor 与 Claude Code 内置，没有就用定时 shell 命令等下一次检查。
+
+源码：[`skills/poteto-mode/SKILL.md#harness`](../../skills/poteto-mode/SKILL.md#harness)。
+
+## 降级要自报
+
+映射不是等价替换。各 skill 在落不回去时都要求把降级说出来：
+
+- `arena`：配置的条目被拒，该 runner 在同家族默认模型上跑，并说明。
+- `interrogate`：配置的条目被拒，该 reviewer 用同家族默认值，并说明；拒绝默认值时才从有效 slug 里找最近的。
+- `swarm`：slug 被拒时用默认模型并说明。`auto` 或 `inherit-parent` 的 worker 跑在父 chat 的模型上。
+- `reflect`：slug 被拒时用默认值并说明；`auto` 或 `inherit-parent` 时省略 `model`。
+
+源码：[`skills/arena/SKILL.md`](../../skills/arena/SKILL.md)、[`skills/interrogate/SKILL.md`](../../skills/interrogate/SKILL.md)、[`skills/swarm/SKILL.md`](../../skills/swarm/SKILL.md)、[`skills/reflect/SKILL.md`](../../skills/reflect/SKILL.md)。
 
 ## 代价
 
-- **重复。** 同一段映射出现在 `how`、`why`、`swarm`、`interrogate`、`reflect` 里；上游改一处，本地要跟多处。
-- **漂移。** 没有单一事实来源，几份映射会逐渐不一致。
-- **"能跑"不等于"等价"。** 没有云端 agent，隔离假设就变了；没有控制技能，独立验证会退化成 CI 加人工。
-- **部分 harness 不执行某些 frontmatter。** 例如 `disable-model-invocation` 的语义并不统一。
-
-## 镜像仓库的角色
-
-本仓库的 `main` 是"为多 harness 改写过的 pstack"：README 顶部加安装说明，部分 skill 改成 harness 中立，目录名统一 kebab-case。`ethan` 在 `main` 之上叠加消化层；merge 时保留上游语义，再重放本地措辞。
-
-这把"上游为 Cursor 写"和"本地要多 harness"的冲突隔离在分支层，而不是散落在每次编辑里。
-
-## 怎么迁移
-
-1. 列一张能力表：子代理、模型选择、会话记录、skill 目录、提问、可选插件。
-2. 选一个位置写总表，其他 skill 只写自己用到的行，并指回总表。
-3. 每个缺失能力给一个可执行的替代，不要只写"需要 X"。
-4. 所有降级都要求自报，让证据强度可见。
-5. 在同步流程里加一步：检查映射是否仍与上游一致。
+- 同一段映射在多处重复。上游改一处，本地要跟多处。
+- 没有单一事实来源，几份映射会逐渐不一致。
+- "能跑"不等于"等价"。没有云端 agent，隔离假设就变了；没有 control skill，验证走的是另一条路径。
+- 部分 harness 不执行某些 frontmatter，例如 `disable-model-invocation` 的语义并不统一。
 
 ## 关键洞察
 
-1. **可移植性是协议的一部分，不是打包问题。** 同一份 SKILL.md 在不同 harness 里执行语义不同。
-2. **显式映射比抽象层更容易执行。** 代价是重复，收益是 agent 不需要先理解抽象。
-3. **降级必须可见。** 不说出来的降级会变成错误的证据。
+1. 换 harness 时要改的是工具名、路径和缺失能力的替代，不是 playbook 的步骤。
+2. 显式映射比抽象层更容易执行，代价是重复。
+3. 降级不说出来，就会变成错误的证据。

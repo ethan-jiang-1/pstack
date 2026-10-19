@@ -1,68 +1,55 @@
 # 教程地图
 
-教程是第一次阅读的入口。它不要求你先理解完整生命周期，而是从"还说不清楚"的真实状态开始，每一页只处理一个困难，并留下一个可见成果。
+教程从一条 prompt 开始，走一遍 pstack 的实际流程：prompt 五项 → mode/playbook → todo → data shape → `architect` → 切片 → `tdd` → brief → verdict → `interrogate` → `shipping` → `correct` / `reflect`。每页只处理一个机制，并给源码位置。
 
-> 状态：`00–11` 与教程后导航已写。完整契约见 [PLAN.md](../PLAN.md)。
->
-> 方法边界：word card（词卡）、deploy / expose / release（部署 / 暴露 / 交付）、release risk decision（交付风险结论）、operational signal（运行信号）与 promise retirement（承诺退役）是扩展，不是 pstack 的现有机制；pstack 明确不写 spec，也停在 verified landing。逐项见 [`../PROVENANCE.md`](../PROVENANCE.md)。
+> 状态：严格重写完成（2026-10-19）。只使用 pstack 的 skill、playbook、字段、角色与状态；没有 pstack 依据的概念不写。结构见 [PLAN.md](../PLAN.md)，术语见 [CONTEXT.md](../CONTEXT.md)。
 
-## 一条连续的体验
+## 一条连续的路径
 
 ```text
-00 从这里开始
-  → 01 把请求说清
-  → 02 给共同语言一个位置
-  → 03 让一个承诺变成可观察行为
-  → 04 设计一个可测试的形状
-  → 05 把工作切成可委派的单元
-  → 06 先建立反馈，再改实现
-  → 07 委派出去，保持控制
-  → 08 证明兑现的是原承诺
-  → 09 评审变更是否值得合入
-  → 10 交付、观察、开始下一轮
-  → 11 让环境在下一轮更好
+00 把 prompt 写成 pstack 能接住的样子
+  → 01 用 mode 还是单 skill
+  → 02 把 playbook 步骤放进 todo
+  → 03 先命名 data shape
+  → 04 用 architect 画 public surface
+  → 05 把工作切小
+  → 06 用 tdd 先看见红
+  → 07 用 brief 派 subagent
+  → 08 用 verdict 证明
+  → 09 用 interrogate 评审
+  → 10 把验证过的一段栈落地
+  → 11 用 correct 与 reflect 改环境
+  → 教程之后
 ```
 
-前五个台阶解决"把问题弄对"；中间四个解决"把一条行为兑现并有证据"；最后几个台阶处理评审、交付、运行和演进。每一段结束时都有一个休息点：现在可以停，不必继续塞入下一层理论。
-
-## 每个台阶只回答五件事
+## 每页的五个区块
 
 | 区块 | 问题 |
 |---|---|
-| 眼前困惑 | 学习者现在为什么会卡住，或为什么会怀疑 agent 是否理解？ |
-| 现在动作 | 这一次只让读者做什么？ |
-| 可见成果 | 10 到 20 分钟后，读者能看见、复述或留下什么？ |
-| 休息点 | 为什么现在可以停？ |
-| 下一段 | 继续哪个台阶；什么情况下才查手册？ |
+| 眼前困惑 | 这一页要解决的具体卡点 |
+| 现在动作 | 这一页只让读者做的一件事 |
+| 可见成果 | 十分钟后能看见、复述或留下的东西 |
+| 休息点 | 为什么现在可以停 |
+| 下一段 | 下一页处理哪个机制 |
 
 ## 台阶清单
 
 | 台阶 | 主题 | 可见成果 | 状态 |
 |---|---|---|---|
-| [`00` 从这里开始](./00-start-here.md) | 为什么先把请求说清 | 一个可被说清的请求与第一步 | 已写 |
-| [`01` 从一句模糊的话开始](./01-define.md) | 追问、复述、由人纠正 | 共同问题、边界、下一个待确认决定 | 已写 |
-| [`02` 给共同语言一个位置](./02-give-words-a-home.md) | 固定两三个会改变行为的词 | 一小段术语与正反例 | 已写 |
-| [`03` 让一个承诺变成可观察行为](./03-make-a-promise-observable.md) | 行为、失败出口、人工接手点 | 一张行为卡 | 已写 |
-| [`04` 设计一个可测试的形状](./04-design-a-testable-shape.md) | 接口（public surface）、测试表面 | 一个模块形状草图 | 已写 |
-| [`05` 把工作切成可委派的单元](./05-cut-work-into-delegable-units.md) | 工作包、阻塞边、完成检查 | 一个有边界的 work package | 已写 |
-| [`06` 先建立反馈，再改实现](./06-build-a-feedback-loop.md) | 独立判据、可观察结果 | 一条能变红的回路 | 已写 |
-| [`07` 委派出去，保持控制](./07-delegate-and-keep-control.md) | brief、可写范围、验证命令 | 一份可独立执行的 brief | 已写 |
-| [`08` 证明兑现的是原承诺](./08-prove-the-promise.md) | 承诺-证据对照、覆盖边界 | 一条诚实的兑现结论 | 已写 |
-| [`09` 评审变更是否值得合入](./09-review-for-merge.md) | 标准轴与规格轴 | 两条并排的评审结论 | 已写 |
-| [`10` 交付、观察、开始下一轮](./10-ship-observe-and-loop.md) | 暴露范围、观察、回退 | 一份 release risk decision 与一个 operational signal | 已写 |
-| [`11` 让环境在下一轮更好](./11-improve-the-environment.md) | 结构性约束、承诺退役 | 一条会失败的检查或一次退役记录 | 已写 |
-
-教程终点还有一个非编号的导航页：[教程之后：按下一道坎找手册](./after-tutorial.md)。它不增加新的学习台阶，只把六种常见的下一道坎接到手册。
-
-正文写作顺序与单元契约见 [PLAN.md](../PLAN.md)。
-
-## 读到哪里可以停
-
-- **只想把需求说清。** 停在 `02` 或 `04`，带着共同问题、术语和行为卡离开。
-- **只想安全地委派一次。** 停在 `08`，此时你已经有一条可验证的回路和一份可核查的结果。
-- **要交付给真实用户。** 继续 `09–10`。
-- **项目要长期跑。** 加 `11`，把摩擦变成结构或退役记录。
+| [`00` 从这里开始](./00-start-here.md) | prompt 五项 | 一条能进 mode 的 prompt | 已重写 |
+| [`01` 用 mode 还是单 skill](./01-define.md) | 入口选择与 AskQuestion 分类 | 一个入口决定 | 已重写 |
+| [`02` 把 playbook 步骤放进 todo](./02-give-words-a-home.md) | playbook 匹配与 `skip` | 一个带步骤的 todo | 已重写 |
+| [`03` 先命名 data shape](./03-make-a-promise-observable.md) | 类型与可观察结果 | 输入 / 输出 / 失败出口 | 已重写 |
+| [`04` 用 architect 画 public surface](./04-design-a-testable-shape.md) | Phase B 草图 | 一个 `not implemented` 草图 | 已重写 |
+| [`05` 把工作切小](./05-cut-work-into-delegable-units.md) | throughput checkpoint / plan | 四条 checkpoint 或一个 plan | 已重写 |
+| [`06` 用 tdd 先看见红](./06-build-a-feedback-loop.md) | red-green 与 skip | 一条先失败后通过的检查 | 已重写 |
+| [`07` 用 brief 派 subagent](./07-delegate-and-keep-control.md) | brief 八字段 | 一份可独立执行的 brief | 已重写 |
+| [`08` 用 verdict 证明](./08-prove-the-promise.md) | verdict / patch-id | 非作者 `PASS` 或 `PASS+NOTES` | 已重写 |
+| [`09` 用 interrogate 评审](./09-review-for-merge.md) | 多模型评审与四桶 | 一个 lead verdict | 已重写 |
+| [`10` 把验证过的一段栈落地](./10-ship-observe-and-loop.md) | shipping / babysit | 一段 contiguous verified run | 已重写 |
+| [`11` 用 correct 与 reflect 改环境](./11-improve-the-environment.md) | 结构约束与 skill 修改 | 一条会失败的检查或一次 reflect 结论 | 已重写 |
+| [`教程之后`](./after-tutorial.md) | 按卡点查手册 | 六章入口 | 已重写 |
 
 ## 与手册的关系
 
-教程不是手册的摘要。教程让你先获得一段完整体验；手册按问题提供完整方法、模板和例外。卡住时，从 [手册目录](../manual/README.md) 的症状表进入对应单元。
+教程给一条连续路径；手册按机制给完整字段、例外和源码位置。卡住时，从 [手册目录](../manual/README.md) 的卡点表进入。

@@ -1,71 +1,59 @@
-# Prose Discipline 模式
+# `unslop` 与 `technical-writing`
 
-## 是什么
+pstack 把回复、PR 正文、提交信息、决策日志和代码注释都当成要交付的文字。`poteto-mode` 的 Non-negotiables 规定：任何要交付的文字，包括回复本身，走 `unslop`；docs、RFC、readme、PR 描述和 commit message 走 `technical-writing`；commit 前走 `deslop`（缺失时见 Harness）。
 
-pstack 把文字当成交付面的一部分：回复、PR 正文、提交信息、决策日志、代码注释都用同一套写作纪律收口。这不是文风偏好，而是因为这些都是下一位人或 agent 真正会读的接口。
+## `unslop`
 
-## 三个装置
+规则编号是稳定 id，其他 skill 会引用（`poteto-mode` 引用 `unslop` rule 14）。删掉的规则留空号，所以不能重排。
 
-### 1. `unslop`：清除 AI 痕迹
-
-编号到 33 的规则表，当前 28 条（编号稳定，删掉的规则留空号），分成内容、语言、风格、交流产物、填充、行话、平实表达几组。典型条目：
-
-- 删掉 "highlighting…, ensuring…" 这类现在分词装饰。
-- 不用 "serves as" / "boasts" 替代 "is" / "has"。
-- 不用 "not just X, but Y"。
-- 不强行凑三点。
-- 不用 em dash；不用冒号做句中连接。
-- 不用抽象隐喻名词（substrate、wedge、north star）。
+- 删掉 `highlighting…`、`ensuring…` 这类现在分词装饰。
+- 不用 `serves as` / `boasts` 代替 `is` / `has`。
+- 不用 `not just X, but Y`。
+- 不强行凑三点。同义词不要轮换。
+- 不用长破折号；冒号只用于列表前，不做句中连接。
+- 不用抽象隐喻名词（`substrate`、`wedge`、`north star`）。
 - 说机制或数字，不说感觉。
-- 主动语态；砍副词；用平实词。
+- 主动语态；砍副词；用平实词；不要压缩到读者要解码。
 
-规则号被其他 skill 引用（例如 `poteto-mode` 引用 "unslop rule 14"），所以不能重排。
+源码：[`skills/unslop/SKILL.md`](../../skills/unslop/SKILL.md)、[`unslop` 单页](../skills/unslop.md)。
 
-### 2. `technical-writing`：四层标准
+## `technical-writing`
 
-面向文档、RFC、README、PR 描述和提交信息：
+四层标准叠在一起：Diátaxis 选文档类型，Google developer style 写句子，STE 约束指令，Global English 消除歧义。三条总则压在四层之上：删掉不出力的词；用短的日常词；规则让句子更糟时换一种写法或不动。
 
-- **Diátaxis** 的结构：教程、操作指南、参考、解释四种文档各司其职。
-- **Google developer style** 的句子。
-- **STE** 的指令规则。
-- **Global English** 的句法。
+- 一份文档只取一种类型：tutorial、how-to、reference、explanation，不要混。
+- 对读者说 you，用现在时；说清谁做什么；条件放在指令前。
+- 一条指令一句；warning 放在它保护的步骤前。
+- 不留两种读法：`only` 靠近它修饰的词，`it` / `this` 指向明确。
+- PR 描述与 commit message 是写作：除 Diátaxis 外每层都适用。PR 正文是一分钟的 briefing，不贴 swarm 日志、SHA 列表或指标表。
+- codebase 就是词表：写真实的 symbol、file、flag、command。不发明 jargon。
 
-三条总则压在四层之上：删掉不出力的词、用短的日常词、规则让句子更糟时换一种写法或不动。
+源码：[`skills/technical-writing/SKILL.md`](../../skills/technical-writing/SKILL.md)、[`technical-writing` 单页](../skills/technical-writing.md)。
 
-### 3. mode 的 Writing the reply
+## `poteto-mode` 的 Writing the reply
 
 - 短陈述句，一句一个意思。
-- 任何地方不用长破折号；文件列表写成句子；加粗小标题单独成句。
-- 冒号只用在列表前，不做句中连接。
-- 简洁不等于删内容：playbook 要求的细节、权衡、选择、未决项都要留。
-- 先说对用户和下一个维护者的影响。
-- 不编造链接、引用或 transcript 记录。
+- 任何地方不用长破折号；冒号不做句中连接。
+- 简洁不等于删内容：playbook 的 reply 要求的细节、权衡、选择、未决项都要留。
+- 先说对用户和下一个维护者的影响，再说实现细节。
+- 不编造链接、引用或 transcript 记录，只链这次 session 产出的或读过的。
 - 每条断言在同一句里带证据或标签：measured、inferred、guess。
 
-## 为什么文字是质量门
+源码：[`skills/poteto-mode/SKILL.md#writing-the-reply`](../../skills/poteto-mode/SKILL.md#writing-the-reply)。
 
-- **回复是接口。** 用户根据回复判断要不要继续、要不要合并。
-- **PR 正文会变成 squash commit。** 它进入永久历史，成为未来 `git blame` 和 `why` 的输入。
-- **decision trail 要被人复查。** 写得含糊，审计就退化成读故事。
-- **注释会误导下一位 agent。** pstack 的规则是只保留代码本身说不出来的 non-obvious why，禁止"Phase 1: add cards"这种叙述阶段的注释。
+## 注释
+
+同一个规则：只保留代码本身说不出的 non-obvious why。禁止 `// Phase 1: add cards` 这类叙述阶段的注释；步骤由 assertion 或 log 字符串体现，例如 `assert(ok, 'persisted across restart')`。源码：[`skills/poteto-mode/SKILL.md#comments`](../../skills/poteto-mode/SKILL.md#comments)、[`no-comments` 单页](../skills/no-comments.md)。
 
 ## 代价
 
-- **规则数量大。** 28 条加上四层写作标准，全部遵守需要持续注意力。
-- **有些规则是绝对化的。** 完全不用 em dash、不用句中冒号，在某些句子里会让表达更绕；`technical-writing` 用"规则让句子更糟时换一种写法"留了口子，`unslop` 没有这条口子，两套规则的硬度并不一致。
-- **靠自检执行。** 没有 linter 检查回复是否符合规则；`deslop` 是 Cursor 生态的插件，缺失时只能自己重读。
-- **"边写边干净"很难。** mode 明确说"draft 完再清理"不能去掉这些模式，要求一开始就写干净；这提高了起草成本。
-
-## 怎么迁移
-
-1. 先定少量、可判定的规则，例如"每条断言带证据或标签""不用比喻代替机制"。
-2. 给规则稳定编号，其他文档可以引用。
-3. 把能机械检查的（标题大小写、emoji、破折号、空话词表）交给 lint；把判断题（是否说清机制）留给人。
-4. 分开"生成"和"编辑"的角色：写作的人容易看不见自己的套话。
-5. 不要把这套英文规则直接套到中文正文上；中文层有自己的标点与行文习惯。
+- 规则多，全部遵守要持续注意力。
+- `unslop` 有些规则是绝对的，`technical-writing` 留了"规则让句子更糟时换一种写法"的口子，两套硬度不一致。
+- 靠自检执行。没有 linter 检查回复；`deslop` 缺失时只能自己重读 diff。
+- 边写边干净比事后清理难。`poteto-mode` 明确说 draft 后的清理不能去掉这些写法。
 
 ## 关键洞察
 
-1. **写作规则是接口规范。** 它保护的是读者能否快速判断，而不是文字是否好看。
-2. **稳定 id 让规则可引用。** 没有编号，别的文档只能说"那条关于冒号的规则"。
-3. **先写干净比事后清理可靠。** 套话一旦进了草稿，清理时很容易保留骨架。
+1. 写作规则保护的是读者能否快速判断，不是文字是否好看。
+2. 稳定 id 让规则可引用。没有编号，别的 skill 只能说"那条关于冒号的规则"。
+3. 先写干净比事后清理可靠。套话一旦进了草稿，清理时容易保留骨架。

@@ -33,8 +33,8 @@ pstack 有 54 个 skill、23 个 playbook、24 条 principle（plugin 0.15.25 �
 
 ### 4. 六节地图
 
-- **Get set up**：安装（Cursor 里 `/add-plugin pstack`；其他 harness 用 `npx skills add backnotprop/pstack`）、跑 `/setup-pstack`，然后用 `/poteto-mode` 给它一个目标和可判定的完成检查，开始第一个任务。成本段落说明 token 花在 subagent 和评审面板上，以及四个降本手段：重跑 setup 选更小预算或更便宜模型、用 `auto` / `inherit-parent` 跟随 chat 模型、缩短面板列表、把 mode 留给需要严谨度的工作。
-- **Start a task**：mode 匹配 playbook、复制步骤、`skip:` 保持可见；好 prompt 说目标与完成检查，不列 skill（手写顺序会丢掉 playbook 保留的步骤）；Enter 只把 skill 附着到一条消息，Option/Alt+Enter 或 Use as Mode 才是 Custom Mode，才每轮都在。
+- **Get set up**：安装（Cursor 里 `/add-plugin pstack`；其他 harness 用 `npx skills add backnotprop/pstack`）、跑 `/setup-pstack`，然后用 `/poteto-mode` 给它一个目标和可判定的 done check，开始第一个任务。成本段落说明 token 花在 subagent 和评审面板上，以及四个降本手段：重跑 setup 选更小预算或更便宜模型、用 `auto` / `inherit-parent` 跟随 chat 模型、缩短面板列表、把 mode 留给需要严谨度的工作。
+- **Start a task**：mode 匹配 playbook、复制步骤、`skip:` 保持可见；好 prompt 说目标与 done check，不列 skill（手写顺序会丢掉 playbook 保留的步骤）；Enter 只把 skill 附着到一条消息，Option/Alt+Enter 或 Use as Mode 才是 Custom Mode，才每轮都在。
 - **Pick a skill**：一张"我想要 → skill"表，加上 close calls 和"不在 pstack 里"名单。表漏掉某个目录时，读它的 frontmatter 按 description 路由。
 - **Playbooks and principles**：playbook 没有斜杠命令，靠描述任务或固定短语点名；pstack 没有 planning skill，跨阶段用 Multi-phase plan；principle 是单规则 skill，用户用名字操纵，也能用 `/principle-<name>` 按需加载。
 - **Fix a run that went wrong**：症状到修法的表，覆盖 mode 淡出、问题被当成上一步、设置不生效、成本超预期、skill 未自动加载、并行 agent 互相覆盖、overnight 跑空、绿构建就报成功。

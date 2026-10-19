@@ -8,6 +8,8 @@
 
 **本地合入**: 从 `main` 新建 `ethan`，在 ethan 上建立消化层。`main` 不变。
 
+> 历史说明：这份 log 记录严格重写前的基线；其中 "patterns / 8 页 / 图" 是当时的目录状态，不是当前的解释框架。当前结构见 [`../README.md`](../README.md)。
+
 ## 核心主题
 
 这是消化层的基线，不是一次上游变更。它固定三件事：pstack 在 2026-10-19 的形状、消化层的第一版结构、以及后续同步要对照的起点。
@@ -65,7 +67,7 @@
 | `01_mode-or-single-skill/` | 🔴 新建 | mode 与单点 skill 的分工 |
 | `02_single-model-no-subagents/` | 🔴 新建 | 单模型、无子代理时的可用性 |
 | `03_do-i-need-to-memorize-principles/` | 🔴 新建 | principle 的使用方式 |
-| `04_model-panel-and-budget/` | 🔴 新建 | 模型面板与预算 |
+| `04_model-panel-and-budget/` | 🔴 新建 | role line 与预算 |
 | `05_which-skills-to-install/` | 🔴 新建 | 安装粒度与依赖 |
 | `06_how-much-autonomy-is-safe/` | 🔴 新建 | 自主边界与审计 |
 

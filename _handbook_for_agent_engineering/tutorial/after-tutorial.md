@@ -1,31 +1,30 @@
 # 教程之后：按下一道坎找手册
 
-> 教程终点 · 上一页：[11 让环境在下一轮更好](./11-improve-the-environment.md) · [教程地图](./README.md) · [手册目录](../manual/README.md)
+> 教程终点 · 上一页：[11 用 correct 与 reflect 改环境](./11-improve-the-environment.md) · [教程地图](./README.md) · [手册目录](../manual/README.md)
 
-教程给你一段完整循环：把请求说清，把承诺变成行为，把工作委派出去，用证据收回，评审、交付，再让环境变好。
+教程走完了一条 pstack 路径：prompt → mode/playbook → todo → data shape → `architect` → 切片 → `tdd` → brief → verdict → `interrogate` → `shipping` → `correct` / `reflect`。
 
-但真实工作不会每次都从头走一遍。你更可能卡在某一处，需要一个完整方法、模板或例外。手册按问题组织，不按教程顺序。
+真实工作不会每次都从头走一遍。你更可能卡在某一处，需要一个字段、一条规则或一个源码位置。手册按机制组织，不按教程顺序。
 
 ## 六种常见的下一道坎
 
 | 你现在的状态 | 去哪里 |
 |---|---|
-| 需求还说不清，或者两个方向都行 | [定义：把共同问题做扎实](../manual/define.md) |
-| 行为清楚了，但代码形状不对，测试难写 | [设计与计划：让工作可兑现、可委派](../manual/design-and-plan.md) |
-| 委派出去就失控，或者多条工作线互相覆盖 | [委派与协作：让执行者独立，让责任可见](../manual/delegate-and-collaborate.md) |
-| 测试绿了，但不确定兑现了承诺 | [验证：证明兑现的是承诺](../manual/verify.md) |
-| 要交付给真实用户，或者线上信号来了 | [交付、运行与演进：让变更安全地进入真实环境](../manual/ship-run-and-evolve.md) |
-| 同一个问题反复出现，spec 越积越多 | [让环境变好：把摩擦变成下一轮的优势](../manual/evolve-the-environment.md) |
+| prompt 写不出来，或 done check 说不清 | [1.1 prompt 的五项](../manual/define.md) |
+| 不知道该用 mode 还是单 skill | [1.2 mode 与 playbook](../manual/define.md) |
+| 派了 subagent，回来失控 | [3.1 Subagents 默认值](../manual/delegate-and-collaborate.md) |
+| 测试绿了，但不确定真实路径能用 | [4.2 prove-it-works](../manual/verify.md) |
+| 评审要么挑刺要么放行 | [5.1 interrogate](../manual/ship-run-and-evolve.md) |
+| 同一个错误反复出现 | [6.1 correct](../manual/evolve-the-environment.md) |
 
-## 怎么用手册
+## 三条使用建议
 
-1. 先看症状表，找到最接近你现在感觉的一行。
-2. 读对应单元，拿走产物模板或判断规则。
-3. 只有需要完整方法、例外或第二案例时，再读同章其他单元。
-4. 不需要从头读到尾，也不需要先读完教程。
+1. 先读卡点表，不要顺读六章。
+2. 拿到 skill 名、playbook 名或字段名后，回到源码确认；手册只解释，行为以 `SKILL.md` 为准。
+3. 如果手册里没有你要的话题，先看它是不是 pstack 不覆盖：spec、发布、回滚、发布后监控都不在 pstack 里。
 
-## 如果你现在没有具体问题
+## 继续阅读
 
-回到 [教程地图](./README.md)，挑一个你还没亲手做过的台阶；或者拿手头一个真实的小改动，从 [00 从这里开始](./00-start-here.md) 再走一遍。
-
-方法的价值在于被使用，不在于被读完。
+- [手册目录](../manual/README.md)
+- [pstack 术语表](../CONTEXT.md)
+- [源码映射](../PROVENANCE.md)

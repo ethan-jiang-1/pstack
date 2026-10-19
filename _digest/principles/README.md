@@ -25,7 +25,7 @@
 | [`attack-the-premise`](../../skills/principle-attack-the-premise/SKILL.md) | 两个以上同前提的修法都失败 | 写下前提，直接测它，不要写第三个修法 |
 | [`subtract-before-you-add`](../../skills/principle-subtract-before-you-add/SKILL.md) | 要加东西、重构或重写 | 先删死重，再在更简单的基础上建 |
 | [`minimize-reader-load`](../../skills/principle-minimize-reader-load/SKILL.md) | 评审难以追踪的代码 | 数层数与隐藏状态，折叠单调用 wrapper，缩小可变作用域 |
-| [`outcome-oriented-execution`](../../skills/principle-outcome-oriented-execution/SKILL.md) | 有明确阶段边界的重写/迁移 | 收敛到目标架构，不保留一次性兼容状态 |
+| [`outcome-oriented-execution`](../../skills/principle-outcome-oriented-execution/SKILL.md) | 有明确 phase 边界的重写/迁移 | 收敛到目标架构，不保留一次性兼容状态 |
 | [`experience-first`](../../skills/principle-experience-first/SKILL.md) | 产品、UX、功能范围取舍 | 用户愉悦优先于实现便利 |
 | [`exhaust-the-design-space`](../../skills/principle-exhaust-the-design-space/SKILL.md) | 没有先例的新交互或架构决定 | 做 2-3 个竞争原型，比较后再定 |
 | [`build-the-lever`](../../skills/principle-build-the-lever/SKILL.md) | 任何非平凡工作 | 建工具（codemod、脚本、生成器）而不是手工做；工具是可重跑的产物 |

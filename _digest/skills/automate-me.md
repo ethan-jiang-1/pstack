@@ -2,7 +2,7 @@
 
 > 源码：[`skills/automate-me/SKILL.md`](../../skills/automate-me/SKILL.md)
 > 调用：**U**（user-invoked，只有人能触发）
-> 索引：[技能索引](./README.md) · [harness 可移植性](../patterns/harness-portability.md)
+> 索引：[技能索引](./README.md) · [`poteto-mode` 的 Harness](../patterns/harness-portability.md)
 
 ## 一句话
 

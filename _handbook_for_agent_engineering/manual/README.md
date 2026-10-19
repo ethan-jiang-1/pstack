@@ -1,78 +1,78 @@
-# 手册目录
+# pstack 手册目录
 
-手册面向已经能命名问题的读者。不要顺读；从你现在的卡点进入，拿到一个可复用的产物或判断，再回到工作。
+手册按 pstack 的机制组织。不要顺读；从你卡住的地方进入，拿到一个 skill、playbook 或字段，再回到工作。
 
-> 状态：六章全部完成。完整契约与进度见 [PLAN.md](../PLAN.md)。
->
-> 方法边界：本手册的 change card、spec、behavior map（行为地图）、semantic conflict（语义冲突）、two-axis review（双轴评审）、failure routing record（失败回流记录）、release risk decision（交付风险结论）、operational signal（运行信号）、friction evidence ledger（摩擦证据账本）、friction improvement proposal（摩擦改进提案）与 promise retirement（承诺退役），是教学化扩展，不是 pstack 的现有机制。逐项锚点见 [`../PROVENANCE.md`](../PROVENANCE.md)；pstack 的当前行为以 `skills/**/SKILL.md` 为准。
+> 状态：严格重写完成（2026-10-19）。只保留 pstack 的 skill、playbook、字段、角色与状态；没有 pstack 依据的章节不建。结构见 [PLAN.md](../PLAN.md)，术语见 [CONTEXT.md](../CONTEXT.md)。
 
-## 按症状进入
+## 按卡点进入
 
-| 你现在的感觉 | 先读 | 你会带走 |
+| 你现在的感觉 | 先读 | 你会拿到 |
 |---|---|---|
-| "我知道大概要做什么，但说不清边界和验收" | [1.1 从手头变更到共同问题](./define.md) | 变更工作卡 |
-| "事实、假设和意见混在一起，无法判断" | [1.2 把事实与未知项分开](./define.md) | 事实底稿与待确认清单 |
-| "两个方向都行，不知道先查什么" | [1.3 用证据做决定](./define.md) | 决策证据卡与停止条件 |
-| "需求已经清楚，但下游还会反复问" | [1.4 固定成可执行规格](./define.md) | 一份 spec |
-| "承诺很多，不知道先做哪条行为" | [2.1 承诺变成可观察行为](./design-and-plan.md) | 行为地图 |
-| "代码形状不对，测试也难写" | [2.2 设计模块形状](./design-and-plan.md) | 模块形状卡 |
-| "工作太大，无法交给一个人或一个 agent" | [2.3 切成可交接的工作包](./design-and-plan.md) | 工作包与阻塞边 |
-| "委派出去就失控，或者要反复解释" | [3.1 准备任务上下文包](./delegate-and-collaborate.md) | 一份可独立执行的 brief |
-| "多人、多 agent 同时改，责任不清" | [3.2 安排协作](./delegate-and-collaborate.md) | 协作约定 |
-| "几条工作线要汇合，不知道谁说了算" | [3.3 汇合与交接](./delegate-and-collaborate.md) | 汇合与交接包 |
-| "测试绿了，但不确定兑现了承诺" | [4.1 建立反馈回路](./verify.md) / [4.2 对照承诺与证据](./verify.md) | 回路卡与对照表 |
-| "要判断这个改动值不值得合入" | [4.3 two-axis review（双轴评审）](./verify.md) | 标准轴与规格轴结论 |
-| "失败了，不知道是定义、设计还是实现的问题" | [4.4 失败回流](./verify.md) | 失败回流记录 |
-| "要交付给真实用户，怕出事" | [5.1 release risk decision（交付风险结论）](./ship-run-and-evolve.md) | 暴露范围、观察、回退与 owner |
-| "线上信号来了，先做什么" | [5.2 从 signal 开始下一轮](./ship-run-and-evolve.md) | operational signal record（运行信号记录）与再进入卡 |
-| "一堆 PR 要按顺序落地" | [5.3 按顺序落地](./ship-run-and-evolve.md) | 栈、独立 verdict、停止点 |
-| "同一个问题反复出现" | [6.1 摩擦证据账本](./evolve-the-environment.md) | 有证据的改进提案 |
-| "已经提醒过很多次，还是犯" | [6.2 把教训编码成结构](./evolve-the-environment.md) | 一条会失败的检查 |
-| "spec 越积越多，方向漂移" | [6.3 收回累积承诺](./evolve-the-environment.md) | 退役记录与上下文计划 |
+| 请求说不清，不知道 prompt 写什么 | [1.1 prompt 的五项](./define.md) | 一条能进 mode 的 prompt |
+| 不知道用 mode 还是单 skill | [1.2 mode 与 playbook](./define.md) | 入口选择与 todo |
+| 不知道该不该问人 | [1.3 AskQuestion 分类](./define.md) | 问 / 不问的判断 |
+| 写代码前不知道 data shape | [2.1 先给数据一个形状](./design-and-plan.md) | 输入、输出、失败出口 |
+| 代码跨函数边界，不知道接口怎么定 | [2.2 architect Phase B](./design-and-plan.md) | public surface 与 `not implemented` 草图 |
+| 工作太大，不知道怎样切 | [2.3 throughput checkpoint 与 plan](./design-and-plan.md) | `feature` step 3 与 `multi-phase-plan` |
+| 派了 subagent，回来失控 | [3.1 Subagents 默认值](./delegate-and-collaborate.md) | 默认值与父 agent 复核 |
+| brief 写完还是做偏 | [3.2 brief 八字段](./delegate-and-collaborate.md) | GOAL / SCOPE / … / REPORT |
+| 不知道 fresh 还是 resume | [3.3 fresh、resume 与角色](./delegate-and-collaborate.md) | 判断与 role line |
+| 多个 agent 跑多天 program | [3.4 orchestrate roles](./delegate-and-collaborate.md) | coordinator / worker / verifier 与单一 stacker |
+| 测试绿了但不确定兑现 | [4.1 tdd](./verify.md) / [4.2 prove-it-works](./verify.md) | 红绿检查或真实表面证据 |
+| 性能数字没有方法 | [4.3 benchmark-checklist](./verify.md) | 七问与 ballpark 例外 |
+| 绿 CI 被当成可以合 | [4.4 verdict 与 patch-id](./verify.md) | 非作者 verdict 与 contiguous run |
+| 评审要么挑刺要么放行 | [5.1 interrogate](./ship-run-and-evolve.md) | 四桶结论 |
+| 注释噪音混进 diff | [5.2 no-comments](./ship-run-and-evolve.md) | 删除与裁决 |
+| PR 卡在 merge-ready 之前 | [5.3 shipping](./ship-run-and-evolve.md) / [5.4 babysit](./ship-run-and-evolve.md) | 落地顺序与模式 |
+| 同一个错误反复出现 | [6.1 correct](./evolve-the-environment.md) | 一条会失败的检查 |
+| 会话经验留不下来 | [6.2 reflect](./evolve-the-environment.md) | Accepted / Rejected / Backlog |
+| 能编码的规则还停留在文字 | [6.3 encode-lessons-in-structure](./evolve-the-environment.md) | 结构约束或验证 skill |
 
-## 六章结构
+## 六章
 
-### [定义：把共同问题做扎实](./define.md)（已完成）
+### [1 定义：prompt、mode 与 todo](./define.md)
 
-1.1 从手头变更到共同问题。
-1.2 把事实、假设、意见与未知项分开。
-1.3 拿不定主意时，先获得会改变决定的证据。
-1.4 把已经足够清楚的意图固定成可执行规格。
+1.1 prompt 的五项。
+1.2 mode 与 playbook。
+1.3 AskQuestion 分类。
+1.4 todo、`skip` 与回复形状。
 
-### [设计与计划：让工作可兑现、可委派](./design-and-plan.md)（已完成）
+### [2 设计与计划：data shape、architect、feature](./design-and-plan.md)
 
-2.1 先把承诺变成可观察的行为。
-2.2 设计可实现、可测试的模块形状。
-2.3 拆成可以推进、可以交接的小工作。
+2.1 先给数据一个形状。
+2.2 `architect` Phase B。
+2.3 `feature` step 3 与 `multi-phase-plan`。
 
-### [委派与协作：让执行者独立，让责任可见](./delegate-and-collaborate.md)（已完成）
+### [3 委派：Subagent 与 brief](./delegate-and-collaborate.md)
 
-3.1 为一个工作包准备最小上下文。
-3.2 为同一项变更安排人、agent 与会话。
-3.3 让并行工作重新汇合并可交接。
+3.1 Subagents 默认值。
+3.2 brief 八字段。
+3.3 fresh、resume 与角色。
+3.4 `orchestrate` 的 roles、one writer 与单一 stacker。
 
-### [验证：证明兑现的是承诺](./verify.md)（已完成）
+### [4 验证与 verdict](./verify.md)
 
-4.1 建立能让问题显形的反馈回路。
-4.2 验证兑现的是不是最初承诺。
-4.3 评审变更是否真的值得合入。
-4.4 失败时知道应该回到哪里。
+4.1 `tdd`。
+4.2 `prove-it-works`。
+4.3 `benchmark-checklist`。
+4.4 verdict、patch-id 与 contiguous verified run。
 
-### [交付、运行与演进：让变更安全地进入真实环境](./ship-run-and-evolve.md)（已完成）
+### [5 评审与落地](./ship-run-and-evolve.md)
 
-5.1 在交付前给出可接受的风险结论。
-5.2 从 operational signal（运行信号）开启下一轮变更。
-5.3 按顺序落地一组变更。
+5.1 `interrogate`。
+5.2 `no-comments`。
+5.3 `shipping`。
+5.4 `babysit`、`session pickup`、`pause safely`。
 
-### [让环境变好：把摩擦变成下一轮的优势](./evolve-the-environment.md)（已完成）
+### [6 环境：`correct` 与 `reflect`](./evolve-the-environment.md)
 
-6.1 把反复摩擦变成有证据的改进。
-6.2 把教训编码成结构。
-6.3 多轮之后收回累积的承诺与上下文。
+6.1 `correct`。
+6.2 `reflect`。
+6.3 `encode-lessons-in-structure` 与验证 skill。
 
 ## 怎么读
 
-1. 先看症状表，找到最接近你现在感觉的一行。
-2. 读对应单元，拿走产物模板或判断规则。
-3. 只有需要完整方法、例外或第二案例时，再读同章其他单元。
+1. 先看卡点表，找到最接近的一行。
+2. 读对应单元，拿走 skill 名、字段或判断规则。
+3. 只有需要完整机制、例外或源码位置时，再读同章其他单元。
 4. 教程是另一条读法，见 [教程地图](../tutorial/README.md)。

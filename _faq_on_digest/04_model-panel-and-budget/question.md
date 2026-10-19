@@ -1,4 +1,4 @@
-# 模型面板怎么配？budget 选哪个？
+# role line 怎么配？budget 选哪个？
 
 > [FAQ 首页](../README.md) · [直接回答](./answer.md)
 
@@ -11,5 +11,5 @@
 ## 不在本问题范围内
 
 - 单模型、无子代理时怎样降级：见 [02](../02_single-model-no-subagents/answer.md)。
-- 模型多样性为什么有价值：见 [模型多样性](../../_digest/patterns/model-diversity.md)。
-- 设置文件的完整形状：见 [模型面板](../../_digest/system/model-panel.md)。
+- 模型角色为什么有价值：见 [模型角色](../../_digest/patterns/model-diversity.md)。
+- 设置文件的完整形状：见 [role line](../../_digest/system/model-panel.md)。

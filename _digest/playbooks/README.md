@@ -134,7 +134,7 @@ PR 要推到可合并                       → Babysit
 
 ### [Multi-phase or multi-PR plan](../../skills/poteto-mode/playbooks/multi-phase-plan.md)
 
-工作跨阶段或跨堆叠 PR。先写阶段边界、每阶段的产物与验证、PR 的切法与顺序；计划本身是交付物，执行要等 operator 明确 go，并走计划里指定的执行 playbook。
+工作跨阶段或跨堆叠 PR。先写每个 phase 的边界、产物与验证、PR 的切法与顺序；计划本身是交付物，执行要等 operator 明确 go，并走计划里指定的执行 playbook。
 
 ## 共同结构
 

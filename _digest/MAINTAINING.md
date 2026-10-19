@@ -4,7 +4,7 @@
 
 ## 一句话
 
-源码说当前行为，digest 说结构与理由，FAQ 说现在怎么做，handbook 说可独立成立的方法，change log 说历史。五者不能互相冒充。
+源码说当前行为，digest 说结构与理由，FAQ 说现在怎么做，handbook 说 pstack 的概念与用法，change log 说历史。五者不能互相冒充。
 
 ## 五层边界
 
@@ -13,7 +13,7 @@
 | `skills/**/SKILL.md`、`agents/`、`docs/guide/` | 今天实际会怎样 | 它们自己 | 只在自身的 CHANGELOG/历史里 |
 | [`_digest/`](./README.md) | 系统怎样组织、为什么这样拆 | 以上源码 | 否，只写当前态 |
 | [`_faq_on_digest/`](../_faq_on_digest/README.md) | 我此刻该怎么做 | 结论对齐源码 | 否，只写当前态 |
-| [`_handbook_for_agent_engineering/`](../_handbook_for_agent_engineering/README.md) | 一套不依赖 pstack 的工程方法 | 手册自身正文 | 否，方法不随版本变 |
+| [`_handbook_for_agent_engineering/`](../_handbook_for_agent_engineering/README.md) | pstack 的概念与用法 | pstack 源码，逐页映射 | 否，只写当前态 |
 | [`_change_log/`](./_change_log/README.md) | 从什么变成什么、为什么 | 上游 diff 与 PR | 是，历史只在这里 |
 
 一条硬规则：**digest 与源码冲突时，改 digest，不改源码。** 如果源码本身可疑，在 `_change_log` 或 FAQ 里记为观察，不要把它写成"设计意图"。
@@ -71,14 +71,14 @@ origin/main          上游镜像线：Cursor 的 pstack 内容 + 镜像侧编�
 
 ## 页面契约
 
-### 系统页与模式页
+### 系统页与机制页
 
 固定回答四件事，顺序可以变：
 
 1. **一句话**：这一页的核心判断。
 2. **机制**：它实际怎样运转，尽量引用源码位置。
 3. **边界**：什么时候不成立、代价是什么、容易误读什么。
-4. **关键洞察**：可以迁移到别处的原则。
+4. **关键洞察**：这一节最容易被忽略的源码事实。
 
 ### 单 skill 页
 
@@ -106,7 +106,7 @@ origin/main          上游镜像线：Cursor 的 pstack 内容 + 镜像侧编�
 
 ## 写作约定
 
-- 正文以中文为主。关键术语第一次出现写作 `English（中文）`，例如 `behavior card（行为卡）`；同页重复不再加注。pstack 自带的 skill、playbook、角色名和命令保留原写法，不加翻译。
+- 正文以中文为主。关键术语第一次出现写作 `English（中文）`，例如 `verdict（结论）`；同页重复不再加注。pstack 自带的 skill、playbook、角色名和命令保留原写法，不加翻译。
 - 允许批评，但批评必须指向具体机制或代价，并给出证据位置。不写"感觉""可能不太好"。
 - 不复制 pstack 的行为规则。解释"为什么这样定"，规则本身让读者去读 `SKILL.md`。
 - 不把会变的东西写成永恒事实：skill 数、模型 slug、默认预算、上游版本都要带日期或版本号。
@@ -117,6 +117,6 @@ origin/main          上游镜像线：Cursor 的 pstack 内容 + 镜像侧编�
 1. 每个解释页都有指回源码的链接。
 2. 历史只写在 `_change_log`；当前页改写后要能脱离历史独立成立。
 3. FAQ 与 digest 不互相抄结论：FAQ 负责决策，digest 负责机制。
-4. handbook 不依赖 pstack 安装；引用 skill 时只作为示例。
+4. handbook 只讲 pstack 自身的概念，不引入外部方法。
 5. 新增或删除 pstack skill 时，三处必须同时改：`_digest/skills/README.md`、对应单页、`_change_log` 的最新记录。
 6. 所有相对链接在提交前实际打开过。

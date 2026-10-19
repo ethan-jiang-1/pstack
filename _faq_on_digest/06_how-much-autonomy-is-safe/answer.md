@@ -6,13 +6,14 @@
 
 先用最小的授权：一个任务、一个 PR、明确的可逆范围。确认 `show-me-your-work` 的轨迹、独立验证和停止条件都成立后，再扩展到栈或队列。自主改变的是"要不要问人"，不改变"什么算完成"。
 
-## 三种授权，不要混着给
+## 四种自主运行形态，不要混着给
 
-| 形态 | 授权范围 | 不该做什么 |
+| 形态 | 范围 | 不该做什么 |
 |---|---|---|
 | `Autonomous run` | 一个任务跑到一个可检查的谓词 | 不要把谓词改松来宣布成功 |
 | `Autopilot-stack` | 一批改动形成待人工落地的栈 | 不要自动合并；落地的决定权在人 |
-| `Autopilot-full` / `Orchestrate` | 一个 PR 队列或一个多天 program | 不要越过 operator 明确保留的 gate |
+| `Autopilot-full` | 一个 PR 队列；owner 在验证后合并 | 不要越过 operator 明确保留的 gate |
+| `Orchestrate` | 一个多天 program；coordinator 只写 brief、不写代码 | 不要让 coordinator 直接改代码 |
 
 "going to bed" / "run until done" 覆盖当前任务；换一个新任务要重新判断授权，不能继承。
 
@@ -20,13 +21,13 @@
 
 | 门 | 什么时候仍然要停 |
 |---|---|
-| 复现 | Bug fix 必须先在该表面复现；够不到控制面时说明原因再请人 |
+| 复现 | Bug fix 必须先在该表面复现；够不到 `control surface` 时说明原因再请人 |
 | 独立验证 | Shipping 要求没写代码的 verifier 给 `PASS` 或 `PASS+NOTES`；作者自证不算 |
 | 基准 | 报告性能数字前走 `benchmark-checklist`：正式报告答七问；用户只要 ballpark 时至少答第 4、7 问，并说明只有一次运行 |
 | 不可逆写入 | force-push 共享分支、部署、删数据、给客户发消息 |
 | 合并 | 只有明确要求 land/ship，或开启 `Autopilot-full` 时，合并才在授权内；`Autopilot-stack` 只交付待人工落地的栈 |
 
-## 审计三件套
+## 审计的三个动作
 
 1. **decision trail**：`show-me-your-work` 的 TSV，一行一个决定，证据是指针。只追加，错误用新行覆盖。
 2. **transcript 审计**：交付前用原始会话记录对一遍，检查每行是否对应真实决定、证据是否能解析。
@@ -55,5 +56,5 @@
 ## 继续阅读
 
 - [当前行为的源码](../../skills/poteto-mode/SKILL.md)（**Autonomy** 一节）
-- [自主与门：三层自主、门的失败出口](../../_digest/system/autonomy-and-gates.md)
+- [自主与门：门的失败出口](../../_digest/system/autonomy-and-gates.md)
 - [验证与 verdict](../../_digest/patterns/evidence-first.md)

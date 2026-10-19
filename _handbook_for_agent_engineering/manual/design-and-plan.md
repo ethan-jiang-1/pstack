@@ -1,476 +1,285 @@
-# 设计与计划：让工作可兑现、可委派
+# 设计与计划：先定形状，再定每个 PR 的证据
 
 > 本章 3 个实战单元 · [手册目录](./README.md) · [上一章：定义](./define.md)
 
 ## 这一章解决什么
 
-定义回答了"要什么"，这一章回答"怎样把它变成可以独立完成、可以验证、可以交接的工作"。
+第 1 章把请求变成了 prompt、playbook 和 brief。这一章处理下一个问题：在写实现之前，代码里该有什么形状，以及这些形状怎样变成一组带证据的 PR。
 
-核心不是画一张架构图，而是三件事：
+pstack 没有一份要先写好的架构文档。它的设计动作集中在几处：
 
-1. 把 spec 里的承诺变成一组**可观察行为**；
-2. 把这些行为放进一个**可测试的模块形状**；
-3. 把形状切成有阻塞边、有验收条件的**工作包**。
+1. 先给数据一个形状，按 `principle-model-the-domain` 选它的 organizing structure；
+2. 用 `architect` 的 Phase B 草图把 public surface 和 `not implemented` 函数体画出来，用 design-red-flags 筛候选；设计空间开放时用 `arena`；
+3. 用 `feature` step 3 的 throughput checkpoint 决定谁先做、哪些能并行；
+4. 跨多个 PR 时，用 `multi-phase-plan` 写 plan 文件，一个 PR 是一个变更，带自己的证据。
 
-三个单元对应三种典型卡点：
+三个单元对应三种卡点：
 
 | 单元 | 卡点 | 带走 |
 |---|---|---|
-| 2.1 | 承诺很多，但没人能说清哪条算兑现 | 行为地图 |
-| 2.2 | 能写，但测试必须看内部状态 | 模块形状卡 |
-| 2.3 | 工作太大，无法交给一个人或一个上下文 | 工作包与依赖图 |
+| 2.1 | 不知道代码里该有什么结构，分支越加越多 | 一个命名的 data shape 和它的 organizing structure |
+| 2.2 | 接口一说就锁死，测试只能进内部 | `architect` Phase B 的 public surface 与 `not implemented` 草图 |
+| 2.3 | 工作跨多个 PR，顺序和证据都靠记 | `feature` step 3 的 throughput checkpoint 与 per-PR plan 文件 |
 
 产物之间的关系：
 
 ```text
-spec（1.4）
-  → 行为地图（2.1）
-  → 模块形状卡（2.2）
-  → 工作包与依赖图（2.3）
-  → 构建与验证（第 3、4 章）
+prompt 的五项（1.1）
+  → data shape（2.1）
+  → architect Phase B 草图（2.2）
+  → feature step 3 throughput checkpoint（2.3）
+  → multi-phase-plan 的 plan 文件：一个 PR 一个变更，一个 PR 一节（2.3）
+  → 派 worker 时的 brief（第 3 章）与每个 PR 的 verdict（第 4 章）
 ```
 
 ---
 
-## 2.1 先把承诺变成可观察的行为
-
-> 与 pstack 的边界：行为地图的五类分类是本手册的扩展。pstack 的对应是 `multi-phase-plan` 的 per-PR observable results 与 verify blocks、`feature` 的 named data shape；它没有一个独立的 "behavior map" 文件。
+## 2.1 先给数据一个形状
 
 ### 工作情境
 
-spec 里写着：
+"按勾选导出"听起来像一个小功能。实现里先出现一个 `isFiltered` boolean；下一次需求加"只导出我负责的订单"，于是多一个 `onlyMine`；再下一次加"排除已归档"，两个 boolean 开始需要保持同步。导出页、导出接口和测试各有一套判断，改一处要跟着改三处。
 
-> 支持按勾选导出的订单。
+这不是实现写得差，是写第一行逻辑之前没有给数据一个形状。
 
-这句话人人同意，但实现、测试和评审会各自解释：
-
-- 实现可能只做了"勾选后传 id"；
-- 测试可能只断言"调用了导出接口"；
-- 评审可能只检查"代码看起来对"；
-- 没有人覆盖"没有勾选""行被删除""无权限"。
-
-单条行为卡能解决一条承诺；当承诺有十几条时，你需要一张**行为地图**：把承诺按结果、失败、权限、人工接手和非目标组织起来，并给每条标出观察位置。
+pstack 在 `poteto-mode` 的 Non-negotiables 里把这条放在"任何代码"之前：写任何代码，先命名 data shape，再按 `principle-model-the-domain` 选它的 organizing structure。（`skills/poteto-mode/SKILL.md#Non-negotiables`）
 
 ### 带走什么
 
-一张**行为地图（behavior map）**：
+一个命名的 data shape，和它的 organizing structure。`principle-model-the-domain` 给了一组可选结构，按代码真正要防止的事来选：
 
-```text
-承诺来源：spec 版本 / 工作卡
-行为分类：
-- 用户结果：用户能看到或得到什么
-- 禁止行为：系统绝不能做什么
-- 失败出口：出错时看到什么、留下什么
-- 权限与责任：谁能触发、谁批准、谁接手
-- 非目标：这次明确不做
-每条行为：Given / When / Then + 观察位置 + 优先级
-```
+| 结构 | 替代什么 |
+|---|---|
+| state machine | 散落的 boolean、phase、lifecycle check |
+| typed model | 松散参数、在多处重复的形状假设 |
+| map / registry / lookup table / discriminated union | 跨文件铺开的分支 |
+| reducer / command/event model | 随手改状态 |
+| 围绕一份 domain 知识组织的 module | load、validate、transform、save 这种按执行顺序切的 module |
+| 一个小的 module boundary | 重复的行为、owner 或 invariant |
+| queue / cache / index / graph / tree / normalized collection | 访问方式要求它的场合 |
 
-它不是测试清单，也不是验收标准的堆叠。它是一张**承诺到观察的映射**：每条重要承诺要么落到一条行为，要么被明确标成非目标。
+结构不必来自这张表。原则的原话是：当没有一个合适时，先想清楚代码绝不能允许什么、数据会被怎样读，再找恰好编码这两件事的结构。（`skills/principle-model-the-domain/SKILL.md`）
 
 ### 做法
 
-**第一步，从 spec 提取承诺，逐条编号。** 不要按功能模块分，先按"用户结果、禁止、失败、权限、非目标"五类分。分类会暴露缺口：如果一张地图里全是用户结果，没有失败和权限，大概率漏了。
+**第一步，在写逻辑之前说出 data shape。** `feature` step 4 要求给 subagent 的 scope 里点名 data shape 和它的 organizing structure，并且要在 delegate 写逻辑之前选好。临时任务也一样，Non-negotiables 把这一步放在任何代码之前。
 
-**第二步，每条承诺写一张行为卡。** 行为卡的四段是：
+**第二步，先问代码绝不能允许什么。** 空选择不能被解释成全量；`missing` 不能包含没被请求的 id；同一份数据不能有两个 writer。答案决定结构，不决定命名。
 
-- **Given**：前置条件，具体到数据量和状态。
-- **When**：触发动作。
-- **Then**：可观察结果。
-- **观察位置**：从哪里看到这个结果。
+**第三步，再问数据怎样被读。** 按 id 批量取、按状态扫、按时间窗口聚合，各自对应不同的集合与索引。访问方式是结构的一半。
 
-以导出功能为例：
+**第四步，选一个结构，不要叠三个。** 状态机加 reducer 加 registry 通常说明还没想清。优先 boring code：当前形状已经清楚、局部、不打算长，就不要为了模式加抽象。
 
-| 承诺 | Given | When | Then | 观察位置 |
-|---|---|---|---|---|
-| 只导出勾选行 | 12 行订单，勾选 3 行 | 点击导出 | 文件 3 行数据 | 下载文件 |
-| 无勾选不导出 | 0 行勾选 | 点击导出 | 按钮禁用，提示 | 页面状态 |
-| 缺失行不静默丢 | 勾选 3 行，其中 1 行已删除 | 点击导出 | 文件 2 行，结果标注 1 行缺失 | 文件 + 返回值 |
-| 无权限拒绝 | 无导出权限的用户 | 点击导出 | 403，页面提示无权限 | 接口响应 + 页面 |
+**第五步，警惕抽象本身。** 一个只增加间接层、不删除分支、不删除重复规则、不消除非法状态、不降低 lifecycle 风险的抽象，不值得引入。`principle-model-the-domain` 把"新功能只是给现有 if/else 链多加一个分支""第二个 boolean 必须和第一个保持同步""按 phase 命名的 module 重复同一套规则"列为跳过这一步的信号。（`skills/principle-model-the-domain/SKILL.md`）
 
-**第三步，补齐五类缺口。** 逐类问：
-
-- **禁止行为**：有没有"绝不能发生"的事？例如：不能把未勾选的行写进文件；不能把其他人的订单导出；不能在无权限时生成文件。
-- **失败出口**：网络失败、数据缺失、超时、部分成功，各看到什么？
-- **权限与责任**：谁能触发？谁批准高风险操作？失败时谁接手？
-- **非目标**：这次明确不做什么？写成可检查的边界。
-- **不可观察的承诺**：有没有"更快""更稳""更好用"这类无法直接观察的承诺？要么补一个观察位置，要么移出本期。
-
-**第四步，排优先级。** 不是所有行为同等重要。按风险排：
-
-- **必须**：涉及权限、数据正确性、资金、不可逆操作。
-- **应该**：主要用户路径、常见失败。
-- **可以**：体验优化、罕见边界。
-
-优先级决定验证投入，不决定是否记录。低优先级行为也要在地图上，否则会被悄悄扩大解释。
-
-**第五步，检查冲突与重叠。** 两条行为是否在同一触发下给出不同结果？是否有一条行为的失败出口与另一条的用户结果矛盾？例如"无权限时返回空文件"与"不能生成文件"就冲突。
-
-**第六步，让实现者和验证者各读一遍。** 实现者确认每条行为可实现；验证者确认每条行为可观察。任何一方说不清，说明行为还需要拆或补观察位置。
+**第六步，把形状写进给 delegate 的 scope。** 文件路径、named data shape、organizing structure、success criteria，四样一起给。没有形状，形状就由第一版实现决定。（`skills/poteto-mode/playbooks/feature.md` step 4）
 
 ### 人机边界
 
 | agent 可以做 | 人必须做 |
 |---|---|
-| 从 spec 提取候选承诺，起草行为卡 | 确认用户结果与业务规则 |
-| 检查每条行为是否有观察位置 | 决定优先级与可接受风险 |
-| 找出冲突、遗漏、不可观察的承诺 | 决定哪些承诺移出本期 |
-| 把行为地图整理成可引用结构 | 确认权限、责任与人工接手点 |
-
-agent 不能发明用户结果。它可以根据 spec 和代码推断"应该是这样"，但推断必须标成候选，由人确认。
+| 从代码和需求提出 data shape 与结构候选 | 确认真实的 domain 规则 |
+| 指出会逼迫形状变坏的分支与状态 | 做只能由 operator 做的产品与偏好决定（见 1.3） |
+| 用 Prototype 验证两个结构中的一个 | 接受抽象带来的维护成本 |
 
 ### 质量门
 
-- spec 里每条重要承诺，要么落到至少一条行为，要么被明确标成非目标。
-- 每条行为有观察位置；没有观察位置的，不是行为。
-- 失败出口具体到"用户看到什么、系统留下什么、下一步是什么"。
-- 权限与人工接手点有具名 owner。
-- 禁止行为写成可检查的条件，不是"要注意安全"。
-- 实现者和验证者都能只读地图说出"怎样算兑现"。
-
-### 图解
-
-![行为地图：承诺、分类、观察位置与优先级](./figures/02_01_behavior_map.svg)
-
-图里把 spec 放在左边，五类行为放在中间，观察位置与优先级放在右边。关键不是分类本身，而是每条承诺都能沿着图找到自己的观察位置。
-
-### 工具角色（可选）
-
-文档或表格都能承载行为地图。表格的优势是能筛选"没有观察位置"或"没有 owner"的行。
-
-如果使用 agent，让它先产出候选行为清单并标出缺口，再由人确认。不要让它同时决定行为和验收，否则它会用实现反推行为。
+- 写第一行逻辑之前，data shape 有名字。
+- 结构来自 `principle-model-the-domain` 的一种，或写清了"没有现成结构适配"以及代码绝不能允许什么。
+- 新功能没有只给现有 if/else 链加一个分支。
+- 没有第二个必须和第一个保持同步的 boolean。
+- 没有按执行顺序命名、重复同一套 domain 规则的 module。
+- 没有只增加间接层的抽象。
+- 给 delegate 的 scope 里有文件路径、data shape、结构、success criteria。
 
 ### 进阶
 
-行为地图不必一次写全。先覆盖"必须"和"应该"两档，等实现推进再补罕见边界。
-
-但有一类行为不能拖：**权限、数据正确性、不可逆操作**。它们一旦漏掉，后补的成本远高于提前写一行。
-
-行为地图也不是测试计划。它描述"什么算兑现"，测试只是获取证据的一种方式；有些行为需要真实表面、人工确认或运行信号才能验证。
+同一个 data shape 可能有多个合法实现形状：错误处理、抽象层、测试结构，都会分歧。`feature` step 4 说，当实现本身允许多个合法形状时，不要派一个 worker 直接写，改用 `arena`，让多个 runner 把备选方案做出来，再由 cross-judge 守住选择。这条进入 2.2。
 
 ---
 
-## 2.2 设计可实现、可测试的模块形状
+## 2.2 用 architect 的 Phase B 把接口画出来
 
 ### 工作情境
 
-行为地图已经清楚，但代码还没开始。你面临几个形状选择：
+data shape 定了，但接口还没定。你面前有几个形状选择：
 
-- 把导出逻辑写进页面组件，测试只能通过点击按钮跑；
-- 抽一个 `ExportService`，但接口里全是内部步骤；
+- 把导出写进页面组件，测试只能点按钮；
+- 抽一个 `ExportService`，接口里全是内部步骤；
 - 为了测试加一个 `getSelectedRowsForTest()`；
 - 引入 repository、factory、adapter，但只有一个实现。
 
-这些选择不会立刻报错，它们会在三个月后变成"改一处、牵五处"和"测试很慢、没人愿意跑"。
-
-模块形状卡的作用，是在写实现之前，把接口（public surface）、隐藏的实现和不变量固定下来。
+这些选择不会立刻报错。它们会在三个月后变成"改一处、牵五处"和"测试很慢、没人愿意跑"。
 
 ### 带走什么
 
-一张**模块形状卡（module shape card）**：
-
-```text
-模块：<按它负责的一组共同变化的行为命名>
-接口：<调用者需要知道的意图、结果、不变量、错误、顺序、配置>
-public surface：<调用者和测试共同观察的公共位置>
-隐藏：<实现细节，改变时不应影响调用者>
-不变量：<永远成立的条件>
-测试表面：<测试从哪里进入，能观察什么>
-非目标：<这次不做的抽象与扩展>
-```
-
-它描述的是模块的外部形状，不是文件结构，也不是实现步骤。
+`architect` 的 Phase B 产出：至少两个结构上不同的候选草图，一个综合后的设计包，以及一份 rationale。草图包括类型、函数签名、类形状、module boundary，函数体是 `not implemented` 加伪代码。对比候选的标准是 interface depth：用更小、更简单的 public surface 藏住更多复杂度。（`skills/architect/SKILL.md` Phase B）
 
 ### 做法
 
-**第一步，按"共同变化的行为"找模块边界。** 不要按框架、文件夹或数据库表命名。问：哪些行为总是一起变化？哪些行为有独立的生命周期？
+**第一步，先 Ground，不要从文件清单开始。** Phase A 用 `how` 跑一遍新代码会碰到的每个子系统；说出一个文件名不算 ground。设计会重新定义 ownership 或分层时，再跑 `why`，让原有形状的理由变成约束而不是猜测。只有真正 greenfield、没有周边系统时才能跳过 Phase A。（`skills/architect/SKILL.md` Phase A）
 
-导出功能里，"把选中的订单转成 CSV 并返回文件"是一组共同变化的行为；"页面怎样显示按钮"是另一组。它们可以是两个模块。
+**第二步，Phase B 跑 `arena`。** 把 design-sketch 任务和 Phase A 的 grounding 产物交给 `arena`，每个 runner 用 `references/runner-prompt.md`；runner 从 `architect runners` 这一行取，而不是 `arena runners`。（`skills/architect/SKILL.md` Phase B）
 
-**第二步，用调用者的语言写接口。** 接口不是内部步骤的列表，而是调用者正确使用模块必须知道的全部事实：
+**第三步，设计两次。** 至少两个结构上不同的候选，即使第一个看起来已经够。候选之间是整体形状的差别，不是同一个形状里的点修。这条是 `exhaust-the-design-space` 的具体做法。
 
-- 可表达的业务意图；
-- 可观察结果；
-- 不变量；
-- 失败方式；
-- 顺序约束；
-- 必要配置。
+**第四步，每个候选都过 design-red-flags。** 筛的是：
 
-反例：
+| red flag | 它筛掉什么 |
+|---|---|
+| shallow module | public surface 很大、藏住的复杂度很少 |
+| information leakage | 同一个内部决定泄漏到多个 module |
+| temporal decomposition | 按执行顺序而不是按知识所有权切 module |
+| pass-through method | 同形状转发参数、只加一层的方法 |
+| split ownership | 多个 module 写同一份 state 或各存一份 |
+| two ways to do one task | 同一件事有两条路，后来者会复制先看到的那条 |
+| importable internals | 外部能 import module 内部，最短路径会把它变成接口 |
+| hand-synced list | 多处维护同一份列表，加一项要改每一处 |
 
-```ts
-interface OrderExporter {
-  loadOrders(ids: string[]): Promise<Order[]>;
-  filterSelected(orders: Order[], ids: string[]): Order[];
-  writeCsv(rows: Order[]): string;
-  zip(content: string): Blob;
-}
-```
+筛的时候假设下一个贡献者是 agent：它只看打开的文件，复制最近的例子，走最短能编译的路径。优先选那个"从一个文件里看起来对的改动，对整个仓库也对"的设计。（`skills/architect/references/design-red-flags.md`）
 
-这是实现的四个步骤，不是接口。调用者被迫知道内部流程，任何一步改变都会破坏调用方。
+**第五步，比较 interface depth。** 优先选把更多复杂度藏在更小 public surface 后面的设计。深 module 不等于深调用链：深调用链把理解散到多层，深 module 把能力集中在一个接口后面。调用者要协调多个方法才能完成一件事、public options 暴露内部阶段、学接口不能省掉学实现，都是 shallow module 的信号。
 
-正例：
+**第六步，写调用者的用法，再反推类型。** `architect` 的 Outputs 要求先写调用者怎么用，再从用法推出类型草图；小改动一个文件，大改动 module map 加类型定义。`not implemented` 函数体加伪代码，此时改接口还很便宜。（`skills/architect/SKILL.md` Outputs）
 
-```ts
-type ExportSelection = { orderIds: string[]; format: "csv" };
-type ExportResult = { file: Blob; rows: number; missing: string[] };
+**第七步，接住 arena 的综合结果。** `arena` 返回一个综合后的设计包；它的 synthesis decision 填进 rationale 的 "Synthesis decision" 一节。候选收敛到一个形状，是强一致，记下来直接走；候选严重分歧，说明 Phase A 没定够，重新 frame 再跑，而不是把分歧平均掉。（`skills/arena/SKILL.md` Phase E）
 
-interface OrderExporter {
-  export(selection: ExportSelection): Promise<ExportResult>;
-}
-```
-
-调用者只需要知道"给一批 id，拿一个文件、行数和缺失列表"。
-
-**第三步，选一个 public surface。** public surface 是调用者和测试共同跨越、观察外部行为的位置。对上面的接口，public surface 就是 `export`。
-
-判断 public surface 是否合适：
-
-- 测试只调用 `export`，读 `ExportResult`：成立。
-- 测试必须读组件内部状态：public surface 太深，或者状态放错了地方。
-- 测试要访问数据库旁路确认写入：结果没有被接口表达出来。
-
-**第四步，列出被隐藏的实现。** 隐藏什么，决定了模块有多深：
-
-- 订单从哪里读；
-- CSV 怎样转义、用什么换行；
-- 缺失行怎样检测；
-- 文件在内存里生成还是流式写出。
-
-隐藏的标准不是"代码短"，而是**改变实现时，调用者和测试不需要改**。
-
-**第五步，写下不变量。** 不变量与具体输入无关，是模块永远保证的事：
-
-- 输出列顺序固定；
-- `rows` 不包含表头；
-- `missing` 只包含请求了但不存在的 id，顺序与请求一致；
-- 空选择不由模块解释成全量。
-
-不变量是测试的锚点，也是评审时判断"这个改动是否破坏契约"的依据。
-
-**第六步，画 `not implemented` 草图。** 先写类型、签名和伪代码，不写逻辑：
-
-```ts
-class CsvOrderExporter implements OrderExporter {
-  async export(selection: ExportSelection): Promise<ExportResult> {
-    // 1. 读取存在的订单
-    // 2. 记录缺失的 id
-    // 3. 按固定列顺序写 CSV
-    // 4. 返回 file / rows / missing
-    throw new Error("not implemented");
-  }
-}
-```
-
-此时改接口很便宜。等实现和测试都写完再改，成本会落在所有调用方。
-
-**第七步，用行为地图走一遍测试路径。** 至少拿三条行为走：
-
-- 正常勾选导出；
-- 无勾选；
-- 缺失行。
-
-如果某条行为无法从公共 public surface 观察，先改形状，不要加测试专用接口。测试专用接口会让测试依赖内部状态，也会诱使实现为了测试而变形。
-
-**第八步，检查是否过度抽象。** 只有一个实现时，不要加 repository、factory、adapter。等第二个真实变化出现再抽。判断标准是"现在是否有两种真实的变化需要"，不是"以后可能"。
+**第八步，实现时把草图当契约。** Phase D 把 `not implemented` 换成代码，把伪代码换成逻辑。偏离草图是信号，要浮出来，不要默默吸收；一个函数需要草图没预料到的参数时，先问是草图错了、需求漏了，还是实现越界。（`skills/architect/SKILL.md` Phase D）
 
 ### 人机边界
 
 | agent 可以做 | 人必须做 |
 |---|---|
-| 根据行为地图提出 2-3 个形状候选 | 决定公共接口与不可逆契约 |
-| 画类型草图、写 `not implemented` 骨架 | 判断抽象是否值得 |
-| 用行为走查测试路径 | 确认 public surface 与所有权 |
-| 指出泄漏、过浅的 wrapper、测试专用接口 | 接受或拒绝形状 |
+| 跑 Phase A、起草候选、过 red flags | 在做产品与偏好取舍时给方向 |
+| 写 `not implemented` 草图与 rationale | 在明确要求 checkpoint 时签收 |
+| 跑 `arena` 并综合候选 | 判断抽象是否值得它的成本 |
+| 在实现偏离时把偏离浮出来 | 决定要不要重新设计 |
 
-形状有争议时，让 agent 给出多个候选并说明取舍，不要让它直接选一个然后实现。争议本身是信息：它说明接口可能有多种合理解释。
+Phase C 的默认是没有 checkpoint：综合完直接进入实现；只有当 invoker 明确要求（"/architect with checkpoint"、"实现前停下来给我看"）时才停。人对形状提出异议时，把异议当成 Phase A 的证据，重新 Ground 并重跑 Phase B，而不是在实现里折中。（`skills/architect/SKILL.md` Phase C）
 
 ### 质量门
 
-- 测试只通过公共 public surface，不读私有状态。
-- 接口表达调用者需要知道的全部事实，而不是内部步骤。
-- 有明确的 public surface 和测试表面。
-- 不变量写成可检查的条件。
-- 错误方式明确：什么情况下抛错、返回什么。
-- 没有测试专用接口，没有单调用 wrapper，没有"以后可能"的抽象。
-- 换一个实现（例如换 CSV 库）时，调用方和测试不需要改。
-
-### 图解
-
-![模块形状卡：接口（public surface）、隐藏实现、不变量与测试表面](./figures/02_02_module_shape.svg)
-
-图里把接口和实现分开，测试与调用方从同一 public surface 进入。关键不是"层数"，而是测试和调用方看到的是不是同一组事实。
-
-### 工具角色（可选）
-
-类型草图、伪代码、一次性原型都能验证形状。原型尤其适合验证"测试能不能从 public surface 走通"，但原型用完就丢，不要把原型代码直接变成产品。
-
-agent 很适合生成多个形状候选。要求它每个候选写清"接口、隐藏、测试路径、取舍"，再由人选。
+- 至少两个结构上不同的候选，不是同一个形状的点修。
+- 每个候选都过了 design-red-flags。
+- 选中的设计有更小的 public surface，而不是更多层。
+- 类型草图从调用者的用法推出。
+- 函数体是 `not implemented` 加伪代码，不是一半实现。
+- rationale 里有 synthesis decision。
+- 实现阶段的偏离被浮出来，没有被默默吸收。
 
 ### 进阶
 
-深模块的判断标准是**杠杆**：小接口隐藏较多相关行为与实现复杂度。不是代码行数多，也不是层数多。
+设计空间真的开放时，`arena` 是默认动作；设计有争议时，`interrogate` 在落地前做多模型对抗评审；实现本身允许多个合法形状时，`feature` step 4 也把实现交给 `arena`。（`skills/poteto-mode/SKILL.md#Non-negotiables`、`skills/poteto-mode/playbooks/feature.md`）
 
-一个模块是否该拆，问三个问题：
-
-- 它是否有独立的生命周期？
-- 它是否有一组共同变化的行为？
-- 它的调用者是否需要知道不同的东西？
-
-三个都是"是"，拆；有一个"否"，先不要拆。
+Phase E 是丢掉草图的时机：同一种 workaround 反复出现在不相关代码里、多个不相关的边界情况都要特判、类型要靠 `any` 或 cast 才能编译、"这里需要一把锁"的反射、调用者必须先懂抽象的内部规则才能用。信号是模式，不是单次。出现模式时，回到 `how`，按 `redesign-from-first-principles` 重新设计，先 `subtract-before-you-add`，再回 Phase B 重跑 `arena`。（`skills/architect/SKILL.md` Phase E）
 
 ---
 
-## 2.3 拆成可以推进、可以交接的小工作
+## 2.3 用 throughput checkpoint 和 plan 文件排开工作
 
 ### 工作情境
 
 形状定了，工作还是一整块："把勾选导出做完"。
 
-直接交给一个 agent，它会自己决定顺序；顺序不一定错，但你没有同意过。想并行，又不知道哪些能同时做；想交接，又说不清一个包到哪里算完成。
-
-工作包的作用，是把"一整块"变成一组**可独立验证、有阻塞边、可交接**的单元。
+直接交给一个 worker，它会自己决定顺序；顺序不一定错，但你没有同意过。想并行，又不知道哪些能同时做；想交接，又说不清一个 unit 到哪里算完成。跨多个 PR 时更糟：哪个 PR 带哪份证据、谁先合、哪一段能一起落地，全靠记忆。
 
 ### 带走什么
 
-一张**工作包列表**，加一张**依赖图（DAG）**：
+`feature` step 3 的 throughput checkpoint，写成四个 todo item：
 
 ```text
-包 ID：
-目标行为：兑现哪条行为卡
-可写范围：允许改哪些文件或目录
-输入：需要先读的权威产物与代码位置
-验收检查：一条能运行的命令或可观察结果
-阻塞边：必须先完成哪个包
-完成记录：留下什么证据，下一位从哪里开始
-owner / 领取条件：
+Blocking first steps.        先跑 gate，再 fan-out。
+Independent workstreams.     不相交的文件、服务或层可以并行；共享写入串行。
+Shared mutable state.        默认拆分目标；只对真正的不变量串行。
+Smallest safe decomposition. 如果一个 worker 最好，写明为什么。
 ```
 
-依赖图是这些包与阻塞边的有向无环图。当前**ready work（可做的工作）** 是没有未完成前置的包。
+某个维度确实不适用时（单个文件、没有 fan-out），保留该项并写 `n/a: <reason>`，不要删掉。（`skills/poteto-mode/playbooks/feature.md` step 3）
+
+跨多个 PR 时再加一份 `multi-phase-plan` 的 plan 文件。它的骨架是固定的：
+
+- program checklist：arm the program、spawn owners、每个 PR 的 PR mechanics、verdict 与 merge、live lane 的 boot recipe；
+- 每个 PR 一节：`Task as a verb phrase (<PR id>)`、Depends on、Files、Build、You see、Verify, unit / Verify, live / Verify, perf、Review gate、Merge；
+- Appendix A 到 D：prototype 证据、被拒的备选、风险、链接与阅读清单。
+
+一个 box 是一段工作；每个 box 点名检查它的证据；证据存在才勾。（`skills/poteto-mode/playbooks/multi-phase-plan.md`）
 
 ### 做法
 
-**第一步，按"可独立验证"切，不按文件或层切。** 一个包完成后，应该能演示或验证一条行为。反例："改 exporter 模块""写测试""前端部分"。正例："导出器接受 3 个 id，返回 3 行 CSV，并有测试证明"。
+**第一步，先写 blocking first steps。** gate 在 fan-out 之前跑完。需要先定的类型、先合并的前置 PR、先拿到的权限，都放在这一项。
 
-**第二步，给每个包写六件事。** 目标行为、可写范围、输入、验收检查、阻塞边、完成记录。
+**第二步，写 independent workstreams。** 不相交的文件、服务或层可以并行；共享写入串行。不要用锁把共享写入掩过去，锁会让并行退化成串行，还引入新的失败模式。
 
-六件事里最容易漏的是"可写范围"和"阻塞边"：
+**第三步，写 shared mutable state。** 默认按 `separate-before-serializing-shared-state` 拆开目标；只对真正的不变量串行。两个 unit 写同一个文件、同一个分支、同一个配置项或同一张表，它们就不是真并行。
 
-- 没有范围，并行工作会互相覆盖；
-- 没有阻塞边，顺序会靠猜。
+**第四步，写 smallest safe decomposition。** 如果一个 worker 最好，就写明为什么。切得越细不一定越快：一个 unit 太小会产生大量交接成本，太大则无法独立验证。
 
-**第三步，画依赖图，找 ready work。** 把包画成节点，依赖画成箭头。先做 ready work，能让后续工作尽快解锁。
+**第五步，把 checkpoint 放在 owner 手里。** 代码耦合的工作（一个 feature、一次 migration）交给一个 owner，checkpoint 内联；这个 owner 在 blocking phase 之后自己 fan-out。父级 fan-out 留给产出独立产物的片段（audit、跨子系统调查、并行实验）。换 phase 时重写 checkpoint，用新的 owner，不要用 interrupt 链住旧 owner。（`skills/poteto-mode/playbooks/feature.md`）
 
-```text
-P1 导出器核心 + 测试
-   ├── P2 页面勾选与调用
-   └── P3 缺失行提示
+**第六步，一两个文件且路径明显时，跳过 plan。** `multi-phase-plan` step 1：直接说这次不需要 plan，然后停。（`skills/poteto-mode/playbooks/multi-phase-plan.md`）
 
-P4 全量导出回归检查（独立，可与 P1 并行）
-```
+**第七步，跨 PR 时先关开放问题。** 每个开放问题先跑 Prototype，保留分支、SHA 和截图，写进 plan 的 Appendix A；只有产品与偏好决定才问 operator，并且给选项。（`skills/poteto-mode/playbooks/multi-phase-plan.md` step 2）
 
-当前 ready work 是 P1 和 P4；P2、P3 等 P1。
+**第八步，把 skeleton 复制成 plan 文件。** 每个 placeholder 都填；每个 PR 一节；在 "How to read this" 里点名执行 playbook（`autopilot-full` / `autopilot-stack`，常驻项目用 `orchestrate`）；一个 PR 是一个变更，带自己的证据。plan 是交付物，写 plan 的阶段不实现。（`skills/poteto-mode/playbooks/multi-phase-plan.md`）
 
-**第四步，检查环。** 依赖图里不能有环。有环说明两个包互相需要对方的产物，通常意味着它们应该合成一个包，或者接口还没定。
+**第九步，让每个 PR 自带证据。** 每个 PR 的 Verify 分 unit、live、perf 三块，验证规则写在每一块开头：测试本身不算验证，只有 unit、live、perf 三块都勾上，PR 才算 verified。live 块是强制的，用 `control-ui` / `control-cli` 这类 control skill 在 PR head 上驱动真实表面；perf 块是双向的，trunk 与 head 都要产出同一个 metric。（`skills/poteto-mode/playbooks/multi-phase-plan.md` Verification）
 
-**第五步，先处理共享可变状态。** 两个包如果会写同一个文件、同一个分支、同一个配置项或同一张表，它们就不是真并行。先分开，再谈并行：
+**第十步，写 review gate 和 merge。** 改交互的 PR 由 operator 在 chat 里看截图和视频后 review；不改交互的 PR 写 `**Review gate.** None.`。merge 规则按执行 playbook；新 head 需要新 verdict，除开按 `shipping` 的 patch-id 规则仍有效的结果。（`skills/poteto-mode/playbooks/multi-phase-plan.md`）
 
-- 不同包用不同文件或不同 worktree；
-- 共享类型或接口由前置包先定；
-- 需要同一份迁移脚本时，把迁移单独成前置包。
-
-不要用锁掩盖共享写入。锁会让并行退化成串行，还会引入新的失败模式。
-
-**第六步，控制包的大小。** 一个好的包通常满足：
-
-- 一个上下文能完成；
-- 一天到几天，而不是几周；
-- 一条验收检查能证明完成；
-- brief 比实现短。
-
-如果 brief 写得比实现还长，包可能太大，或者验收条件还没想清。
-
-**第七步，指定 owner 或领取条件。** 每个包要么有具名 owner，要么有明确的领取条件（谁能领、需要什么权限）。没有 owner 的包，会在并行工作时变成无人区。
-
-**第八步，做陌生人测试。** 让一个没参加讨论的人只读包描述，回答问题：
-
-- 这个包要兑现什么行为？
-- 允许改哪里？
-- 怎样算完成？
-- 它等谁？
-
-四个问题有一个答不上来，包还没写好。
+**第十一步，跑检查脚本再交回。** 用 `skills/poteto-mode/scripts/check-plan.mjs` 检查 plan，修掉它打印的每一行；把 plan 路径和脚本输出贴回来，然后停。执行等 operator 的 explicit go，按 plan 里点名的执行 playbook 跑。（`skills/poteto-mode/playbooks/multi-phase-plan.md` step 6–7）
 
 ### 人机边界
 
 | agent 可以做 | 人必须做 |
 |---|---|
-| 根据行为地图提出切分方案 | 决定优先级与交付顺序 |
-| 检测共享可变状态与依赖环 | 决定并行度与资源 |
-| 起草每个包的六项字段 | 指定 owner 与领取条件 |
-| 维护依赖图与完成记录 | 接受范围与风险 |
-
-agent 可以建议"这两个包可以并行"，但"是否真的并行"取决于团队、环境和共享资源，最终由人决定。
+| 写四个 checkpoint item，标 `n/a` | 给 explicit go |
+| 找共享写入、排依赖、拆 owner | 做 review gate 的 review |
+| 写 plan 文件并跑检查 | 做产品与偏好决定（见 1.3） |
+| 按执行 playbook 派 owner 和 verifier | 接受 plan 的范围与顺序 |
 
 ### 质量门
 
-- 每个包本身可演示或可验证，不是"改完某个文件"。
-- 每个包有可写范围，且有明确的不可写边界。
-- 每个包有验收检查，能独立运行或观察。
-- 依赖图无环；当前 ready work 明确。
-- 共享可变状态已经分开，或者被显式串行化。
-- 每个包有 owner 或领取条件。
-- 一个陌生人能只读包描述开始工作，不需要问上一段聊天。
-
-### 图解
-
-![工作包、阻塞边、当前 ready work 与共享状态](./figures/02_03_work_packages.svg)
-
-图里把工作包画成节点，阻塞边画成箭头，ready work 用高亮标出。关键不是图画得漂亮，而是每个节点都能独立验收，且共享写入被提前处理。
-
-### 工具角色（可选）
-
-issue tracker、项目板或一张表都能承载工作包。工具的价值是依赖关系可见、状态可追踪；它不能替你决定切分和优先级。
-
-如果使用 agent，让它维护依赖图和完成记录，并检查"是否有环""是否有共享写入""是否每个包都有验收"。不要让它自动把包派给自己不认识的执行者。
+- 四个 checkpoint item 都在，不适用的写了 `n/a: <reason>`。
+- 代码耦合工作有一个 owner，checkpoint 在它手里。
+- 没有两个 unit 写同一份共享状态；共享写入要么拆开，要么显式串行。
+- 一两个文件的明显改动没有 plan。
+- 跨 PR 的 plan 一个 PR 一节，一个 PR 一个变更，带自己的证据。
+- 每个 PR 的 unit、live、perf 三块都有勾选证据。
+- plan 检查脚本没有输出。
+- 执行前有 operator 的 explicit go。
 
 ### 进阶
 
-切分的粒度不是越细越好。包太小会产生大量交接成本；包太大则无法独立验证。判断标准是"能否独立验证"和"brief 是否比实现短"。
+plan 文件按执行 playbook 落地：`autopilot-full` 是独立 PR 队列、一个 owner 管到 merge；`autopilot-stack` 是一条线性 reviewed 栈、由 operator 落地；常驻项目走 `orchestrate`。选哪个写在 plan 的 "How to read this" 里，不靠记忆。（`skills/poteto-mode/playbooks/multi-phase-plan.md` step 4）
 
-并行也不是越多越好。真正的并行需要：
-
-- 独立的可写范围；
-- 独立的验收；
-- 不共享可变状态；
-- 有足够的评审与集成能力。
-
-没有这些条件，串行反而更快。
+`feature` step 3 的 checkpoint 在单次运行内有效；`multi-phase-plan` 的 plan 文件跨 phase 有效。两者不要互相替代：checkpoint 决定这一轮谁先做，plan 决定哪个 PR 带哪份证据。
 
 ---
 
 ## 三个单元怎样接起来
 
 ```text
-2.1 行为地图：什么算兑现
-   → 2.2 模块形状卡：测试从哪里进入，实现隐藏什么
-   → 2.3 工作包：谁来做、按什么顺序、怎样算完成
-   → 第 3 章：委派与协作
-   → 第 4 章：验证
+2.1 data shape（principle-model-the-domain）
+  → 2.2 architect Phase B：public surface、not implemented、design-red-flags
+  → 2.3 feature step 3 throughput checkpoint
+  → 2.3 multi-phase-plan 的 plan 文件：一个 PR 一个变更，一个 PR 一节
+  → 第 3 章派 worker 时的 brief
+  → 第 4 章每个 PR 的 verdict
 ```
 
-行为地图是验收的来源，模块形状卡是测试的 public surface，工作包是委派与并行的单位。三者不一致时，先回到上游修，不要在下游打补丁。
+data shape 是接口的输入，接口是 checkpoint 的输入，checkpoint 是 plan 里每个 PR 的输入。三者不一致时，先回到上游修，不要在下游打补丁。
 
 ## 常见失败
 
 | 失败 | 表现 | 修正 |
 |---|---|---|
-| 行为不可观察 | 测试只能断言"调用了方法" | 回到 2.1，补观察位置 |
-| 接口泄漏实现 | 调用者被迫按内部步骤调用 | 回到 2.2，用调用者语言重写接口 |
-| 测试专用接口 | 为了测试暴露私有状态 | 改 public surface，不要加后门 |
-| 过度抽象 | 只有一个实现却加了多层 | 等第二个真实变化出现 |
-| 包按层切 | 每个包完成后都不能演示 | 回到 2.3，按可独立验证切 |
-| 伪并行 | 两个包写同一文件 | 先分开，或显式串行化 |
+| 先写逻辑再命名 data shape | 分支越加越多，两个 boolean 要同步 | 回到 2.1，按 `principle-model-the-domain` 选结构 |
+| 只做一个候选 | 第一版形状被锁死 | 回到 2.2，Phase B 至少两个结构上不同的候选 |
+| 接口暴露内部步骤 | 调用者被迫按内部步骤调用 | 用 design-red-flags 的 shallow module 与 information leakage 筛 |
+| 测试专用接口 | 为了测试暴露内部状态 | 改 public surface，不要加测试后门 |
+| 一个 PR 塞多个变更 | 证据和变更对不上 | 回到 2.3，一个 PR 一个变更 |
+| 只有 unit 证据 | 测试绿被当成 verified | 按 `multi-phase-plan` 的 Verification，unit、live、perf 都勾 |
+| plan 写完直接开跑 | 执行顺序没经 operator 同意 | 停在 operator 的 explicit go |
 
 ## 继续阅读
 
@@ -478,4 +287,4 @@ issue tracker、项目板或一张表都能承载工作包。工具的价值是�
 - [教程 03：让一个承诺变成可观察行为](../tutorial/03-make-a-promise-observable.md)
 - [教程 04：设计一个可测试的形状](../tutorial/04-design-a-testable-shape.md)
 - [教程 05：把工作切成可委派的单元](../tutorial/05-cut-work-into-delegable-units.md)
-- [术语表：行为地图、模块形状卡、工作包、ready work](../CONTEXT.md)
+- [术语表：principle、playbook、brief、verdict](../CONTEXT.md)

@@ -2,7 +2,7 @@
 
 > 源码：[`skills/reflect/SKILL.md`](../../skills/reflect/SKILL.md)
 > 调用：**U**（user-invoked，只有人能触发）
-> 索引：[技能索引](./README.md) · [subagent 拓扑](../patterns/subagent-topology.md)
+> 索引：[技能索引](./README.md) · [Subagent 与 brief](../patterns/subagent-topology.md)
 
 ## 一句话
 
@@ -74,7 +74,7 @@ synthesizer 判过一次之后，父 agent 还要再做一次：任何能由 lin
 - **下游**：被批准的 skill 文本、新建的 skill，以及团队的 devex / backlog tracker。
 - **协作**：substantive 编辑都外包给 `create-skill`（Cursor 内置）或 Anthropic 的 `skill-creator`，没有外部 skill 时退回 agentskills.io 的 Agent Skills 规范。
 - **对照**：[`correct`](./correct.md) 改仓库结构，`reflect` 改 skill 文本；`poteto-mode` 的 eval playbook 用来验证 skill 改动的净效果。
-- **模式**：在 [subagent 拓扑](../patterns/subagent-topology.md) 里属于"多评审"：每个视角一个 reviewer，综合成统一结论，不自动应用。
+- **机制**：在 [Subagent 与 brief](../patterns/subagent-topology.md) 里属于"多评审"：每个视角一个 reviewer，综合成统一结论，不自动应用。
 
 ## 使用边界
 

@@ -60,7 +60,7 @@ lead-judgment 还给了一个校准：Act On 超过 5 条，通常说明过滤�
 
 - **上游**：`architect` 在 Phase C 可选地对合成草图跑 `interrogate`，作为实现前的对抗压力；`opening-a-pr` 要求开 PR 的 subagent 跑 `interrogate`；`feature` 在设计有争议时要求先 interrogate；`poteto-mode` 的路由把"有争议的设计"指向它。
 - **下游**：Act On 的条目进入一个修复轮；按 `poteto-mode` 的规则，修复用带完整 brief 的 fresh subagent，而不是续在 reviewer 上。
-- **共享**：设置文件的 `interrogate reviewers` 行；`poteto-mode` 的 **Subagents** 规则（档位、后台、fresh）；四个 reference 文件；[`model-diversity`](../patterns/model-diversity.md) 与 [`subagent-topology`](../patterns/subagent-topology.md) 两个模式页描述的通用约束。
+- **共享**：设置文件的 `interrogate reviewers` 行；`poteto-mode` 的 **Subagents** 规则（档位、后台、fresh）；四个 reference 文件；[模型角色](../patterns/model-diversity.md) 与 [`subagent-topology`](../patterns/subagent-topology.md) 两个模式页描述的通用约束。
 - **对照**：`arena` 产生候选并合成，`swarm` 做覆盖或竞速，`interrogate` 只判断一个已经存在的改动。
 
 ## 使用边界

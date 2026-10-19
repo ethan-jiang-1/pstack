@@ -1,67 +1,47 @@
-# Subagent Topology 模式
+# Subagent 与 brief
 
-## 是什么
+`poteto-mode` 的 Subagents 一节定基本约束，`orchestrate` 的 brief 定输入，两者合起来才是一次委派。父 agent 保留 playbook、todo 和最终判断；subagent 是输入输出封闭的执行单元。
 
-pstack 让父 agent 保留 brief、todo 和最终判断：它拥有 playbook、todo 和每一次 spawn；子 agent 是输入输出封闭的执行单元，负责一块可以被写清楚的工作。不同流程用不同拓扑：单委托、分区、竞速、候选竞争、多评审、多层 program。
+## `poteto-mode` 的 Subagents
 
-![父 agent 与不同 worker 形状的关系](../figures/subagent-topology.svg)
+- playbook 步骤里派的 subagent 用 `subagent_type: "poteto-agent"`。`how`、`why`、`interrogate`、`reflect`、`swarm` 自带 `subagent_type`，按 skill 写的来，不覆盖成 `poteto-agent`。
+- 每次 `Task` 调用的默认：`run_in_background: true`、`readonly: false`（`readonly` 会剥掉 MCP）、给文件指针而不是内联上下文、每个角色显式指定模型。
+- 角色行缺失时用 skill 默认值；`inherit-parent` 或 `auto` 时省略 `model`。难度决定档位：最难的工作交给 `hardest tasks` 的模型，例行的机械改动交给快的 code 模型。
+- 默认 fresh subagent：新任务带 consolidated scope，即原始 brief、之后每一条指令、上一个 agent 的报告和分支。只有新工作确实依赖它持有的状态（本地 checkout、未提交改动、还在跑的进程）时才 resume。interrupt 过的 resume 会静默丢指令。
+- 父 agent 拥有 subagent 的工作：自己看 diff，自己写总结，不原样转述。
 
-## 基本约束
+源码：[`skills/poteto-mode/SKILL.md#subagents`](../../skills/poteto-mode/SKILL.md#subagents)。
 
-来自 `poteto-mode` 的 **Subagents** 一节：
+## `orchestrate` 的 brief
 
-- code-writing 委派用 `poteto-agent`；子 agent 必须先完整读 `poteto-mode/SKILL.md`，包括 Principles。
-- 默认 `run_in_background: true`，agent 模式（`readonly` 会剥掉 MCP）。
-- 给文件指针，不把上下文整段内联。
-- 每个角色显式指定模型；难度决定档位。
-- **默认 fresh subagent**：新任务带 consolidated scope（原始 brief、后续指令、上一个 agent 的报告和分支）。只有新工作确实依赖它持有的状态（本地 checkout、未提交改动、还在跑的进程）时才 resume。
-- 父 agent 拥有子 agent 的工作：自己看 diff、自己写总结，不原样转述子 agent 的话。
+八个字段：GOAL / SCOPE / CONTEXT / ACCEPTANCE / VERIFY / TIMEBOX / FORBIDDEN / REPORT。`orchestrate` 再追加 STANDING，把 `preferences.md` 逐字贴进去。
 
-## 六种拓扑
+- GOAL 一句话，一个没有 chat 访问权限的陌生人也能执行。
+- SCOPE 写可写的路径、不可写的路径、独占的 worktree 或 branch。
+- CONTEXT 给文件与 PR 指针；依赖的上游报告要全文贴进来，因为 worker 看不到 sibling。
+- ACCEPTANCE 一条一行，可检查。VERIFY 给准确命令或 control skill 路径，加已知 gotcha。TIMEBOX 到期返回部分结论并停。FORBIDDEN 写禁止动作。REPORT 要 status、branch、head SHA、PR、verdict、实际跑了什么、偏差、后续建议。
+- 填不出的字段说明这个 unit 还没 scoped，是 refuse-to-spawn 条件。
+- brief 要按 unit 大小伸缩。一条命令的 unit 可以压成一段，但仍要含 goal、scope、verify 命令和 report 形状。
+- 永远不要 resume-chain 一条 brief。用 fresh subagent 加 consolidated scope。
 
-| 形状 | 用在哪 | 收敛方式 |
-|---|---|---|
-| **单委托** | feature、bug fix、refactoring 的实现 | 父 agent review diff，验证后提交 |
-| **分区 swarm** | 覆盖多个切片、批量审计 | 每个切片都要有结果；缺口不算通过 |
-| **竞速 swarm** | 同一 brief 多个 worker | 事先声明 `first pass` / `rank all` / `best-of` |
-| **arena** | 设计或代码 bakeoff | 候选 + 跨模型裁判 + 父 agent 选 base + 手工 graft |
-| **多评审** | `interrogate`、`reflect` | interrogate 每个模型一个 reviewer；reflect 每个视角一个 reviewer；综合成统一结论，不自动应用 |
-| **多层 program** | `orchestrate` | coordinator → sub-coordinator → worker/verifier，深度最多 3 |
+源码：[`skills/poteto-mode/playbooks/orchestrate.md#the-brief`](../../skills/poteto-mode/playbooks/orchestrate.md#the-brief)。
 
-`orchestrate` 还规定了 in-flight 上限（大约 10 个）、滚动窗口而不是阻塞批次、每个 worktree 只有一个写者、验证者与 worker 不同模型家族。
+## 其他 skill 的 subagent 形状
 
-## 为什么这样切
-
-- **上下文是稀缺资源。** 大批量读取、长文件、重复探索放进子 agent，主线程只留结论。
-- **封闭输入输出让失败可定位。** 一个 brief 写不清，失败就在那个 worker，不会污染整条链。
-- **fresh 比 resume 可靠。** `interrupt-chained resumes silently drop directives`；新 agent 带完整 brief，比相信"done"摘要更安全。
-- **父 agent 保留判断权。** 子 agent 可以建议、可以证明缺陷，但不能替父 agent 决定合并或改变范围。
-
-## 聚合规则
-
-- 结果必须记录 brief 要求的 SHA 和方法；缺了就丢弃并重派一次，第二次仍缺就记为 gap。
-- gap 不等于 pass。
-- worker 掉线就用 N-1 继续，并明确记录。
-- 不粘贴原始输出，给紧凑的结果表和一行证据。
-- 父 agent 自己复核，不把子 agent 的总结当自己的总结。
+- `swarm`：brief 各自独立，写 goal、scope、slice 或 race arm、怎么验证、report 什么。报告用 `PASS` / `ISSUES` / `BLOCKED` 加证据。结果没记录 brief 要求的 SHA 与方法就丢掉并重派一次，第二次仍缺记 gap；gap 不算 pass。源码：[`skills/swarm/SKILL.md`](../../skills/swarm/SKILL.md)。
+- `arena`：每个候选有自己的输出位置，因为候选会写文件；跨候选共享写入靠先分开。源码：[`skills/arena/SKILL.md`](../../skills/arena/SKILL.md)。
+- `maintain-verification-skill`：每个 feature 一个只读 subagent 读源码，children 不驱动应用也不编辑文件；返回 feature summary、source entry points、likely drift、one recipe。源码：[`skills/maintain-verification-skill/SKILL.md`](../../skills/maintain-verification-skill/SKILL.md)。
+- `orchestrate`：coordinator → sub-coordinator → worker / verifier，嵌套最多 3 层；in-flight 子 agent 约 10 个，滚动窗口，不做阻塞批次；每个 worktree 一个写者；unit 的 verifier 换一个模型家族。源码：[`skills/poteto-mode/playbooks/orchestrate.md#roles-and-placement`](../../skills/poteto-mode/playbooks/orchestrate.md#roles-and-placement)。
 
 ## 代价
 
-- **成本。** 每个 subagent 都是一次完整生成，N 个 worker 是 N 份 token。
-- **brief 质量决定上限。** `orchestrate` 说得很直白：brief 就是产品；含糊的 brief 会安静地失败，因为 worker 不能反问你。
-- **共享写入会互相破坏。** 同一分支、同一文件、同一 key 上的并发必须靠"先分开"解决，不能靠锁。
-- **多层会重付方向成本。** 每层嵌套都要重新理解一遍上下文；父层阻塞等待时，子层在空转。
-
-## 怎么迁移
-
-1. 先决定"谁保留判断权"。父 agent 必须自己复核，不能只做转发。
-2. 给每类工作写一个 brief 模板：目标、范围、只写哪些路径、验收、验证命令、禁止动作、报告形状。
-3. 默认 fresh，只有状态确实搬不走时才 resume。
-4. 并发先解决共享写入，再考虑加协调。
-5. 给验证者一个与实现者不同的模型家族。
+- 成本。每个 subagent 是一次完整生成，N 个 worker 是 N 份 token。
+- brief 质量决定上限。`orchestrate` 说 brief 就是产品；含糊的 brief 会安静地失败，因为 worker 不能反问你。
+- 共享写入会互相破坏。同一 branch、同一文件、同一 key 上的并发要先分开，不能靠锁。
+- 多层会重复付上下文成本。每嵌套一层都要重读一遍上下文。
 
 ## 关键洞察
 
-1. **子代理的可靠性来自 brief，不来自模型。** brief 写不清，换多强的模型都会失败。
-2. **fresh 是一种正确性策略。** 它避免指令在 resume 链里悄悄丢失。
-3. **父 agent 的复核不可省。** 否则多 agent 只是把同一个盲点复制了多份。
+1. subagent 的可靠性来自 brief，不来自模型。
+2. fresh 是一种正确性策略，避免指令在 resume 链里悄悄丢失。
+3. 父 agent 的复核不可省，否则多 agent 只是把同一个盲点复制了多份。

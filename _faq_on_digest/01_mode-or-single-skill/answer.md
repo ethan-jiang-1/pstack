@@ -47,4 +47,4 @@ mode 真正提供的不是"更聪明"，而是三件事：
 
 - [当前行为的源码](../../skills/poteto-mode/SKILL.md)
 - [23 个 playbook 的选择树](../../_digest/playbooks/README.md)
-- [模式：Mode as Router](../../_digest/patterns/mode-as-router.md)
+- [`poteto-mode` 的 playbook 路由](../../_digest/patterns/mode-as-router.md)

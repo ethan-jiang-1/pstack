@@ -36,10 +36,10 @@
 
 ## 成本变化
 
-单模型省下的是 token，增加的是**验证的外部成本**。原本由第二个 agent 承担的独立复核，现在要由人、测试或控制面承担。如果这三者都没有，流程看起来仍然完整，证据强度已经下降。
+单模型省下的是 token，增加的是**验证的外部成本**。原本由第二个 agent 承担的独立复核，现在要由人、测试或 `control surface` 承担。如果这三者都没有，流程看起来仍然完整，证据强度已经下降。
 
 ## 继续阅读
 
 - [当前行为的源码](../../skills/poteto-mode/SKILL.md)（**Harness** 与 **Subagents** 两节）
-- [模型多样性：收益与退化](../../_digest/patterns/model-diversity.md)
+- [模型角色：收益与退化](../../_digest/patterns/model-diversity.md)
 - [验证与 verdict](../../_digest/patterns/evidence-first.md)

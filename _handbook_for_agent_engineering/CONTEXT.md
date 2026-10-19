@@ -63,7 +63,7 @@ PR 栈的合并前沿：最低的未合并 PR 是唯一要处理的，直到它�
 `show-me-your-work` 的决策记录：默认 `decisions.tsv`，一行一个决定（ts、phase、decision、why、evidence、result），只追加。概念层叫 decision trail，文件叫 decision log。源码：`skills/show-me-your-work/SKILL.md`。
 
 **control surface / control skill**：
-驱动真实应用的控制面，例如 `control-ui`、`control-cli`，或项目本地的 `verify-*` skill。不要用它指父 agent 的委派控制。源码：`skills/poteto-mode/SKILL.md#Harness`、`skills/create-verification-skill/SKILL.md`。
+驱动真实应用的 control surface，例如 `control-ui`、`control-cli`，或项目本地的 `verify-*` skill。不要用它指父 agent 的委派控制。源码：`skills/poteto-mode/SKILL.md#Harness`、`skills/create-verification-skill/SKILL.md`。
 
 **Always pause**：
 不可逆写入：force-push 到共享分支、部署、删除数据、给客户发消息。源码：`skills/poteto-mode/SKILL.md#Autonomy`。
@@ -104,4 +104,4 @@ PR 栈的合并前沿：最低的未合并 PR 是唯一要处理的，直到它�
 
 ## pstack 不覆盖
 
-pstack 不写 spec，不做发布 / 灰度 / 回滚 / 发布后监控，也没有承诺退役记录。它停在 verified landing；部署只是 **Always pause** 里的一个不可逆动作。这些话题如果出现在外部方法里，不要把它们写成 pstack 的机制。
+pstack 不写 spec，不做发布 / 灰度 / 回滚 / 发布后监控。它停在 verified landing；部署只是 **Always pause** 里的一个不可逆动作。这些话题如果出现在外部方法里，不要把它们写成 pstack 的机制。

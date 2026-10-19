@@ -67,7 +67,7 @@ Cursor 写 `~/.cursor/rules/pstack-models.mdc`，带 `alwaysApply: true` 的 fro
 
 - **上游**：人直接调用 `/setup-pstack`；`poteto-help` 的 **Get set up** 一节把它作为第二步；[guide 第 1 页](../../docs/guide/01-setup.md)。
 - **下游**：所有声明了角色默认值的 skill，包括 `how`、`why`、`arena`、`swarm`、`architect`、`interrogate`、`reflect`，以及 mode 的四个代码 playbook 角色。mode 的 **Harness** 一节要求在任务开始时读取设置文件（存在的话）。
-- **共享**：角色标签、预算阶梯和降级规则，见 [模型面板](../system/model-panel.md)。
+- **共享**：角色标签、预算阶梯和降级规则，见 [role line](../system/model-panel.md)。
 - **对照**：`create-verification-skill` 是可选的下一步，不属于模型配置；mode 的 **Subagents** 一节在设置文件之上做每次 spawn 的二次调整。
 
 ## 使用边界

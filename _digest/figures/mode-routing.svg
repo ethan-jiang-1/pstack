@@ -66,5 +66,5 @@
 
   <rect x="680" y="440" width="220" height="70" rx="10" fill="#f8fafc" stroke="#e2e8f0"/>
   <text x="696" y="464" class="t bs">"测试绿了" 不是完成</text>
-  <text x="696" y="484" class="t bs">见 evidence-first</text>
+  <text x="696" y="484" class="t bs">见验证与 verdict</text>
 </svg>

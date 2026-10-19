@@ -57,4 +57,4 @@ agent 应该：
 
 - [当前行为的源码](../../skills/poteto-mode/SKILL.md)（**Principles** 一节）
 - [principles 索引](../../_digest/principles/README.md)
-- [模式：Principles as Vocabulary](../../_digest/patterns/principles-as-vocabulary.md)
+- [principle 的用法](../../_digest/patterns/principles-as-vocabulary.md)
