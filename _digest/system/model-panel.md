@@ -56,7 +56,7 @@ arena runners: claude-opus-5-5-xhigh, grok-4.7-xhigh-fast
 | small | medium |
 
 - effort token 是 slug 的最后一个 token，或在 `-fast` 之前的那个。阶梯是 `max` > `xhigh` > `high` > `medium` > `low`。
-- 目标档位不存在时，取同家族里不高于目标的最高档。Grok 目前最高到 `xhigh`，所以 `unlimited` 下 Grok 仍是 `xhigh`。
+- 目标档位不存在时，取同家族里不高于目标的最高档；该家族没有可用 slug 时，把该 role 标成"需要选择"。Grok 目前最高到 `xhigh`，所以 `unlimited` 下 Grok 仍是 `xhigh`。
 - `inherit-parent` 和 `auto` 不参与改写，表示这个 role 跑在父会话模型上。
 
 ## 每个 spawn 前再调整
